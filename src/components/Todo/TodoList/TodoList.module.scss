@@ -1,0 +1,66 @@
+.todo{
+  &List {    
+    padding: 0px;
+    text-shadow: 0 0 1px black;
+  }
+}
+
+.task{
+  transition: 0.5s ease;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  /* background: #A1A5D7; */
+  background: rgb(39, 39, 39);
+  box-shadow: 0 0 30px -10px black;
+  padding: 10px 10px 10px 15px;
+  &Container {
+    border-radius: inherit;
+    list-style-type: none;
+    margin-bottom: 15px;
+  }
+  &Important{
+    background: #ebb540;
+    color: black;
+  }
+  &Info {
+    padding: 0 5px 0 0;
+    flex: 15;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &Done {
+      text-decoration: line-through;
+    }
+  }
+  &Title {
+    font-size: 1.5em;
+    line-height: 1;
+  }
+  &Description{
+    font-size: 0.9em;
+  }
+  &Date{
+    font-size: 0.7em;
+  }
+  &Control{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    & .deleteButton{
+      margin-bottom: 5px;
+      background: #eb7979;
+    }
+    & .doneButton{
+      margin-bottom: 5px;
+      &True {
+        background: #79eb88;
+      }
+    }
+    & .importantButton{
+      &True {
+        background: #79aeeb;
+      }
+    }
+  }
+}

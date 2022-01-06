@@ -1,0 +1,45 @@
+.todoForm {
+  border-radius: 10px;
+  &Container {   
+    border-radius: inherit;
+    padding: 15px 15px 25px 15px;
+    margin-bottom: 25px;
+    background: rgb(39, 39, 39);
+  }
+  &Input {
+  }
+  &Textarea {
+    resize: none;
+  }/* 
+  &Input,&Textarea{
+    border: none;    
+    border-radius: 5px;
+  }   */
+  & input, & textarea {
+    background: none;
+    border: 3px solid #A1A5D7;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 5px;
+    color: white;
+    padding: 0 10px;
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 10px 0 #A1A5D7;
+    }
+  }
+}
+
+.addButton {
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  background: #A1A5D7;
+}
+
+.titleInputSection{
+  margin-bottom: 5px;
+}
+.descriptionInputSection{
+  margin-bottom: 5px;
+}
