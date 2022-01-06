@@ -45,3 +45,15 @@ select {
     border-radius: 5px;
   }
 }
+
+@media (max-width: 1400px) {
+  .App {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .App {
+    padding: 10px;
+  }
+}
