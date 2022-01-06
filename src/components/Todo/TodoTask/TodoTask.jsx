@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';
+import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
+import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
 import styles from './TodoTask.module.scss';
 
 class TodoTask extends Component {
@@ -20,30 +23,21 @@ class TodoTask extends Component {
               {this.props.createdDate}
             </div>
           </div>
-          <div className={styles.taskControl}>
-            <button className={styles.deleteButton} onClick={() => this.props.deleteTask(this.props.id)}>✖</button>
-            {
-              this.props.isDone
-                ? <button
-                  className={`${styles.doneButton} ${styles.doneButtonTrue}`}
-                  onClick={() => this.props.isDoneToggle(this.props.id)}>
-                  ✔</button>
-                : <button
-                  className={styles.doneButton}
-                  onClick={() => this.props.isDoneToggle(this.props.id)}>
-                  ✔</button>
-            }
-            {
-              this.props.isImportant
-                ? <button
-                  className={`${styles.importantButton} ${styles.importantButtonTrue}`}
-                  onClick={() => this.props.isImportantToggle(this.props.id)}
-                >★</button>
-                : <button
-                  className={styles.importantButton}
-                  onClick={() => this.props.isImportantToggle(this.props.id)}
-                >★</button>
-            }
+          <div className={styles.taskControl}>            
+            <DeleteButton 
+              deleteTask={this.props.deleteTask}
+              id={this.props.id}
+            />
+            <DoneButton 
+              isDoneToggle={this.props.isDoneToggle}
+              id={this.props.id}
+              isDone={this.props.isDone}
+            />
+            <ImportantButton
+              isImportantToggle={this.props.isImportantToggle}
+              id={this.props.id}
+              isImportant={this.props.isImportant}
+            />
           </div>
         </div>
       </li>
