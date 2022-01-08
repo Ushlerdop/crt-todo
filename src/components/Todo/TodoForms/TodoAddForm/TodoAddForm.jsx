@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import styles from './TodoForm.module.scss';
+import styles from './TodoAddForm.module.scss';
 
-class TodoForm extends Component {
+class TodoAddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,14 +29,14 @@ class TodoForm extends Component {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
-    const createdDate = `${new Date().toLocaleDateString()}`;
+    const editedDate = `${new Date().toLocaleDateString()}`;
     const id = Date.now();
     const task = {
       title,
       description,
       isDone: false,
       isImportant: false,
-      createdDate,
+      editedDate,
       id,
     }
     console.log(task);
@@ -82,4 +82,4 @@ class TodoForm extends Component {
   }
 }
 
-export default TodoForm;
+export default TodoAddForm;

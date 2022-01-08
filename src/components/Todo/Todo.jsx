@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Todo.module.scss';
-import TodoForm from './TodoForm/TodoForm';
+import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
+import Modal from '../Modal/Modal';
 import TodoList from './TodoList/TodoList';
 
 class Todo extends Component {
@@ -13,7 +14,7 @@ class Todo extends Component {
           description: `Don't forget about Harry...at least for today`,
           isDone: false,
           isImportant: true,
-          createdDate: new Date().toLocaleDateString(),
+          editedDate: new Date().toLocaleDateString(),
           id: Date.now()+1,
         },
         {
@@ -21,15 +22,23 @@ class Todo extends Component {
           description: 'As i remember, she asked for tea and boiled eggs',
           isDone: false,
           isImportant: false,
-          createdDate: new Date().toLocaleDateString(),
+          editedDate: new Date().toLocaleDateString(),
           id: Date.now(),
         },
         {
           title: 'Fix the coffee machine',
-          description: ``,
+          description: `It seems to be broken It seems to be broken 
+          It seems to be broken It seems to be broken It seems to be 
+          broken It seems to be broken It seems to be broken It 
+          seems to be broken It seems to be broken It seems to be 
+          broken It seems to be broken It seems to be broken It seems 
+          to be broken roken It seems to be broken It seems to be broken It 
+          seems to be broken It seems to be broken It seems to be 
+          broken It seems to be broken It seems to be broken It seems 
+          to be broken `,
           isDone: true,
           isImportant: false,
-          createdDate: new Date().toLocaleDateString(),
+          editedDate: new Date().toLocaleDateString(),
           id: Date.now()+2,
         },
       ],
@@ -38,6 +47,7 @@ class Todo extends Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.isDoneToggle = this.isDoneToggle.bind(this);
     this.isImportantToggle = this.isImportantToggle.bind(this);
+    this.updateTask = this.updateTask.bind(this);
   }
 
   addTask(task) {
@@ -50,6 +60,17 @@ class Todo extends Component {
     const tasks = this.state.tasks.filter(task => task.id !== id);
     this.setState({
       tasks,
+    })
+  }
+
+  updateTask(id, updatedTask) {
+    this.setState({
+      tasks: this.state.tasks.map(task => {
+        if (task.id === id) {
+          return updatedTask;
+        }
+        return task;
+      })
     })
   }
 
@@ -85,12 +106,15 @@ class Todo extends Component {
     console.log(this.state);
     return (
       <div className={styles.todoApp}>
-        <TodoForm addTask={this.addTask} />
+        <TodoAddForm 
+          addTask={this.addTask}
+        />
         <TodoList 
           tasks={this.state.tasks} 
           deleteTask={this.deleteTask} 
           isDoneToggle={this.isDoneToggle} 
           isImportantToggle={this.isImportantToggle}
+          updateTask={this.updateTask}
         />
       </div>
     );

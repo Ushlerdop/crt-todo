@@ -18,10 +18,11 @@ class TodoList extends Component {
             isImportant={task.isImportant}
             title={task.title}
             description={task.description}
-            createdDate={task.createdDate}
+            editedDate={task.editedDate}
             deleteTask={this.props.deleteTask}
             isDoneToggle={this.props.isDoneToggle}
             isImportantToggle={this.props.isImportantToggle}
+            updateTask={this.props.updateTask}
           />
         ))}
       </ul>
