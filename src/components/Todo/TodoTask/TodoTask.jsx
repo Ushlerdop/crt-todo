@@ -32,6 +32,8 @@ class TodoTask extends Component {
             title={this.props.title}
             description={this.props.description}
             id={this.props.id}
+            isDone={this.props.isDone}
+            isImportant={this.props.isImportant}
           />
         <div className={this.props.isImportant ? `${styles.task} ${styles.taskImportant}` : styles.task}>
           <div className={this.props.isDone ? `${styles.taskInfo} ${styles.taskInfoDone}` : styles.taskInfo}>

@@ -18,6 +18,8 @@ class Modal extends Component {
             title={this.props.title}
             description={this.props.description}
             id={this.props.id}
+            isDone={this.props.isDone}
+            isImportant={this.props.isImportant}
           />
         </div>
       </div>

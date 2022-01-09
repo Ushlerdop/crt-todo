@@ -29,22 +29,20 @@ class TodoUpdateForm extends Component {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
+    const isDone = this.props.isDone;
+    const isImportant = this.props.isImportant;
     const editedDate = `${new Date().toLocaleDateString()}`;
-    const id = Date.now();
+    const id = this.props.id;
     const task = {
       title,
       description,
-      isDone: false,
-      isImportant: false,
+      isDone,
+      isImportant,
       editedDate,
       id,
     }
     console.log(task);
-    this.props.updateTask(this.props.id, task);/* 
-    this.setState({
-      titleText: '',
-      descriptionText: '',
-    }); */
+    this.props.updateTask(this.props.id, task);    
   }
 
   render() {
