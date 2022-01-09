@@ -20,6 +20,7 @@ class Modal extends Component {
             id={this.props.id}
             isDone={this.props.isDone}
             isImportant={this.props.isImportant}
+            setEditModalActive={this.props.setEditModalActive}
           />
         </div>
       </div>

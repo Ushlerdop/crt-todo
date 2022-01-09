@@ -6,10 +6,10 @@ class TodoMods extends Component {
     return (
       <div className={styles.todoMods}>
         <div className={styles.todoModsContainer}>
-          <button>All tasks</button>
-          <button>Active tasks</button>
-          <button>Important tasks</button>
-          <button>Done tasks</button>
+          <button onClick={() => this.props.setCurrentTasks('all')}>All tasks</button>
+          <button onClick={() => this.props.setCurrentTasks(false)}>Active tasks</button>
+          <button onClick={() => this.props.setCurrentTasks('important')}>Important tasks</button>
+          <button onClick={() => this.props.setCurrentTasks(true)}>Done tasks</button>
         </div>
       </div>
     );

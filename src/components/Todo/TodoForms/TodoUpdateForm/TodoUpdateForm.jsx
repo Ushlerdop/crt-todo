@@ -42,7 +42,8 @@ class TodoUpdateForm extends Component {
       id,
     }
     console.log(task);
-    this.props.updateTask(this.props.id, task);    
+    this.props.updateTask(this.props.id, task);
+    this.props.setEditModalActive(false);
   }
 
   render() {
