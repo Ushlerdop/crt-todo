@@ -1,30 +1,23 @@
 import React, { Component } from 'react';
-import TodoUpdateForm from '../Todo/TodoForms/TodoUpdateForm/TodoUpdateForm';
 import styles from './Modal.module.scss';
 
-class Modal extends Component {
-  render() {
-    return (
-      <div 
-        className={this.props.active ? styles.modal + ' ' + styles.active : styles.modal} 
-        onClick={() => this.props.setEditModalActive(false)}
-      >
-        <div 
-          className={this.props.active ? styles.modalContent + ' ' + styles.active : styles.modalContent}
-          onClick={(e) => e.stopPropagation()}          
+function Modal(Component) {
+  return class extends Component {
+    render() {
+      return (
+        <div
+          className={this.props.active ? styles.modal + ' ' + styles.active : styles.modal}
+          onClick={() => this.props.setEditModalActive(false)}
         >
-          <TodoUpdateForm 
-            updateTask={this.props.updateTask}
-            title={this.props.title}
-            description={this.props.description}
-            id={this.props.id}
-            isDone={this.props.isDone}
-            isImportant={this.props.isImportant}
-            setEditModalActive={this.props.setEditModalActive}
-          />
+          <div
+            className={this.props.active ? styles.modalContent + ' ' + styles.active : styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Component {...this.props} />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

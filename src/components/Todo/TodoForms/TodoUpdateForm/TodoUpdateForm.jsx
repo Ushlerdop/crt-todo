@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Modal from '../../../Modal/Modal';
 import styles from './TodoUpdateForm.module.scss';
 
 class TodoUpdateForm extends Component {
@@ -81,4 +82,4 @@ class TodoUpdateForm extends Component {
   }
 }
 
-export default TodoUpdateForm;
+export default Modal(TodoUpdateForm);

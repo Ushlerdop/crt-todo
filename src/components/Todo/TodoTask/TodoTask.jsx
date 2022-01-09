@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Modal from '../../Modal/Modal';
 import ChangeTaskButton from '../../UI/buttons/ChangeTaskButton/ChangeTaskButton';
 import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';
 import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
 import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
+import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
 import styles from './TodoTask.module.scss';
 
 class TodoTask extends Component {
@@ -25,16 +25,16 @@ class TodoTask extends Component {
   render() {
     return (
       <li className={styles.taskContainer}>
-        <Modal
-            active={this.state.isEditModalActive}
-            setEditModalActive={this.setEditModalActive}
-            updateTask={this.props.updateTask}
-            title={this.props.title}
-            description={this.props.description}
-            id={this.props.id}
-            isDone={this.props.isDone}
-            isImportant={this.props.isImportant}
-          />
+        <TodoUpdateForm
+          active={this.state.isEditModalActive}
+          setEditModalActive={this.setEditModalActive}
+          updateTask={this.props.updateTask}
+          title={this.props.title}
+          description={this.props.description}
+          id={this.props.id}
+          isDone={this.props.isDone}
+          isImportant={this.props.isImportant}
+        />
         <div className={this.props.isImportant ? `${styles.task} ${styles.taskImportant}` : styles.task}>
           <div className={this.props.isDone ? `${styles.taskInfo} ${styles.taskInfoDone}` : styles.taskInfo}>
             <div onClick={this.onTitleClick} className={styles.taskTitle}>
