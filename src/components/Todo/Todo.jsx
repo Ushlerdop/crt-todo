@@ -3,6 +3,7 @@ import styles from './Todo.module.scss';
 import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import Modal from '../Modal/Modal';
 import TodoList from './TodoList/TodoList';
+import TodoMods from './TodoMods/TodoMods';
 
 class Todo extends Component {
   constructor(props) {
@@ -109,6 +110,7 @@ class Todo extends Component {
         <TodoAddForm 
           addTask={this.addTask}
         />
+        <TodoMods/>
         <TodoList 
           tasks={this.state.tasks} 
           deleteTask={this.deleteTask} 

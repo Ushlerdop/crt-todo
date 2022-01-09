@@ -1,0 +1,20 @@
+.todoMods{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  &Container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: rgb(39, 39, 39);
+    border-radius: 10px;
+    padding: 5px;
+    & button {
+      padding: 10px 0;
+      width: 24%;
+      font-size: 0.9em;
+      font-weight: bold;
+      line-height: 1;
+    }
+  }
+}
