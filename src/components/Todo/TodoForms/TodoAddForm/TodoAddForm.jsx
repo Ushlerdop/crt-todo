@@ -4,6 +4,7 @@ import styles from './TodoAddForm.module.scss';
 class TodoAddForm extends Component {
   constructor(props) {
     super(props);
+    this.textArea = React.createRef();
     this.state = {
       titleText: '',
       descriptionText: '',
@@ -11,6 +12,12 @@ class TodoAddForm extends Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    //устанавливаем высоту textarea под высоту текста внутри, но с ограничением в 300 пикселей
+    this.textArea.current.style.height = `${Math.min(this.textArea.current.scrollHeight, 300)}px`;
+    console.log(this.textArea);
   }
 
   onTitleChange(e) {
@@ -23,6 +30,9 @@ class TodoAddForm extends Component {
     this.setState({
       descriptionText: e.target.value
     });
+    this.textArea.current.style.height = 'inherit';
+    this.textArea.current.style.height = `${e.target.scrollHeight}px`;
+    this.textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
   handleSubmit(e) {
@@ -73,6 +83,7 @@ class TodoAddForm extends Component {
               value={this.state.descriptionText}
               onChange={this.onDescriptionChange}
               className={styles.todoFormTextarea}
+              ref={this.textArea}
             />
           </div>
           <button className={styles.addButton}>Add</button>

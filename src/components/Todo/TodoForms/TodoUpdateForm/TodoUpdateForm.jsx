@@ -5,6 +5,7 @@ import styles from './TodoUpdateForm.module.scss';
 class TodoUpdateForm extends Component {
   constructor(props) {
     super(props);
+    this.textArea = React.createRef();
     this.state = {
       titleText: this.props.title,
       descriptionText: this.props.description,
@@ -17,7 +18,12 @@ class TodoUpdateForm extends Component {
   /* Этот метод нужен для: есть две одинаковых формы для редактирования задачи. 
   Одна вызывается из модального окна с задачей, другая с главной страницы с общим списком задач.
   Если изменить в одной, а потом в другой, то пропсы подтягивались старые. С componentDidUpdate всё работает как надо.
-  */ 
+  */
+  componentDidMount(){
+    //устанавливаем высоту textarea под высоту текста внутри, но с ограничением в 300 пикселей
+    this.textArea.current.style.height = `${Math.min(this.textArea.current.scrollHeight, 300)}px`;
+    console.log(this.textArea);
+  }
   componentDidUpdate(prevProps, prevState) {
     if(prevState === this.state) {
       this.setState({
@@ -37,6 +43,9 @@ class TodoUpdateForm extends Component {
     this.setState({
       descriptionText: e.target.value
     });
+    this.textArea.current.style.height = 'inherit';
+    this.textArea.current.style.height = `${e.target.scrollHeight}px`;
+    this.textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
   handleSubmit(e) {
@@ -86,6 +95,7 @@ class TodoUpdateForm extends Component {
               value={this.state.descriptionText}
               onChange={this.onDescriptionChange}
               className={styles.todoFormTextarea}
+              ref={this.textArea}
             />
           </div>
           <button className={styles.addButton}>Update</button>
