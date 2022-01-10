@@ -1,70 +1,21 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<h1>Привет!</h1>
+    <p>Меня зовут Андрей и это моё приложение ToDo для курса от компании <a href="https://crtweb.ru/">Creative</a></p>
+    <h2>Скриншоты приложения:</h2>
+    <h3>Главная страница:</h3>
+    <p>У каждой задачи ограниченна высота. При её превышении текст обрезается. У каждой задачи есть кнопки:</p>
+    <ol>
+      <li>Удалить задачу</li>
+      <li>Пометить задачу выполненной</li>
+      <li>Пометить задачу важной</li>
+      <li>Изменить задачу</li>
+    </ol>
+    <p>Задачу можно открыть кликом по ней.</p>
+    <img width=800px src='https://user-images.githubusercontent.com/59158189/148764490-5b9bc565-77eb-4601-bf16-123551bf56d9.png' />
+    <h3>Открытая задача:</h3>
+    <p>Открывается в модальном окне. Здесь видно весь текст задачи. Также доступны кнопки, перечисленные выше.</p>
+    <img width=800px src='https://user-images.githubusercontent.com/59158189/148764539-81f212e5-b387-42c4-99d8-d93c5373fe6c.png'>
+    <h3>Модальное окно редактирования задачи:</h3>
+    <img width=800px src='https://user-images.githubusercontent.com/59158189/148764577-26ac97b0-1f2b-427a-8347-59f1a34d5f0d.png'>
+    <h3>Форма создания задачи:</h3>
+    <p>Textarea увеличивается и уменьшается в высоте по содержмимому</p>
+    <img width=800px src='https://user-images.githubusercontent.com/59158189/148764664-1f784183-fc90-488e-80a1-0b0bf72e0bae.png'>
