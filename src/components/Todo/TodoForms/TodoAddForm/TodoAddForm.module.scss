@@ -15,7 +15,7 @@
   &Input,
   &Textarea {
     background: none;
-    border: 3px solid #a1a5d7;
+    border: 3px solid #9198ff;
     border-radius: 10px;
     width: 100%;
     margin-top: 5px;
@@ -23,7 +23,7 @@
     padding: 0 10px;
     &:focus {
       outline: none;
-      box-shadow: 0 0 10px 0 #a1a5d7;
+      box-shadow: 0 0 10px 0 #9198ff;
     }
   }
 
@@ -37,7 +37,7 @@
 
   /* ползунок скроллбара */
   ::-webkit-scrollbar-thumb {
-    background: #a1a5d7;
+    background: #8d91ca;
     border-radius: 5px;
   }
 
@@ -82,7 +82,7 @@
   width: 100%;
   border-radius: 5px;
   border: none;
-  background: #a1a5d7;
+  background: #9198ff;
 }
 
 .titleInputSection {

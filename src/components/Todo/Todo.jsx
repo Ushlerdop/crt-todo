@@ -14,7 +14,7 @@ class Todo extends Component {
           isDone: false,
           isImportant: true,
           editedDate: new Date().toLocaleDateString(),
-          id: Date.now()+1,
+          id: 12313,
         },
         {
           title: 'Breakfast',
@@ -22,7 +22,7 @@ class Todo extends Component {
           isDone: false,
           isImportant: false,
           editedDate: new Date().toLocaleDateString(),
-          id: Date.now(),
+          id: 2342,
         },
         {
           title: 'Fix the coffee machine',
@@ -30,7 +30,7 @@ class Todo extends Component {
           isDone: true,
           isImportant: false,
           editedDate: new Date().toLocaleDateString(),
-          id: Date.now()+2,
+          id: 56756,
         },
       ],
     }

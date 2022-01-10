@@ -19,7 +19,7 @@
     width: 49.5%;
   }
   &Important {
-    background: #ebb540;
+    background: #ebc041;
     color: black;
   }
   &Info {
@@ -72,6 +72,7 @@
     flex-direction: column;
     & button {
       margin-bottom: 5px;
+      box-shadow: 0 0 10px -4px black;
     }
   }
 }

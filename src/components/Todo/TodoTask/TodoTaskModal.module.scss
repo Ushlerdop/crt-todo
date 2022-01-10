@@ -3,7 +3,6 @@
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  /* background: #A1A5D7; */
   background: rgb(39, 39, 39);
   box-shadow: 0 0 30px -10px black;
   padding: 10px 10px 10px 10px;
@@ -13,7 +12,7 @@
     list-style-type: none;
   }
   &Important {
-    background: #ebb540;
+    background: #ebc041;
     color: black;
   }
   &Info {
@@ -47,7 +46,8 @@
     display: flex;
     flex-direction: column;
     & button {
-      margin-bottom: 5px;
+      margin-bottom: 5px;      
+      box-shadow: 0 0 10px -4px black;
     }
   }
 }

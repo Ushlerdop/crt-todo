@@ -10,7 +10,6 @@ import styles from './TodoTask.module.scss';
 class TodoTask extends Component {
   constructor(props) {
     super(props);
-
     this.state={
       isEditModalActive: false,
       isInfoModalActive: false,
