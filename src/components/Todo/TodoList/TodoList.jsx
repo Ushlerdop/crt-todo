@@ -39,7 +39,6 @@ class TodoList extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <TodoMods 

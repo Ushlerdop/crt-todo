@@ -102,7 +102,6 @@ class Todo extends Component {
   }
 
   render() {
-    console.log(`State: `, this.state);
     return (
       <div className={styles.todoApp}>
         <TodoAddForm 

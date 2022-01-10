@@ -14,6 +14,19 @@ class TodoUpdateForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /* Этот метод нужен для: есть две одинаковых формы для редактирования задачи. 
+  Одна вызывается из модального окна с задачей, другая с главной страницы с общим списком задач.
+  Если изменить в одной, а потом в другой, то пропсы подтягивались старые. С componentDidUpdate всё работает как надо.
+  */ 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState === this.state) {
+      this.setState({
+        titleText: this.props.title,
+        descriptionText: this.props.description,
+      })
+    }
+  }
+
   onTitleChange(e) {
     this.setState({
       titleText: e.target.value
@@ -42,12 +55,12 @@ class TodoUpdateForm extends Component {
       editedDate,
       id,
     }
-    console.log(task);
     this.props.updateTask(this.props.id, task);
-    this.props.setEditModalActive(false);
+    this.props.setModalActive(false);
   }
 
   render() {
+    console.log(this.props.description);
     return (
       <div className={styles.todoFormContainer}>
         <form onSubmit={this.handleSubmit} className={styles.todoForm}>

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import styles from './Modal.module.scss';
 
 function Modal(Component) {
-  return class extends Component {
+  return class extends React.Component {
+    componentDidMount() {
+    }
     render() {
       return (
         <div
           className={this.props.active ? styles.modal + ' ' + styles.active : styles.modal}
-          onClick={() => this.props.setEditModalActive(false)}
+          onClick={() => this.props.setModalActive(false)}
         >
           <div
             className={this.props.active ? styles.modalContent + ' ' + styles.active : styles.modalContent}

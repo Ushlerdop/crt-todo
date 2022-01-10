@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
+import Modal from '../../Modal/Modal';
 import ChangeTaskButton from '../../UI/buttons/ChangeTaskButton/ChangeTaskButton';
 import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';
 import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
 import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
 import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
-import TodoTaskModal from './TodoTaskModal';
 import styles from './TodoTask.module.scss';
 
-class TodoTask extends Component {
-  constructor(props) {
+class TodoTaskModal extends Component {
+    
+  constructor(props){
     super(props);
 
     this.state={
       isEditModalActive: false,
-      isInfoModalActive: false,
     }
     this.setEditModalActive = this.setEditModalActive.bind(this);
-    this.setInfoModalActive = this.setInfoModalActive.bind(this);
   }  
 
   setEditModalActive(value) {
@@ -24,16 +23,10 @@ class TodoTask extends Component {
       isEditModalActive: value
     })
   }
-
-  setInfoModalActive(value) {
-    this.setState({
-      isInfoModalActive: value
-    })
-  }
   
   render() {
     return (
-      <li className={styles.taskContainer}>
+      <div className={styles.taskContainer}>
         <TodoUpdateForm
           active={this.state.isEditModalActive}
           setModalActive={this.setEditModalActive}
@@ -44,27 +37,19 @@ class TodoTask extends Component {
           isDone={this.props.isDone}
           isImportant={this.props.isImportant}
         />
-        <TodoTaskModal
-          active={this.state.isInfoModalActive}
-          setModalActive={this.setInfoModalActive}
-          {...this.props}
-        />
-        <div className={this.props.isImportant ? `${styles.task} ${styles.taskImportant}` : styles.task}  onClick={() => this.setInfoModalActive(true)}>
+        <div className={this.props.isImportant ? `${styles.task} ${styles.taskImportant}` : styles.task}>
           <div className={this.props.isDone ? `${styles.taskInfo} ${styles.taskInfoDone}` : styles.taskInfo}>
-            <div onClick={this.onTitleClick} className={styles.taskTitleClipped}>
+            <div onClick={this.onTitleClick} className={styles.taskTitle}>
               {this.props.title}
             </div>
-            <div className={styles.taskDescriptionClipped}>
+            <div className={styles.taskDescription}>
               {this.props.description}
             </div>
             <div className={styles.taskDate}>
               {`Edited ${this.props.editedDate}`}
             </div>
           </div>
-          <div 
-            className={styles.taskControl} 
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.taskControl}>            
             <DeleteButton 
               deleteTask={this.props.deleteTask}
               id={this.props.id}
@@ -84,9 +69,9 @@ class TodoTask extends Component {
             />
           </div>
         </div>
-      </li>
+      </div>
     );
   }
 }
 
-export default TodoTask;
+export default Modal(TodoTaskModal);
