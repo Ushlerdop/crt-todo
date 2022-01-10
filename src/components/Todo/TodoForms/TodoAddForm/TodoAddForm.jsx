@@ -5,6 +5,7 @@ class TodoAddForm extends Component {
   constructor(props) {
     super(props);
     this.textArea = React.createRef();
+    this.textInput = React.createRef();
     this.state = {
       titleText: '',
       descriptionText: '',
@@ -37,24 +38,36 @@ class TodoAddForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const title = e.target.title.value;
-    const description = e.target.description.value;
-    const editedDate = `${new Date().toLocaleDateString()}`;
-    const id = Date.now();
-    const task = {
-      title,
-      description,
-      isDone: false,
-      isImportant: false,
-      editedDate,
-      id,
+    const maxTextInputLength = 500;
+    const maxTextAreaLength = 3000;
+    if ( this.textArea.current.value || this.textInput.current.value ) {
+
+      if (this.textInput.current.value.length <= maxTextInputLength && this.textArea.current.value.length <= maxTextAreaLength) {
+        const title = e.target.title.value;
+        const description = e.target.description.value;
+        const editedDate = `${new Date().toLocaleDateString()}`;
+        const id = Date.now();
+        const task = {
+          title,
+          description,
+          isDone: false,
+          isImportant: false,
+          editedDate,
+          id,
+        }
+        console.log(task);
+        this.props.addTask(task);
+        this.setState({
+          titleText: '',
+          descriptionText: '',
+        });
+      } else {
+        alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
+      }  
+            
+    } else {
+      alert('You have to text something in Title or Description');
     }
-    console.log(task);
-    this.props.addTask(task);
-    this.setState({
-      titleText: '',
-      descriptionText: '',
-    });
   }
 
   render() {
@@ -71,6 +84,7 @@ class TodoAddForm extends Component {
               value={this.state.titleText}
               onChange={this.onTitleChange}
               className={styles.todoFormInput}
+              ref={this.textInput}
             />
           </div>
           <div className={styles.descriptionInputSection}>

@@ -6,6 +6,7 @@ class TodoUpdateForm extends Component {
   constructor(props) {
     super(props);
     this.textArea = React.createRef();
+    this.textInput = React.createRef();
     this.state = {
       titleText: this.props.title,
       descriptionText: this.props.description,
@@ -43,6 +44,7 @@ class TodoUpdateForm extends Component {
     this.setState({
       descriptionText: e.target.value
     });
+    console.log(this.textArea.current);
     this.textArea.current.style.height = 'inherit';
     this.textArea.current.style.height = `${e.target.scrollHeight}px`;
     this.textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
@@ -50,26 +52,37 @@ class TodoUpdateForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const title = e.target.title.value;
-    const description = e.target.description.value;
-    const isDone = this.props.isDone;
-    const isImportant = this.props.isImportant;
-    const editedDate = `${new Date().toLocaleDateString()}`;
-    const id = this.props.id;
-    const task = {
-      title,
-      description,
-      isDone,
-      isImportant,
-      editedDate,
-      id,
+    const maxTextInputLength = 500;
+    const maxTextAreaLength = 3000;
+    if (this.textArea.current.value || this.textInput.current.value) {
+
+      if (this.textInput.current.value.length <= maxTextInputLength && this.textArea.current.value.length <= maxTextAreaLength) {
+        const title = this.textInput.current.value;
+        const description = this.textArea.current.value;
+        const isDone = this.props.isDone;
+        const isImportant = this.props.isImportant;
+        const editedDate = `${new Date().toLocaleDateString()}`;
+        const id = this.props.id;
+        const task = {
+          title,
+          description,
+          isDone,
+          isImportant,
+          editedDate,
+          id,
+        }
+        this.props.updateTask(this.props.id, task);
+        this.props.setModalActive(false);
+      } else {
+        alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
+      }
+
+    } else {
+      alert('You have to text something in title or description');
     }
-    this.props.updateTask(this.props.id, task);
-    this.props.setModalActive(false);
   }
 
   render() {
-    console.log(this.props.description);
     return (
       <div className={styles.todoFormContainer}>
         <form onSubmit={this.handleSubmit} className={styles.todoForm}>
@@ -83,6 +96,7 @@ class TodoUpdateForm extends Component {
               value={this.state.titleText}
               onChange={this.onTitleChange}
               className={styles.todoFormInput}
+              ref={this.textInput}              
             />
           </div>
           <div className={styles.descriptionInputSection}>
