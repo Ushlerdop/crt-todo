@@ -1,4 +1,4 @@
-.todoMods{
+.todoMods {
   display: flex;
   justify-content: center;
   margin-bottom: 25px;
@@ -9,12 +9,16 @@
     background: rgb(39, 39, 39);
     border-radius: 10px;
     padding: 10px;
-    & button {
-      padding: 10px 0;
-      width: 24%;
-      font-size: 0.9em;
-      font-weight: bold;
-      line-height: 1;
+  }
+  &Button {
+    padding: 10px 0;
+    width: 24%;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 1;
+    background: #fff;
+    &Active {
+      background: #6e93d6;
     }
   }
 }
