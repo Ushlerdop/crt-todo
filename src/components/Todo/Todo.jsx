@@ -98,8 +98,9 @@ class Todo extends Component {
       <div className={styles.todoApp}>
         <TodoAddForm 
           addTask={this.addTask}
+          tasks={this.state.tasks}
         />
-        <TodoList 
+        <TodoList
           tasks={this.state.tasks} 
           deleteTask={this.deleteTask} 
           isDoneToggle={this.isDoneToggle} 

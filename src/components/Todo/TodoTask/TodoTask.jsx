@@ -43,6 +43,7 @@ class TodoTask extends Component {
           id={this.props.id}
           isDone={this.props.isDone}
           isImportant={this.props.isImportant}
+          tasks={this.props.tasks}
         />
         <TodoTaskModal
           active={this.state.isInfoModalActive}

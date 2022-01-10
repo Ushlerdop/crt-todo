@@ -23,7 +23,6 @@ class TodoUpdateForm extends Component {
   componentDidMount(){
     //устанавливаем высоту textarea под высоту текста внутри, но с ограничением в 300 пикселей
     this.textArea.current.style.height = `${Math.min(this.textArea.current.scrollHeight, 300)}px`;
-    console.log(this.textArea);
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevState === this.state) {
@@ -44,7 +43,6 @@ class TodoUpdateForm extends Component {
     this.setState({
       descriptionText: e.target.value
     });
-    console.log(this.textArea.current);
     this.textArea.current.style.height = 'inherit';
     this.textArea.current.style.height = `${e.target.scrollHeight}px`;
     this.textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
@@ -54,6 +52,11 @@ class TodoUpdateForm extends Component {
     e.preventDefault();
     const maxTextInputLength = 500;
     const maxTextAreaLength = 3000;
+    //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
+    if (this.props.tasks.some(task => task.title === this.textInput.current.value && task.id !== this.props.id)) {
+      return alert(`You already have a task with this Title`);
+    }
+
     if (this.textArea.current.value || this.textInput.current.value) {
 
       if (this.textInput.current.value.length <= maxTextInputLength && this.textArea.current.value.length <= maxTextAreaLength) {

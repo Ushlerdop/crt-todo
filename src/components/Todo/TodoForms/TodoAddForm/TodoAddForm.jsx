@@ -18,7 +18,6 @@ class TodoAddForm extends Component {
   componentDidMount(){
     //устанавливаем высоту textarea под высоту текста внутри, но с ограничением в 300 пикселей
     this.textArea.current.style.height = `${Math.min(this.textArea.current.scrollHeight, 300)}px`;
-    console.log(this.textArea);
   }
 
   onTitleChange(e) {
@@ -38,6 +37,12 @@ class TodoAddForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
+    //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
+    if (this.props.tasks.some(task => task.title === this.textInput.current.value && task.id !== this.props.id)) {
+      return alert(`You already have a task with this Title`);
+    }
+
     const maxTextInputLength = 500;
     const maxTextAreaLength = 3000;
     if ( this.textArea.current.value || this.textInput.current.value ) {
@@ -55,7 +60,6 @@ class TodoAddForm extends Component {
           editedDate,
           id,
         }
-        console.log(task);
         this.props.addTask(task);
         this.setState({
           titleText: '',

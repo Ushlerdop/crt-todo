@@ -58,6 +58,7 @@ class TodoList extends Component {
               isDoneToggle={this.props.isDoneToggle}
               isImportantToggle={this.props.isImportantToggle}
               updateTask={this.props.updateTask}
+              tasks={this.props.tasks}
             />
           ))}
         </ul>
