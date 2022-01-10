@@ -36,6 +36,7 @@ class TodoTaskModal extends Component {
           id={this.props.id}
           isDone={this.props.isDone}
           isImportant={this.props.isImportant}
+          tasks={this.props.tasks}
         />
         <div className={this.props.isImportant ? `${styles.task} ${styles.taskImportant}` : styles.task}>
           <div className={styles.taskInfo}>
