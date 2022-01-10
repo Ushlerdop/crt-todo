@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import styles from './TodoMods.module.scss';
+import classNames from 'classnames/bind';
+
+let cx = classNames.bind(styles);
 
 class TodoMods extends Component {
   constructor(props) {
@@ -23,15 +26,32 @@ class TodoMods extends Component {
   }
 
   render() {
+    let AllTasksClassName = cx({
+      todoModsButton: true,
+      todoModsButtonActive: this.state.activeTaskFilterId === 1,
+    });
+
+    let ActiveTasksClassName = cx({
+      todoModsButton: true,
+      todoModsButtonActive: this.state.activeTaskFilterId === 2,
+    });
+
+    let ImportantTasksClassName = cx({
+      todoModsButton: true,
+      todoModsButtonActive: this.state.activeTaskFilterId === 3,
+    });
+
+    let DoneTasksClassName = cx({
+      todoModsButton: true,
+      todoModsButtonActive: this.state.activeTaskFilterId === 4,
+    });
     return (
       <div className={styles.todoMods}>
         <div className={styles.todoModsContainer}>
           <button 
             id={1} 
             onClick={() => this.onClickHandler('all', 1)}
-            className={this.state.activeTaskFilterId === 1 
-              ? `${styles.todoModsButtonActive} ${styles.todoModsButton}` 
-              : styles.todoModsButton}
+            className={AllTasksClassName}
           >
             All tasks
           </button>
@@ -39,9 +59,7 @@ class TodoMods extends Component {
           <button 
            id={2}
            onClick={() => this.onClickHandler(false, 2)}
-           className={this.state.activeTaskFilterId === 2 
-            ? `${styles.todoModsButtonActive} ${styles.todoModsButton}` 
-            : styles.todoModsButton}
+           className={ActiveTasksClassName}
           >
             Active tasks
           </button>
@@ -49,9 +67,7 @@ class TodoMods extends Component {
           <button 
             id={3} 
             onClick={() => this.onClickHandler('important', 3)}
-            className={this.state.activeTaskFilterId === 3 
-              ? `${styles.todoModsButtonActive} ${styles.todoModsButton}` 
-              : styles.todoModsButton}
+            className={ImportantTasksClassName}
           >
             Important tasks
           </button>
@@ -59,9 +75,7 @@ class TodoMods extends Component {
           <button 
             id={4} 
             onClick={() => this.onClickHandler(true, 4)}
-            className={this.state.activeTaskFilterId === 4 
-              ? `${styles.todoModsButtonActive} ${styles.todoModsButton}` 
-              : styles.todoModsButton}
+            className={DoneTasksClassName}
           >
             Done tasks
           </button>

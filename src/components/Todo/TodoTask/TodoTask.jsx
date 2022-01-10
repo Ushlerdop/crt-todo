@@ -6,6 +6,9 @@ import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
 import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
 import TodoTaskModal from './TodoTaskModal';
 import styles from './TodoTask.module.scss';
+import classNames from 'classnames/bind';
+
+let cx = classNames.bind(styles);
 
 class TodoTask extends Component {
   constructor(props) {
@@ -31,6 +34,22 @@ class TodoTask extends Component {
   }
   
   render() {
+    let taskClassName = cx({
+      task: true,
+      taskImportant: this.props.isImportant,
+      taskDone: this.props.isDone,
+    });
+
+    let titleTaskClassName = cx({
+      taskTitle: true,
+      taskTitleDone: this.props.isDone,
+    });
+
+    let descriptionTaskClassName = cx({
+      taskDescription: true,
+      taskDescriptionDone: this.props.isDone,
+    });
+
     return (
       <li className={styles.taskContainer}>
         <TodoUpdateForm
@@ -49,12 +68,12 @@ class TodoTask extends Component {
           setModalActive={this.setInfoModalActive}
           {...this.props}
         />
-        <div className={this.props.isImportant ? `${styles.task} ${styles.taskImportant}` : styles.task}  onClick={() => this.setInfoModalActive(true)}>
+        <div className={taskClassName}  onClick={() => this.setInfoModalActive(true)}>
           <div className={styles.taskInfo}>
-            <div className={this.props.isDone ? `${styles.taskTitle} ${styles.taskTitleDone}` : styles.taskTitle}>
+            <div className={titleTaskClassName}>
               {this.props.title}
             </div>
-            <div className={this.props.isDone ? `${styles.taskDescription} ${styles.taskDescriptionDone}` : styles.taskDescription}>
+            <div className={descriptionTaskClassName}>
               {this.props.description}
             </div>
             <div className={styles.taskDate}>

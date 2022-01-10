@@ -52,12 +52,15 @@ class TodoUpdateForm extends Component {
     e.preventDefault();
     const maxTextInputLength = 500;
     const maxTextAreaLength = 3000;
+    /* хотелось бы использовать для валидации React Hook Form, 
+    но он не работает в классовых компонентах. Поэтому нативным способом */
+
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
     if (this.props.tasks.some(task => task.title === e.target.title.value && task.id !== this.props.id)) {
       return alert(`You already have a task with this Title`);
     }
 
-    if (e.target.description.value || e.target.title.value) {
+    if (e.target.description.value && e.target.title.value) {
 
       if (e.target.title.value.length <= maxTextInputLength && e.target.description.value.length <= maxTextAreaLength) {
         const title = e.target.title.value;
@@ -81,7 +84,7 @@ class TodoUpdateForm extends Component {
       }
 
     } else {
-      alert('You have to text something in title or description');
+      alert('You have to text something in title and description');
     }
   }
 
