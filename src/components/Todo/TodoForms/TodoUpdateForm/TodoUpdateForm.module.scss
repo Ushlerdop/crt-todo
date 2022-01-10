@@ -4,11 +4,14 @@
     border-radius: inherit;
     padding: 10px 10px 10px 10px;
     background: rgb(39, 39, 39);
+    width: 80vw;
+    height: auto;
   }
   &Input {
   }
   &Textarea {
     resize: none;
+    height: 50vh;
   }
   &Input,&Textarea{
     background: none;

@@ -5,7 +5,7 @@ import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';
 import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
 import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
 import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
-import styles from './TodoTask.module.scss';
+import styles from './TodoTaskModal.module.scss';
 
 class TodoTaskModal extends Component {
     

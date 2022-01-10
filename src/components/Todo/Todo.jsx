@@ -26,15 +26,7 @@ class Todo extends Component {
         },
         {
           title: 'Fix the coffee machine',
-          description: `It seems to be broken It seems to be broken 
-          It seems to be broken It seems to be broken It seems to be 
-          broken It seems to be broken It seems to be broken It 
-          seems to be broken It seems to be broken It seems to be 
-          broken It seems to be broken It seems to be broken It seems 
-          to be broken roken It seems to be broken It seems to be broken It 
-          seems to be broken It seems to be broken It seems to be 
-          broken It seems to be broken It seems to be broken It seems 
-          to be broken `,
+          description: `It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken roken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken roken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken roken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken `,
           isDone: true,
           isImportant: false,
           editedDate: new Date().toLocaleDateString(),

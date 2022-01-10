@@ -51,10 +51,10 @@ class TodoTask extends Component {
         />
         <div className={this.props.isImportant ? `${styles.task} ${styles.taskImportant}` : styles.task}  onClick={() => this.setInfoModalActive(true)}>
           <div className={this.props.isDone ? `${styles.taskInfo} ${styles.taskInfoDone}` : styles.taskInfo}>
-            <div onClick={this.onTitleClick} className={styles.taskTitleClipped}>
+            <div onClick={this.onTitleClick} className={styles.taskTitle}>
               {this.props.title}
             </div>
-            <div className={styles.taskDescriptionClipped}>
+            <div className={styles.taskDescription}>
               {this.props.description}
             </div>
             <div className={styles.taskDate}>
