@@ -1,5 +1,5 @@
 .task {
-  transition: 0.5s ease;
+  transition: 0.5s ease all, 0.2s ease transform;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
@@ -9,6 +9,9 @@
   margin-bottom: auto;
   height: 100%;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.01);
+  }
   &Container {
     border-radius: inherit;
     list-style-type: none;
