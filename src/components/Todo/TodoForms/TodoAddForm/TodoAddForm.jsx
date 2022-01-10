@@ -39,15 +39,15 @@ class TodoAddForm extends Component {
     e.preventDefault();
 
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
-    if (this.props.tasks.some(task => task.title === this.textInput.current.value && task.id !== this.props.id)) {
+    if (this.props.tasks.some(task => task.title === e.target.title.value && task.id !== this.props.id)) {
       return alert(`You already have a task with this Title`);
     }
 
     const maxTextInputLength = 500;
     const maxTextAreaLength = 3000;
-    if ( this.textArea.current.value || this.textInput.current.value ) {
+    if ( e.target.title.value || e.target.description.value ) {
 
-      if (this.textInput.current.value.length <= maxTextInputLength && this.textArea.current.value.length <= maxTextAreaLength) {
+      if (e.target.title.value.length <= maxTextInputLength && e.target.description.value.length <= maxTextAreaLength) {
         const title = e.target.title.value;
         const description = e.target.description.value;
         const editedDate = `${new Date().toLocaleDateString()}`;
