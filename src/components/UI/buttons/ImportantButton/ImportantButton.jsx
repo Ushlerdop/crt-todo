@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import styles from './ImportantButton.module.scss';
 import classNames from 'classnames/bind';
 
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 class ImportantButton extends Component {
   render() {
-    let ImportantTasksClassName = cx({
+    const ImportantTasksClassName = cx({
       importantButton: true,
       importantButtonTrue: this.props.isImportant,
     });
+    
     return (
       <button
         className={ImportantTasksClassName}

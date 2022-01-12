@@ -48,17 +48,8 @@ class TodoList extends Component {
           {this.state.currentTasks.map(task => (
             <TodoTask
               key={task.id}
-              id={task.id}
-              isDone={task.isDone}
-              isImportant={task.isImportant}
-              title={task.title}
-              description={task.description}
-              editedDate={task.editedDate}
-              deleteTask={this.props.deleteTask}
-              isDoneToggle={this.props.isDoneToggle}
-              isImportantToggle={this.props.isImportantToggle}
-              updateTask={this.props.updateTask}
-              tasks={this.props.tasks}
+              {...task}
+              {...this.props}
             />
           ))}
         </ul>

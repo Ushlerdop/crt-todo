@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import styles from './Modal.module.scss';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
 
 function Modal(Component) {
   return class extends React.Component {
-    componentDidMount() {
-    }
     render() {
+      const modalClassName = cx({
+        modal: true,
+        active: this.props.active,
+      });
+
+      const modalContentClassName = cx({
+        modalContent: true,
+        active: this.props.active,
+      });
+
       return (
         <div
-          className={this.props.active ? styles.modal + ' ' + styles.active : styles.modal}
+          className={modalClassName}
           onClick={() => this.props.setModalActive(false)}
         >
           <div
-            className={this.props.active ? styles.modalContent + ' ' + styles.active : styles.modalContent}
+            className={modalContentClassName}
             onClick={(e) => e.stopPropagation()}
           >
             <Component {...this.props} />

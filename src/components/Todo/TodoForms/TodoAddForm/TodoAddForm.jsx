@@ -31,7 +31,6 @@ class TodoAddForm extends Component {
       descriptionText: e.target.value
     });
     this.textArea.current.style.height = 'inherit';
-    this.textArea.current.style.height = `${e.target.scrollHeight}px`;
     this.textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
@@ -41,39 +40,37 @@ class TodoAddForm extends Component {
     но он не работает в классовых компонентах. Поэтому нативным способом */
 
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
-    if (this.props.tasks.some(task => task.title === e.target.title.value && task.id !== this.props.id)) {
+    if (this.props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
       return alert(`You already have a task with this Title`);
     }
 
     const maxTextInputLength = 500;
     const maxTextAreaLength = 3000;
-    if ( e.target.title.value && e.target.description.value ) {
-
-      if (e.target.title.value.length <= maxTextInputLength && e.target.description.value.length <= maxTextAreaLength) {
-        const title = e.target.title.value;
-        const description = e.target.description.value;
-        const editedDate = `${new Date().toLocaleDateString()}`;
-        const id = Date.now();
-        const task = {
-          title,
-          description,
-          isDone: false,
-          isImportant: false,
-          editedDate,
-          id,
-        }
-        this.props.addTask(task);
-        this.setState({
-          titleText: '',
-          descriptionText: '',
-        });
-      } else {
-        alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
-      }  
-            
-    } else {
-      alert('You have to text something in Title and Description');
+    if ( !(e.target.title.value && e.target.description.value) ) {
+      return alert('You have to text something in Title and Description');
     }
+
+    if (e.target.title.value.length <= maxTextInputLength && e.target.description.value.length <= maxTextAreaLength) {
+      const title = e.target.title.value;
+      const description = e.target.description.value;
+      const editedDate = `${new Date().toLocaleDateString()}`;
+      const id = Date.now();
+      const task = {
+        title,
+        description,
+        isDone: false,
+        isImportant: false,
+        editedDate,
+        id,
+      }
+      this.props.addTask(task);
+      this.setState({
+        titleText: '',
+        descriptionText: '',
+      });
+    } else {
+      alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
+    }  
   }
 
   render() {

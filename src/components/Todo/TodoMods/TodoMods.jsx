@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './TodoMods.module.scss';
 import classNames from 'classnames/bind';
 
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 class TodoMods extends Component {
   constructor(props) {
@@ -26,25 +26,26 @@ class TodoMods extends Component {
   }
 
   render() {
-    let AllTasksClassName = cx({
+    const AllTasksClassName = cx({
       todoModsButton: true,
       todoModsButtonActive: this.state.activeTaskFilterId === 1,
     });
 
-    let ActiveTasksClassName = cx({
+    const ActiveTasksClassName = cx({
       todoModsButton: true,
       todoModsButtonActive: this.state.activeTaskFilterId === 2,
     });
 
-    let ImportantTasksClassName = cx({
+    const ImportantTasksClassName = cx({
       todoModsButton: true,
       todoModsButtonActive: this.state.activeTaskFilterId === 3,
     });
 
-    let DoneTasksClassName = cx({
+    const DoneTasksClassName = cx({
       todoModsButton: true,
       todoModsButtonActive: this.state.activeTaskFilterId === 4,
     });
+    
     return (
       <div className={styles.todoMods}>
         <div className={styles.todoModsContainer}>

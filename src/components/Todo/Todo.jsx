@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import mockTasks from '../../utils/tasks'; //замокал таски в отдельном файле
 import styles from './Todo.module.scss';
 import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import TodoList from './TodoList/TodoList';
@@ -7,32 +8,7 @@ class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [
-        {
-          title: 'Pick up children from Granny',
-          description: `Don't forget about Harry...at least for today`,
-          isDone: false,
-          isImportant: true,
-          editedDate: new Date().toLocaleDateString(),
-          id: 12313,
-        },
-        {
-          title: 'Breakfast',
-          description: 'As i remember, she asked for tea and boiled eggs',
-          isDone: false,
-          isImportant: false,
-          editedDate: new Date().toLocaleDateString(),
-          id: 2342,
-        },
-        {
-          title: 'Fix the coffee machine',
-          description: `It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken roken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken roken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken roken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken It seems to be broken `,
-          isDone: true,
-          isImportant: false,
-          editedDate: new Date().toLocaleDateString(),
-          id: 56756,
-        },
-      ],
+      tasks: mockTasks
     }
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
@@ -55,42 +31,42 @@ class Todo extends Component {
   }
 
   updateTask(id, updatedTask) {
-    this.setState({
-      tasks: this.state.tasks.map(task => {
-        if (task.id === id) {
-          return updatedTask;
-        }
-        return task;
-      })
-    })
+    const tasks = this.state.tasks.map(task => {
+      if (task.id === id) {
+        return updatedTask;
+      }
+      return task;
+    });
+
+    this.setState({tasks});
   }
 
   isDoneToggle(id) {
-    this.setState({
-      tasks: this.state.tasks.map(task => {
-        if (task.id === id) {
-          return {
-            ...task,
-            isDone: !task.isDone,
-          }
+    const tasks = this.state.tasks.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          isDone: !task.isDone,
         }
-        return task;
-      })
-    })
+      }
+      return task;
+    });
+
+    this.setState({tasks});
   }
 
   isImportantToggle(id) {
-    this.setState({
-      tasks: this.state.tasks.map(task => {
-        if (task.id === id) {
-          return {
-            ...task,
-            isImportant: !task.isImportant,
-          }
+    const tasks = this.state.tasks.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          isImportant: !task.isImportant,
         }
-        return task;
-      })
-    })
+      }
+      return task;
+    });
+
+    this.setState({tasks});
   }
 
   render() {

@@ -8,7 +8,7 @@ import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
 import styles from './TodoTaskModal.module.scss';
 import classNames from 'classnames/bind';
 
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 class TodoTaskModal extends Component {
     
@@ -28,33 +28,27 @@ class TodoTaskModal extends Component {
   }
   
   render() {
-    let taskClassName = cx({
+    const taskClassName = cx({
       task: true,
       taskImportant: this.props.isImportant,
       taskDone: this.props.isDone,
     });
 
-    let titleTaskClassName = cx({
+    const titleTaskClassName = cx({
       taskTitle: true,
       taskTitleDone: this.props.isDone,
     });
 
-    let descriptionTaskClassName = cx({
+    const descriptionTaskClassName = cx({
       taskDescription: true,
       taskDescriptionDone: this.props.isDone,
     });
     return (
       <div className={styles.taskContainer}>
         <TodoUpdateForm
+          {...this.props}
           active={this.state.isEditModalActive}
           setModalActive={this.setEditModalActive}
-          updateTask={this.props.updateTask}
-          title={this.props.title}
-          description={this.props.description}
-          id={this.props.id}
-          isDone={this.props.isDone}
-          isImportant={this.props.isImportant}
-          tasks={this.props.tasks}
         />
         <div className={taskClassName}>
           <div className={styles.taskInfo}>
