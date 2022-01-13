@@ -83,12 +83,12 @@ class TodoTask extends Component {
               id={this.props.id}
             />
             <DoneButton 
-              isDoneToggle={this.props.isDoneToggle}
+              isTaskPropertyToggle={this.props.isTaskPropertyToggle}
               id={this.props.id}
               isDone={this.props.isDone}
             />
             <ImportantButton
-              isImportantToggle={this.props.isImportantToggle}
+              isTaskPropertyToggle={this.props.isTaskPropertyToggle}
               id={this.props.id}
               isImportant={this.props.isImportant}
             />

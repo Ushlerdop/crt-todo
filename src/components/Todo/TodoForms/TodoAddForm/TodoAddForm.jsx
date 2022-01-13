@@ -39,7 +39,7 @@ class TodoAddForm extends Component {
     /* хотелось бы использовать для валидации React Hook Form, 
     но он не работает в классовых компонентах. Поэтому нативным способом */
 
-    //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
+    //проверка на существование задачи с таким же тайтлом
     if (this.props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
       return alert(`You already have a task with this Title`);
     }

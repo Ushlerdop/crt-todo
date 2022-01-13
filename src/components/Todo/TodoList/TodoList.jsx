@@ -8,11 +8,12 @@ class TodoList extends Component {
     super(props);
     this.state = {
       currentTasks: this.props.tasks,
+      activeTasksFilter: 'all',
     }
     this.setCurrentTasks = this.setCurrentTasks.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, _) {
     if (this.props.tasks !== prevProps.tasks) {
       this.setState({
         currentTasks: this.props.tasks,
@@ -21,21 +22,19 @@ class TodoList extends Component {
   }
 
   setCurrentTasks(value) {
-    if (value === 'all') {
-      this.setState({
-        currentTasks: this.props.tasks,
-      })
-    } else if (value === 'important') {
-      const newTasks = [...this.props.tasks].filter(item => item.isImportant === true);
-      this.setState({
-        currentTasks: newTasks,
-      })
-    } else {
-      const newTasks = [...this.props.tasks].filter(item => item.isDone === value);
-      this.setState({
-        currentTasks: newTasks,
-      })
-    }
+    this.setState((_, prevProps) => {
+      const condition = value === "important" 
+        ? { property: "isImportant", comparator: true } 
+        : { property: "isDone", comparator: value}
+  
+      const tasks = value === 'all' 
+        ? prevProps.tasks 
+        : (
+          prevProps.tasks.filter(item => item[condition.property] === condition.comparator)  
+      )
+  
+      return {currentTasks: tasks}
+    })
   }
 
   render() {

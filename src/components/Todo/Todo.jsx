@@ -12,61 +12,51 @@ class Todo extends Component {
     }
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-    this.isDoneToggle = this.isDoneToggle.bind(this);
-    this.isImportantToggle = this.isImportantToggle.bind(this);
     this.updateTask = this.updateTask.bind(this);
+    this.isTaskPropertyToggle = this.isTaskPropertyToggle.bind(this);
   }
 
   addTask(task) {
-    this.setState({
-      tasks: [task, ...this.state.tasks]
-    })
+    this.setState(prevState => ({
+      tasks: [task, ...prevState.tasks]
+    }))
   }
 
   deleteTask(id) {
-    const tasks = this.state.tasks.filter(task => task.id !== id);
-    this.setState({
-      tasks,
+    this.setState(prevState => {
+      const tasks = prevState.tasks.filter(task => task.id !== id);
+
+      return {tasks}
     })
   }
 
   updateTask(id, updatedTask) {
-    const tasks = this.state.tasks.map(task => {
-      if (task.id === id) {
-        return updatedTask;
-      }
-      return task;
-    });
+    this.setState(prevState => {
+      const tasks = prevState.tasks.map(task => {
+        if (task.id === id) {
+          return updatedTask;
+        }
+        return task;
+      });
 
-    this.setState({tasks});
+      return {tasks}
+    });
   }
 
-  isDoneToggle(id) {
-    const tasks = this.state.tasks.map(task => {
-      if (task.id === id) {
-        return {
-          ...task,
-          isDone: !task.isDone,
+  isTaskPropertyToggle(id, property) {
+    this.setState(prevState => {
+      const tasks = prevState.tasks.map(task => {
+        if (task.id === id) {
+          return {
+            ...task,
+            [property]: !task[property],
+          }
         }
-      }
-      return task;
+        return task;
+      });
+
+      return {tasks}
     });
-
-    this.setState({tasks});
-  }
-
-  isImportantToggle(id) {
-    const tasks = this.state.tasks.map(task => {
-      if (task.id === id) {
-        return {
-          ...task,
-          isImportant: !task.isImportant,
-        }
-      }
-      return task;
-    });
-
-    this.setState({tasks});
   }
 
   render() {
@@ -78,10 +68,9 @@ class Todo extends Component {
         />
         <TodoList
           tasks={this.state.tasks} 
-          deleteTask={this.deleteTask} 
-          isDoneToggle={this.isDoneToggle} 
-          isImportantToggle={this.isImportantToggle}
+          deleteTask={this.deleteTask}
           updateTask={this.updateTask}
+          isTaskPropertyToggle={this.isTaskPropertyToggle}
         />
       </div>
     );

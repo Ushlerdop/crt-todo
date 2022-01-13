@@ -14,7 +14,7 @@ class ImportantButton extends Component {
     return (
       <button
         className={ImportantTasksClassName}
-        onClick={() => this.props.isImportantToggle(this.props.id)}
+        onClick={() => this.props.isTaskPropertyToggle(this.props.id, 'isImportant')}
       >★</button>
     )
   }

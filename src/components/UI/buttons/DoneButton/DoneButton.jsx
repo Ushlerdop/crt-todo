@@ -13,7 +13,7 @@ class DoneButton extends Component {
     
     return <button
       className={DoneTasksClassName}
-      onClick={() => this.props.isDoneToggle(this.props.id)}>
+      onClick={() => this.props.isTaskPropertyToggle(this.props.id, 'isDone')}>
       ✔</button>
   }
 }
