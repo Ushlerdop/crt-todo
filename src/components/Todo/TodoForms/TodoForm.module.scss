@@ -3,16 +3,19 @@
   &Container {
     border-radius: inherit;
     padding: 10px 10px 10px 10px;
+    margin-bottom: 25px;
     background: rgb(39, 39, 39);
-    width: 80vw;
-  }
-  &Input {
+    &UpdateForm {
+      margin-bottom: 0;
+      width: 80vw;
+    }
   }
   &Textarea {
     resize: none;
-    height: 72px;
+    height: 78px;
   }
-  &Input,&Textarea{
+  &Input,
+  &Textarea {
     background: none;
     border: 3px solid #9198ff;
     border-radius: 10px;
@@ -25,6 +28,7 @@
       box-shadow: 0 0 10px 0 #9198ff;
     }
   }
+
   ::-webkit-scrollbar {
     width: 14px; /* ширина для вертикального скролла */
     height: 8px; /* высота для горизонтального скролла */
@@ -35,7 +39,7 @@
 
   /* ползунок скроллбара */
   ::-webkit-scrollbar-thumb {
-    background: #a1a5d7;
+    background: #8d91ca;
     border-radius: 5px;
   }
 
@@ -94,6 +98,9 @@
   .todoForm {
     &Container {
       padding: 6px 6px 6px 6px;
+    }
+    &Textarea {
+      height: 44px;
     }
   }
 }

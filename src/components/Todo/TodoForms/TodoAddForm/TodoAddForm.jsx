@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './TodoAddForm.module.scss';
+import styles from '../TodoForm.module.scss';
 
 class TodoAddForm extends Component {
   constructor(props) {
@@ -13,11 +13,6 @@ class TodoAddForm extends Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount(){
-    //устанавливаем высоту textarea под высоту текста внутри, но с ограничением в 300 пикселей
-    this.textArea.current.style.height = `${Math.min(this.textArea.current.scrollHeight, 300)}px`;
   }
 
   onTitleChange(e) {
