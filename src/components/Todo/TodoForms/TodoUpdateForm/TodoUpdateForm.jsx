@@ -20,6 +20,10 @@ class TodoUpdateForm extends Component {
   Одна вызывается из модального окна с задачей, другая с главной страницы с общим списком задач.
   Если изменить в одной, а потом в другой, то пропсы подтягивались старые. С componentDidUpdate всё работает как надо.
   */
+  componentDidMount(){
+    //устанавливаем высоту textarea под высоту текста внутри, но с ограничением в 300 пикселей
+    this.textArea.current.style.height = `${Math.min(this.textArea.current.scrollHeight, 300)}px`;
+  }
   componentDidUpdate(prevProps, prevState) {
     if(prevState === this.state) {
       this.setState({

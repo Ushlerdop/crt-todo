@@ -10,10 +10,6 @@
       width: 80vw;
     }
   }
-  &Textarea {
-    resize: none;
-    height: 78px;
-  }
   &Input,
   &Textarea {
     background: none;
@@ -27,6 +23,10 @@
       outline: none;
       box-shadow: 0 0 10px 0 #9198ff;
     }
+  }
+  &Textarea {
+    resize: none;
+    height: 78px;
   }
 
   ::-webkit-scrollbar {
@@ -100,7 +100,7 @@
       padding: 6px 6px 6px 6px;
     }
     &Textarea {
-      height: 44px;
+      height: 46px;
     }
   }
 }
