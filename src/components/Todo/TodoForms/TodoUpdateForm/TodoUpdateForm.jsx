@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LanguageContext } from '../../../../LanguageContext';
 import Modal from '../../../Modal/Modal';
 import styles from '../TodoForm.module.scss';
 
@@ -87,37 +88,43 @@ class TodoUpdateForm extends Component {
 
   render() {
     return (
-      <div className={styles.todoFormContainerUpdateForm}>
-        <form onSubmit={this.handleSubmit} className={styles.todoForm}>
-          <div className={styles.titleInputSection}>
-            <div>
-              <label htmlFor="title">Title</label>
+      <LanguageContext.Consumer>
+        {
+          ({ language }) => (
+            <div className={styles.todoFormContainerUpdateForm}>
+              <form onSubmit={this.handleSubmit} className={styles.todoForm}>
+                <div className={styles.titleInputSection}>
+                  <div>
+                    <label htmlFor="title">{language.form.title}</label>
+                  </div>
+                  <input
+                    name='title'
+                    id='title'
+                    value={this.state.titleText}
+                    onChange={this.onTitleChange}
+                    className={styles.todoFormInput}
+                    ref={this.textInput}              
+                  />
+                </div>
+                <div className={styles.descriptionInputSection}>
+                  <div>
+                    <label htmlFor="description">{language.form.note}</label>
+                  </div>
+                  <textarea
+                    name='description'
+                    id='description'
+                    value={this.state.descriptionText}
+                    onChange={this.onDescriptionChange}
+                    className={styles.todoFormTextarea}
+                    ref={this.textArea}
+                  />
+                </div>
+                <button className={styles.addButton}>{language.form.updateButton}</button>
+              </form>
             </div>
-            <input
-              name='title'
-              id='title'
-              value={this.state.titleText}
-              onChange={this.onTitleChange}
-              className={styles.todoFormInput}
-              ref={this.textInput}              
-            />
-          </div>
-          <div className={styles.descriptionInputSection}>
-            <div>
-              <label htmlFor="description">Note</label>
-            </div>
-            <textarea
-              name='description'
-              id='description'
-              value={this.state.descriptionText}
-              onChange={this.onDescriptionChange}
-              className={styles.todoFormTextarea}
-              ref={this.textArea}
-            />
-          </div>
-          <button className={styles.addButton}>Update</button>
-        </form>
-      </div>
+          )
+        }
+      </LanguageContext.Consumer>
     );
   }
 }

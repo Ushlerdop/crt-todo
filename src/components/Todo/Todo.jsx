@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import mockTasks from '../../utils/tasks'; //замокал таски в отдельном файле
+import LanguageToggleButton from '../LanguageToggleButton/LanguageToggleButton';
 import styles from './Todo.module.scss';
 import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import TodoList from './TodoList/TodoList';
@@ -62,6 +63,7 @@ class Todo extends Component {
   render() {
     return (
       <div className={styles.todoApp}>
+        <LanguageToggleButton />
         <TodoAddForm 
           addTask={this.addTask}
           tasks={this.state.tasks}
