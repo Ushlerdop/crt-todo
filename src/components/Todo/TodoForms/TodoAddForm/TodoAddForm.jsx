@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
 import sleep from '../../../../utils/sleep';
-import WithLoader from '../../../WithLoader/WithLoader';
+import WithLoader from '../../../../HOCs/WithLoader/WithLoader';
 import styles from '../TodoForm.module.scss';
 
 class TodoAddForm extends Component {

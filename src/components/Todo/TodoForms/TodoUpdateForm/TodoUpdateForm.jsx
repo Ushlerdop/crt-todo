@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
-import Modal from '../../../Modal/Modal';
+import Modal from '../../../../HOCs/WithModal/WithModal';
 import styles from '../TodoForm.module.scss';
 
 class TodoUpdateForm extends Component {

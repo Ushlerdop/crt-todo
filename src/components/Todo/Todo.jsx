@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import mockTasks from '../../utils/tasks'; //замокал таски в отдельном файле
-import LanguageToggleButton from '../LanguageToggleButton/LanguageToggleButton';
-import WithLoader from '../WithLoader/WithLoader';
+import WithLoader from '../../HOCs/WithLoader/WithLoader';
 import styles from './Todo.module.scss';
 import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import TodoList from './TodoList/TodoList';
+import LanguageToggleButton from '../UI/buttons/LanguageToggleButton/LanguageToggleButton';
 
 class Todo extends Component {
   constructor(props) {

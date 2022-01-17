@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './Modal.module.scss';
+import styles from './WithModal.module.scss';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);

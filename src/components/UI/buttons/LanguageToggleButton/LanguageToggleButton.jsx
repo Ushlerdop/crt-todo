@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LanguageContext } from '../../LanguageContext';
+import { LanguageContext } from '../../../../LanguageContext';
 import styles from './LanguageToggleButton.module.scss';
 
 class LanguageToggleButton extends Component {
