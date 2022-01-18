@@ -1,0 +1,91 @@
+.task {
+  transition: 0.5s ease all, 0.2s ease transform;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  background: rgb(39, 39, 39);
+  box-shadow: 0 0 30px -10px black;
+  padding: 10px 10px 10px 10px;
+  margin-bottom: auto;
+  height: 100%;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.01);
+  }
+  &Container {
+    border-radius: inherit;
+    list-style-type: none;
+    margin-bottom: 15px;
+    width: 49.5%;
+  }
+  &Important {
+    background: #ebc041;
+    color: black;
+  }
+  &Done {
+    background: #0AC898;
+    color: black;
+  }
+  &Info {
+    padding: 0 15px 0 0;
+    flex: 15;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &Title {
+    word-break: break-word;
+    font-size: 1.2em;
+    font-weight: bold;    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    box-orient: vertical;
+    &Done {
+      text-decoration: line-through;
+    }
+  }
+  &Description {
+    word-break: break-word;
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    box-orient: vertical;
+    &Done {
+      text-decoration: line-through;
+    }
+  }
+  &Date {
+    font-size: 0.7em;
+    margin-top: auto;
+  }
+  &Control {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    & button {
+      margin-bottom: 5px;
+      box-shadow: 0 0 10px -4px black;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .task {
+    padding: 6px 6px 6px 6px;
+    &Container {
+      width: 100%;
+    }
+  }
+}

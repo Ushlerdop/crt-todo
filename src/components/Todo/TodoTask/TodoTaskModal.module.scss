@@ -1,0 +1,66 @@
+.task {
+  transition: 0.5s ease;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  background: rgb(39, 39, 39);
+  box-shadow: 0 0 30px -10px black;
+  padding: 10px 10px 10px 10px;
+  height: 100%;
+  &Container {
+    border-radius: inherit;
+    list-style-type: none;
+  }
+  &Important {
+    background: #ebc041;
+    color: black;
+  }
+  &Done {
+    background: #0AC898;
+    color: black;
+  }
+  &Info {
+    padding-right: 10px;
+    flex: 15;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &Title {
+    font-size: 1.2em;
+    font-weight: bold;
+    word-break: break-word;
+    &Done {
+      text-decoration: line-through;
+    }
+  }
+  &Description {
+    font-size: 0.9em;
+    word-break: break-word;
+    &Done {
+      text-decoration: line-through;
+    }
+  }
+  &Date {
+    font-size: 0.7em;
+    margin-top: auto;
+  }
+  &Control {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    & button {
+      margin-bottom: 5px;      
+      box-shadow: 0 0 10px -4px black;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .task {
+    padding: 6px 6px 6px 6px;
+    &Container {
+      width: 100%;
+    }
+  }
+}
