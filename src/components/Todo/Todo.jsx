@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import mockTasks from '../../utils/tasks'; //замокал таски в отдельном файле
+import WithLoader from '../../HOCs/WithLoader/WithLoader';
 import styles from './Todo.module.scss';
 import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import TodoList from './TodoList/TodoList';
+import LanguageToggleButton from '../UI/buttons/LanguageToggleButton/LanguageToggleButton';
 
 class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: mockTasks
+      tasks: mockTasks,
+      isAddFormLoading: false,
     }
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.isTaskPropertyToggle = this.isTaskPropertyToggle.bind(this);
+    this.setAddFormLoading = this.setAddFormLoading.bind(this);
   }
 
   addTask(task) {
@@ -59,12 +63,21 @@ class Todo extends Component {
     });
   }
 
+  setAddFormLoading(value) {
+    this.setState({
+      isAddFormLoading: value
+    })
+  }
+
   render() {
     return (
       <div className={styles.todoApp}>
+        <LanguageToggleButton />
         <TodoAddForm 
           addTask={this.addTask}
           tasks={this.state.tasks}
+          isLoading={this.state.isAddFormLoading}
+          setAddFormLoading={this.setAddFormLoading}
         />
         <TodoList
           tasks={this.state.tasks} 
@@ -77,4 +90,4 @@ class Todo extends Component {
   }
 }
 
-export default Todo;
+export default WithLoader(Todo);

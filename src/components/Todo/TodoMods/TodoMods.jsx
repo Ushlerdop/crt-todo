@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './TodoMods.module.scss';
 import classNames from 'classnames/bind';
+import { LanguageContext } from '../../../LanguageContext';
 
 const cx = classNames.bind(styles);
 
@@ -47,41 +48,47 @@ class TodoMods extends Component {
     });
     
     return (
-      <div className={styles.todoMods}>
-        <div className={styles.todoModsContainer}>
-          <button 
-            id={1} 
-            onClick={() => this.onClickHandler('all', 1)}
-            className={AllTasksClassName}
-          >
-            All tasks
-          </button>
+      <LanguageContext.Consumer>
+        {
+          ({ language }) => (
+            <div className={styles.todoMods}>
+              <div className={styles.todoModsContainer}>
+                <button 
+                  id={1} 
+                  onClick={() => this.onClickHandler('all', 1)}
+                  className={AllTasksClassName}
+                >
+                  {language.tasksMods.allTasks}
+                </button>
 
-          <button 
-           id={2}
-           onClick={() => this.onClickHandler(false, 2)}
-           className={ActiveTasksClassName}
-          >
-            Active tasks
-          </button>
+                <button 
+                id={2}
+                onClick={() => this.onClickHandler(false, 2)}
+                className={ActiveTasksClassName}
+                >
+                  {language.tasksMods.activeTasks}
+                </button>
 
-          <button 
-            id={3} 
-            onClick={() => this.onClickHandler('important', 3)}
-            className={ImportantTasksClassName}
-          >
-            Important tasks
-          </button>
+                <button 
+                  id={3} 
+                  onClick={() => this.onClickHandler('important', 3)}
+                  className={ImportantTasksClassName}
+                >
+                  {language.tasksMods.importantTasks}
+                </button>
 
-          <button 
-            id={4} 
-            onClick={() => this.onClickHandler(true, 4)}
-            className={DoneTasksClassName}
-          >
-            Done tasks
-          </button>
-        </div>
-      </div>
+                <button 
+                  id={4} 
+                  onClick={() => this.onClickHandler(true, 4)}
+                  className={DoneTasksClassName}
+                >
+                  {language.tasksMods.doneTasks}
+                </button>
+              </div>
+            </div>
+          )
+        }
+      </LanguageContext.Consumer>
     );
   }
 }
