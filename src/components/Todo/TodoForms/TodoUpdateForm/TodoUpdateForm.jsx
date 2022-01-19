@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
-import Modal from '../../../../HOCs/WithModal/WithModal';
+import withModal from '../../../../HOCs/withModal/withModal';
 import styles from '../TodoForm.module.scss';
 
 class TodoUpdateForm extends Component {
@@ -129,4 +129,4 @@ class TodoUpdateForm extends Component {
   }
 }
 
-export default Modal(TodoUpdateForm);
+export default withModal(TodoUpdateForm);

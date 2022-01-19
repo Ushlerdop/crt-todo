@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import styles from './WithModal.module.scss';
+import styles from './withModal.module.scss';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function Modal(Component) {
+function withModal(Component) {
   return class extends React.Component {
     render() {
       const modalClassName = cx({
@@ -34,4 +34,4 @@ function Modal(Component) {
   }
 }
 
-export default Modal;
+export default withModal;

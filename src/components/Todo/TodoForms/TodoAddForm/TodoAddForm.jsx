@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
-import sleep from '../../../../utils/sleep';
-import WithLoader from '../../../../HOCs/WithLoader/WithLoader';
 import styles from '../TodoForm.module.scss';
 
 class TodoAddForm extends Component {
@@ -18,13 +16,6 @@ class TodoAddForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillUnmount() {
-    // fix Warning: Can't perform a React state update on an unmounted component
-    this.setState = (state,callback)=>{
-        return;
-    };
-}
-
   onTitleChange(e) {
     this.setState({
       titleText: e.target.value
@@ -39,7 +30,7 @@ class TodoAddForm extends Component {
     this.textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
-  async handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     /* хотелось бы использовать для валидации React Hook Form, 
@@ -57,11 +48,6 @@ class TodoAddForm extends Component {
     }
 
     if (e.target.title.value.length <= maxTextInputLength && e.target.description.value.length <= maxTextAreaLength) {
-      //имитация обращения к API
-      this.props.setAddFormLoading(true);
-      sleep(600)
-      .then(() => this.props.setAddFormLoading(false))
-
       const title = e.target.title.value;
       const description = e.target.description.value;
       const editedDate = `${new Date().toLocaleDateString()}`;
@@ -127,4 +113,4 @@ class TodoAddForm extends Component {
   }
 }
 
-export default WithLoader(TodoAddForm);
+export default TodoAddForm;

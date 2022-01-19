@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Modal from '../../../HOCs/WithModal/WithModal';
+import withModal from '../../../HOCs/withModal/withModal';
 import ChangeTaskButton from '../../UI/buttons/ChangeTaskButton/ChangeTaskButton';
 import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';
 import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
@@ -94,4 +94,4 @@ class TodoTaskModal extends Component {
   }
 }
 
-export default Modal(TodoTaskModal);
+export default withModal(TodoTaskModal);

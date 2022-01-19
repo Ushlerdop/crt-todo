@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import loader from '../../assets/svg/loader.svg'
-import styles from './WithLoader.module.scss'
+import styles from './withLoader.module.scss'
 
-function WithLoader(Component) {
+function withLoader(Component) {
   return class extends React.Component {
     render() {
       return (
@@ -16,4 +16,4 @@ function WithLoader(Component) {
   }
 }
 
-export default WithLoader;
+export default withLoader;
