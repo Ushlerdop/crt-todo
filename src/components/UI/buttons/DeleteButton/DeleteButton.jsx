@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './deleteButton.module.scss';
+import PropTypes from 'prop-types';
 
 class DeleteButton extends Component {
   render() {
@@ -12,6 +13,11 @@ class DeleteButton extends Component {
       </button>
     );
   }
+}
+
+DeleteButton.propTypes = {
+  id: PropTypes.number,
+  deleteTask: PropTypes.func,
 }
 
 export default DeleteButton;

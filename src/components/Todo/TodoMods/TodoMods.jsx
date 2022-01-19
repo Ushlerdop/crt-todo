@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './TodoMods.module.scss';
 import classNames from 'classnames/bind';
 import { LanguageContext } from '../../../LanguageContext';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
@@ -92,5 +93,9 @@ class TodoMods extends Component {
     );
   }
 }
+
+TodoMods.propTypes = {
+  setCurrentTasks: PropTypes.func,
+};
 
 export default TodoMods;

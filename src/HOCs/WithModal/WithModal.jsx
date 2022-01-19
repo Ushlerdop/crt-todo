@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './withModal.module.scss';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types'
 
 const cx = classNames.bind(styles);
 
 function withModal(Component) {
-  return class extends React.Component {
+  class ModalWindow extends React.Component {
     render() {
       const modalClassName = cx({
         modal: true,
@@ -32,6 +33,13 @@ function withModal(Component) {
       );
     }
   }
+
+  ModalWindow.propTypes = {
+    active: PropTypes.bool,
+    setModalActive: PropTypes.func,  
+  };
+
+  return ModalWindow;
 }
 
 export default withModal;

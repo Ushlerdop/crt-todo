@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
 import styles from '../TodoForm.module.scss';
+import PropTypes from 'prop-types';
 
 class TodoAddForm extends Component {
   constructor(props) {
@@ -112,5 +113,10 @@ class TodoAddForm extends Component {
     );
   }
 }
+
+TodoAddForm.propTypes = {
+  tasks: PropTypes.array,
+  addTask: PropTypes.func,  
+};
 
 export default TodoAddForm;

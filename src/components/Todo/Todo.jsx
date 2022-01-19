@@ -5,19 +5,18 @@ import styles from './Todo.module.scss';
 import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import TodoList from './TodoList/TodoList';
 import LanguageToggleButton from '../UI/buttons/LanguageToggleButton/LanguageToggleButton';
+import PropTypes from 'prop-types';
 
 class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: mockTasks,
-      isAddFormLoading: false,
     }
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.isTaskPropertyToggle = this.isTaskPropertyToggle.bind(this);
-    this.setAddFormLoading = this.setAddFormLoading.bind(this);
   }
 
   addTask(task) {
@@ -30,7 +29,7 @@ class Todo extends Component {
     this.setState(prevState => {
       const tasks = prevState.tasks.filter(task => task.id !== id);
 
-      return {tasks}
+      return { tasks }
     })
   }
 
@@ -43,7 +42,7 @@ class Todo extends Component {
         return task;
       });
 
-      return {tasks}
+      return { tasks }
     });
   }
 
@@ -59,28 +58,20 @@ class Todo extends Component {
         return task;
       });
 
-      return {tasks}
+      return { tasks }
     });
-  }
-
-  setAddFormLoading(value) {
-    this.setState({
-      isAddFormLoading: value
-    })
   }
 
   render() {
     return (
       <div className={styles.todoApp}>
         <LanguageToggleButton />
-        <TodoAddForm 
+        <TodoAddForm
           addTask={this.addTask}
           tasks={this.state.tasks}
-          isLoading={this.state.isAddFormLoading}
-          setAddFormLoading={this.setAddFormLoading}
         />
         <TodoList
-          tasks={this.state.tasks} 
+          tasks={this.state.tasks}
           deleteTask={this.deleteTask}
           updateTask={this.updateTask}
           isTaskPropertyToggle={this.isTaskPropertyToggle}
@@ -89,5 +80,9 @@ class Todo extends Component {
     );
   }
 }
+
+Todo.propTypes = {
+  isLoading: PropTypes.bool,
+};
 
 export default withLoader(Todo);
