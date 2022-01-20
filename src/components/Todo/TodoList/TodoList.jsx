@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TodoTask from '../TodoTask/TodoTask';
 import TodoMods from '../TodoMods/TodoMods';
 import styles from './TodoList.module.scss';
+import PropTypes from 'prop-types';
 
 class TodoList extends Component {
   constructor(props) {
@@ -56,5 +57,12 @@ class TodoList extends Component {
     );
   }
 }
+
+TodoList.propTypes = {
+  tasks: PropTypes.array,
+  deleteTask: PropTypes.func,
+  updateTask: PropTypes.func,
+  isTaskPropertyToggle: PropTypes.func,
+};
 
 export default TodoList;

@@ -8,6 +8,7 @@ import TodoTaskModal from './TodoTaskModal';
 import styles from './TodoTask.module.scss';
 import classNames from 'classnames/bind';
 import { LanguageContext } from '../../../LanguageContext';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
@@ -108,5 +109,18 @@ class TodoTask extends Component {
     );
   }
 }
+
+TodoTask.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  editedDate: PropTypes.string,
+  description: PropTypes.string,
+  isDone: PropTypes.bool,
+  isImportant: PropTypes.bool,
+  tasks: PropTypes.array,
+  updateTask: PropTypes.func,
+  deleteTask: PropTypes.func,
+  isTaskPropertyToggle: PropTypes.func,
+};
 
 export default TodoTask;

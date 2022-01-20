@@ -8,6 +8,7 @@ import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
 import styles from './TodoTaskModal.module.scss';
 import classNames from 'classnames/bind';
 import { LanguageContext } from '../../../LanguageContext';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
@@ -93,5 +94,18 @@ class TodoTaskModal extends Component {
     );
   }
 }
+
+TodoTaskModal.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  editedDate: PropTypes.string,
+  description: PropTypes.string,
+  isDone: PropTypes.bool,
+  isImportant: PropTypes.bool,
+  tasks: PropTypes.array,
+  updateTask: PropTypes.func,
+  deleteTask: PropTypes.func,
+  isTaskPropertyToggle: PropTypes.func,
+};
 
 export default withModal(TodoTaskModal);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './ImportantButton.module.scss';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +19,12 @@ class ImportantButton extends Component {
       >★</button>
     )
   }
+}
+
+ImportantButton.propTypes = {
+  id: PropTypes.number,
+  isDone: PropTypes.bool,
+  isTaskPropertyToggle: PropTypes.func,
 }
 
 export default ImportantButton

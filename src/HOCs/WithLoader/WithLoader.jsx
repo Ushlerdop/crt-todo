@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react'
 import loader from '../../assets/svg/loader.svg'
 import styles from './withLoader.module.scss'
+import PropTypes from 'prop-types'
 
 function withLoader(Component) {
-  return class extends React.Component {
+  class Loader extends React.Component {
     render() {
       return (
         this.props.isLoading
@@ -14,6 +15,12 @@ function withLoader(Component) {
       );
     }
   }
+
+  Loader.propTypes = {
+    isLoading: PropTypes.bool,
+  };
+
+  return Loader;
 }
 
 export default withLoader;
