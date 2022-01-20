@@ -12,7 +12,6 @@ function Todo() {
 
   const addTask = (task) => {
     setTasks(prevState => {
-      console.log(prevState);
       return [task, ...prevState];
     });
   }
