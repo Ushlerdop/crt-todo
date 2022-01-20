@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -24,9 +23,5 @@ class ErrorBoundary extends Component {
     return this.props.children; 
   }
 }
-//принимает только один элемент. Не уверен, что это правильно, но мне так кажется :)
-ErrorBoundary.propTypes = {
-  children: PropTypes.element.isRequired
-};
 
 export default ErrorBoundary;
