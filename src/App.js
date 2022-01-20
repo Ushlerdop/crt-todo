@@ -1,5 +1,5 @@
 import './App.scss';
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Todo from './components/Todo/Todo';
 import { LanguageContext } from './LanguageContext';
 import En from './languages/En';
@@ -8,50 +8,36 @@ import sleep from './utils/sleep';
 import PropTypes from 'prop-types';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+function App() {
+  const [dictionary, setDictionary] = useState(Ru);
+  const [isLoading, setIsLoading] = useState(true);
 
-    this.state = {
-      dictionary: {
-        language: Ru,
-      },
-      isLoading: true,
-    };
-
-    this.languageToggle = this.languageToggle.bind(this);
-  }
-
-  componentDidMount() {
-    //имитация обращения к API
+  useEffect(() => {
     sleep(1000)
-      .then(() => this.setState({ isLoading: false }))
-  }
+      .then(() => setIsLoading(false));
+  });
 
-  languageToggle() {
-    this.setState(state => {
-      if ( state.dictionary.language === Ru ) {
-        return {dictionary: {language: En}}
+  const languageToggle = () => {
+    setDictionary(dictionary => {
+      if ( dictionary === Ru ) {
+        return En;
       } else {
-        return {dictionary: {language: Ru}}
+        return Ru;
       }
     })
   }
-  
-  render() {
-    console.log(this.state.dictionary.language.form.addButton);
-    return (
-      <div className="App">
-        <ErrorBoundary>
-          <LanguageContext.Provider value={{language:this.state.dictionary.language, languageToggle: this.languageToggle}}>
-            <Todo 
-              isLoading={this.state.isLoading}
-            />
-          </LanguageContext.Provider>
-        </ErrorBoundary>
-      </div>
-    );
-  }
+
+  return (
+    <div className="App">
+      <ErrorBoundary>
+        <LanguageContext.Provider value={{language:dictionary, languageToggle: languageToggle}}>
+          <Todo 
+            isLoading={isLoading}
+          />
+        </LanguageContext.Provider>
+      </ErrorBoundary>
+    </div>
+  );
 }
 
 LanguageContext.Provider.propTypes = {
