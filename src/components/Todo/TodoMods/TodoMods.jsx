@@ -17,7 +17,7 @@ class TodoMods extends Component {
   }
 
   onClickHandler(currentTaskValue, activeTaskId) {
-    this.props.setCurrentTasks(currentTaskValue);
+    this.props.filterCurrentTasks(currentTaskValue);
     this.setActiveTaskFilterId(activeTaskId);
   }
 
@@ -95,7 +95,7 @@ class TodoMods extends Component {
 }
 
 TodoMods.propTypes = {
-  setCurrentTasks: PropTypes.func,
+  filterCurrentTasks: PropTypes.func,
 };
 
 export default TodoMods;
