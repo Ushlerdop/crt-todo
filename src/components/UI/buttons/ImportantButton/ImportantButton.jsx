@@ -5,20 +5,18 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-class ImportantButton extends Component {
-  render() {
-    const ImportantTasksClassName = cx({
-      importantButton: true,
-      importantButtonTrue: this.props.isImportant,
-    });
-    
-    return (
-      <button
-        className={ImportantTasksClassName}
-        onClick={() => this.props.isTaskPropertyToggle(this.props.id, 'isImportant')}
-      >★</button>
-    )
-  }
+function ImportantButton(props) {
+  const ImportantTasksClassName = cx({
+    importantButton: true,
+    importantButtonTrue: props.isImportant,
+  });
+  
+  return (
+    <button
+      className={ImportantTasksClassName}
+      onClick={() => props.isTaskPropertyToggle(props.id, 'isImportant')}
+    >★</button>
+  )
 }
 
 ImportantButton.propTypes = {
