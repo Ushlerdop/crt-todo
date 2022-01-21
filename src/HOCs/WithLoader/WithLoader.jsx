@@ -4,16 +4,14 @@ import styles from './withLoader.module.scss'
 import PropTypes from 'prop-types'
 
 function withLoader(Component) {
-  class Loader extends React.Component {
-    render() {
-      return (
-        this.props.isLoading
-          ? <div className={styles.container}>
-              <img src={loader} alt="Загрузка/Loading" />
-            </div>
-          : <Component {...this.props} />
-      );
-    }
+  function Loader(props) {
+    return (
+      props.isLoading
+        ? <div className={styles.container}>
+            <img src={loader} alt="Загрузка/Loading" />
+          </div>
+        : <Component {...props} />
+    );
   }
 
   Loader.propTypes = {
