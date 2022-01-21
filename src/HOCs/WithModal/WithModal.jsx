@@ -6,32 +6,30 @@ import PropTypes from 'prop-types'
 const cx = classNames.bind(styles);
 
 function withModal(Component) {
-  class ModalWindow extends React.Component {
-    render() {
-      const modalClassName = cx({
-        modal: true,
-        active: this.props.active,
-      });
+  function ModalWindow(props) {
+    const modalClassName = cx({
+      modal: true,
+      active: props.active,
+    });
 
-      const modalContentClassName = cx({
-        modalContent: true,
-        active: this.props.active,
-      });
+    const modalContentClassName = cx({
+      modalContent: true,
+      active: props.active,
+    });
 
-      return (
+    return (
+      <div
+        className={modalClassName}
+        onClick={() => props.setModalActive(false)}
+      >
         <div
-          className={modalClassName}
-          onClick={() => this.props.setModalActive(false)}
+          className={modalContentClassName}
+          onClick={(e) => e.stopPropagation()}
         >
-          <div
-            className={modalContentClassName}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Component {...this.props} />
-          </div>
+          <Component {...props} />
         </div>
-      );
-    }
+      </div>
+    )
   }
 
   ModalWindow.propTypes = {
