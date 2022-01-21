@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './ImportantButton.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';

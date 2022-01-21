@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { useContext } from 'react';
 import withModal from '../../../HOCs/withModal/withModal';
 import ChangeTaskButton from '../../UI/buttons/ChangeTaskButton/ChangeTaskButton';
 import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';

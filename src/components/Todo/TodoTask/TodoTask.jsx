@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ChangeTaskButton from '../../UI/buttons/ChangeTaskButton/ChangeTaskButton';
 import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';
 import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
