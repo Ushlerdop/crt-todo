@@ -44,14 +44,15 @@ function TodoTask(props) {
 
   return (
     <li className={styles.taskContainer}>
-      <TodoUpdateForm
-        active={isEditModalActive}
-        setModalActive={setEditModalActive}
-        {...props}
-      />
       <TodoTaskModal
         active={isInfoModalActive}
         setModalActive={setInfoModalActive}
+        setEditModalActive={setEditModalActive}
+        {...props}
+      />
+      <TodoUpdateForm
+        active={isEditModalActive}
+        setModalActive={setEditModalActive}
         {...props}
       />
       <div className={taskClassName} onClick={() => setInfoModalActive(true)}>

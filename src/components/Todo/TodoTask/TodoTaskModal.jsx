@@ -4,7 +4,6 @@ import ChangeTaskButton from '../../UI/buttons/ChangeTaskButton/ChangeTaskButton
 import DeleteButton from '../../UI/buttons/DeleteButton/DeleteButton';
 import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
 import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
-import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
 import styles from './TodoTaskModal.module.scss';
 import classNames from 'classnames/bind';
 import { LanguageContext } from '../../../LanguageContext';
@@ -12,21 +11,9 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-class TodoTaskModal extends Component {
-    
+class TodoTaskModal extends Component {    
   constructor(props){
     super(props);
-
-    this.state={
-      isEditModalActive: false,
-    }
-    this.setEditModalActive = this.setEditModalActive.bind(this);
-  }  
-
-  setEditModalActive(value) {
-    this.setState({
-      isEditModalActive: value
-    })
   }
   
   render() {
@@ -50,11 +37,6 @@ class TodoTaskModal extends Component {
         {
           ({ language }) => (
             <div className={styles.taskContainer}>
-              <TodoUpdateForm
-                {...this.props}
-                active={this.state.isEditModalActive}
-                setModalActive={this.setEditModalActive}
-              />
               <div className={taskClassName}>
                 <div className={styles.taskInfo}>
                   <div className={titleTaskClassName}>
@@ -83,7 +65,7 @@ class TodoTaskModal extends Component {
                     isImportant={this.props.isImportant}
                   />
                   <ChangeTaskButton
-                    setEditModalActive={this.setEditModalActive}
+                    setEditModalActive={this.props.setEditModalActive}
                   />
                 </div>
               </div>

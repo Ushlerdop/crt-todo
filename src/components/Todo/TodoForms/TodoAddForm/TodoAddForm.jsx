@@ -9,7 +9,7 @@ function TodoAddForm(props) {
   const [titleText, setTitleText] = useState('');
   const [descriptionText, setDescriptionText] = useState('');
 
-  const { language } = useContext(LanguageContext)
+  const { language } = useContext(LanguageContext);
 
   const onTitleChange = (e) => {
     setTitleText(e.target.value);
