@@ -37,7 +37,7 @@ function App() {
               <Route path={'/*'}
                 element={<LinkPage />}
               />         
-              <Route path='/todo'
+              <Route path='/todo/*'
                 element={
                   <LanguageContext.Provider value={{ language: dictionary, languageToggle: languageToggle }}>
                     <Todo isLoading={isLoading} />
