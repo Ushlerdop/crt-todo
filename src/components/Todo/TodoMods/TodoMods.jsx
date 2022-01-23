@@ -35,7 +35,6 @@ function TodoMods(props) {
     <div className={styles.todoMods}>
       <div className={styles.todoModsContainer}>
         <button
-          id={1}
           onClick={() => onClickHandler('all')}
           className={AllTasksClassName}
         >
@@ -44,7 +43,6 @@ function TodoMods(props) {
 
 
         <button
-          id={2}
           onClick={() => onClickHandler('active')}
           className={ActiveTasksClassName}
         >
@@ -52,7 +50,6 @@ function TodoMods(props) {
         </button>
 
         <button
-          id={3}
           onClick={() => onClickHandler('important')}
           className={ImportantTasksClassName}
         >
@@ -60,7 +57,6 @@ function TodoMods(props) {
         </button>
 
         <button
-          id={4}
           onClick={() => onClickHandler('done')}
           className={DoneTasksClassName}
         >

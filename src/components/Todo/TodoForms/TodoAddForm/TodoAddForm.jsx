@@ -2,8 +2,11 @@ import React, { useContext, useRef, useState } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
 import styles from '../TodoForm.module.scss';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 function TodoAddForm(props) {
+  const tasks = useSelector(state => state.todo.tasks);
+
   const textArea = useRef(null);
   const textInput = useRef(null);
   const [titleText, setTitleText] = useState('');
@@ -24,7 +27,7 @@ function TodoAddForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     //проверка на существование задачи с таким же тайтлом
-    if (props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
+    if (tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
       return alert(`You already have a task with this Title`);
     }
 

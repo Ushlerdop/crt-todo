@@ -3,6 +3,9 @@ import { LanguageContext } from '../../../../LanguageContext';
 import withModal from '../../../../HOCs/withModal/withModal';
 import styles from '../TodoForm.module.scss';
 import PropTypes from 'prop-types';
+import { updateTask } from '../../../../store/tasksSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function TodoUpdateForm(props) {
   const textArea = useRef(null);
@@ -12,6 +15,9 @@ function TodoUpdateForm(props) {
   const [descriptionText, setDescriptionText] = useState(props.description);
 
   const { language } = useContext(LanguageContext);
+  
+  const dispatch = useDispatch();
+  const tasks = useSelector(state => state.todo.tasks);
 
   useLayoutEffect(() => {
     textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
@@ -32,13 +38,15 @@ function TodoUpdateForm(props) {
     textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
+  const changeTask = ({id, updatedTask}) => dispatch(updateTask({id, updatedTask})); 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const maxTextInputLength = 500;
     const maxTextAreaLength = 3000;
 
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
-    if (props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase() && task.id !== props.id)) {
+    if (tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase() && task.id !== props.id)) {
       return alert(`You already have a task with this Title`);
     }
 
@@ -61,7 +69,7 @@ function TodoUpdateForm(props) {
         editedDate,
         id,
       }
-      props.updateTask(props.id, task);
+      changeTask({id: props.id, updatedTask: task});
       props.setModalActive(false);
     } else {
       alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);

@@ -46,16 +46,13 @@ function TodoTaskModal(props) {
         </div>
         <div className={styles.taskControl}>
           <DeleteButton
-            deleteTask={props.deleteTask}
             id={props.id}
           />
           <DoneButton
-            isTaskPropertyToggle={props.isTaskPropertyToggle}
             id={props.id}
             isDone={props.isDone}
           />
           <ImportantButton
-            isTaskPropertyToggle={props.isTaskPropertyToggle}
             id={props.id}
             isImportant={props.isImportant}
           />

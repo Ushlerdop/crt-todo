@@ -3,28 +3,29 @@ import TodoTask from '../TodoTask/TodoTask';
 import TodoMods from '../TodoMods/TodoMods';
 import styles from './TodoList.module.scss';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 function TodoList(props) {
-
-  const [currentTasks, setCurrentTasks] = useState(props.tasks);
+  const tasks = useSelector(state => state.todo.tasks);
+  const [currentTasks, setCurrentTasks] = useState(tasks);
 
   const filterCurrentTasks = (value) => {
     setCurrentTasks(() => {
       switch (value) {
         case 'all':
-          return props.tasks;
+          return tasks;
           break;
         case 'active':
-          return props.tasks.filter(item => item.isDone === false);
+          return tasks.filter(item => item.isDone === false);
           break;
         case 'important':
-          return props.tasks.filter(item => item.isImportant === true);
+          return tasks.filter(item => item.isImportant === true);
           break;
         case 'done':
-          return props.tasks.filter(item => item.isDone === true);
+          return tasks.filter(item => item.isDone === true);
           break;
         default:
-          return props.tasks;
+          return tasks;
           break;
       }
     })
@@ -32,7 +33,7 @@ function TodoList(props) {
 
   useEffect(() => {
     filterCurrentTasks(props.filterStatus)
-  }, [props.tasks]);
+  }, [tasks]);
 
   return (
     <div>
@@ -45,7 +46,6 @@ function TodoList(props) {
           <TodoTask
             key={task.id}
             {...task}
-            {...props}
           />
         ))}
       </ul>
