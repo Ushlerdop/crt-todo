@@ -1,10 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import sleep from "../utils/sleep";
 import mockTasks from "../utils/tasks";
+
+export const fakeFetch = createAsyncThunk(
+  'tasks/fakeFetch',
+  async function(ms, token = {}) {
+    const response = await sleep(ms, token);
+    return response;
+  }
+)
 
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState: {
-    tasks: mockTasks,
+    tasks: [],
+    isAppLoading: null,
+    fetchingError: null,
   },
   reducers: {
     addTodo(state, action) {
@@ -38,6 +49,19 @@ const tasksSlice = createSlice({
       });
     },
   },
+  extraReducers: {
+    [fakeFetch.pending]: (state) => {
+      state.isAppLoading = true;
+      state.fetchingError = null;
+    },
+    [fakeFetch.fulfilled]: (state) => {
+      state.tasks = mockTasks;
+      state.isAppLoading = false;
+      state.fetchingError = null;
+    },
+    [fakeFetch.rejected]: (state) => {
+    },
+  }
 });
 
 export const { addTodo, deleteTask, updateTask, isTaskPropertyToggle } = tasksSlice.actions;

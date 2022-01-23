@@ -4,20 +4,22 @@ import Todo from './components/Todo/Todo';
 import { LanguageContext } from './LanguageContext';
 import En from './languages/En';
 import Ru from './languages/Ru';
-import sleep from './utils/sleep';
 import PropTypes from 'prop-types';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LinkPage from './components/LinkPage/LinkPage';
+import { fakeFetch } from './store/tasksSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const [dictionary, setDictionary] = useState(Ru);
-  const [isLoading, setIsLoading] = useState(true);
+  const isLoading = useSelector(state => state.todo.isAppLoading);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    sleep(1000)
-      .then(() => setIsLoading(false));
-  });
+      dispatch(fakeFetch(1000));
+  }, []);
 
   const languageToggle = () => {
     setDictionary(dictionary => {
