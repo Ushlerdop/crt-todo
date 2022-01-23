@@ -6,9 +6,12 @@ import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import TodoList from './TodoList/TodoList';
 import LanguageToggleButton from '../UI/buttons/LanguageToggleButton/LanguageToggleButton';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 function Todo() {
   const [tasks, setTasks] = useState(mockTasks);
+
+  const filterStatus = useParams()['*'];
 
   const addTask = (task) => {
     setTasks(prevState => {
@@ -64,6 +67,7 @@ function Todo() {
         deleteTask={deleteTask}
         updateTask={updateTask}
         isTaskPropertyToggle={isTaskPropertyToggle}
+        filterStatus={filterStatus}
       />
     </div>
   );

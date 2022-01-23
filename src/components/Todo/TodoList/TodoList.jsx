@@ -7,30 +7,38 @@ import PropTypes from 'prop-types';
 function TodoList(props) {
 
   const [currentTasks, setCurrentTasks] = useState(props.tasks);
-  
-
-  useEffect(() => {
-    setCurrentTasks(props.tasks)
-  }, [props.tasks]);
 
   const filterCurrentTasks = (value) => {
     setCurrentTasks(() => {
-      const condition = value === "important" 
-        ? { property: "isImportant", comparator: true } 
-        : { property: "isDone", comparator: value}
-  
-      const filteredTasks = value === 'all' 
-        ? props.tasks
-        : props.tasks.filter(item => item[condition.property] === condition.comparator)
-  
-      return filteredTasks
+      switch (value) {
+        case 'all':
+          return props.tasks;
+          break;
+        case 'active':
+          return props.tasks.filter(item => item.isDone === false);
+          break;
+        case 'important':
+          return props.tasks.filter(item => item.isImportant === true);
+          break;
+        case 'done':
+          return props.tasks.filter(item => item.isDone === true);
+          break;
+        default:
+          return props.tasks;
+          break;
+      }
     })
   }
+
+  useEffect(() => {
+    filterCurrentTasks(props.filterStatus)
+  }, [props.tasks]);
 
   return (
     <div>
       <TodoMods 
         filterCurrentTasks={filterCurrentTasks}
+        activeFilter={props.filterStatus}
       />
       <ul className={styles.todoList}>
         {currentTasks.map(task => (

@@ -1,36 +1,34 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './TodoMods.module.scss';
 import classNames from 'classnames/bind';
 import { LanguageContext } from '../../../LanguageContext';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function TodoMods(props) {
-  const [activeTaskFilterId, setActiveTaskFilterId] = useState(1);
-
   const { language } = useContext(LanguageContext);
 
-  const onClickHandler = (currentTaskValue, activeTaskId) => {
+  const onClickHandler = (currentTaskValue) => {
     props.filterCurrentTasks(currentTaskValue);
-    setActiveTaskFilterId(activeTaskId);
   }
 
   const AllTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: activeTaskFilterId === 1,
+    todoModsButtonActive: props.activeFilter === 'all',
   });
   const ActiveTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: activeTaskFilterId === 2,
+    todoModsButtonActive: props.activeFilter === 'active',
   });
   const ImportantTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: activeTaskFilterId === 3,
+    todoModsButtonActive: props.activeFilter === 'important',
   });
   const DoneTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: activeTaskFilterId === 4,
+    todoModsButtonActive: props.activeFilter === 'done',
   });
 
   return (
@@ -38,34 +36,35 @@ function TodoMods(props) {
       <div className={styles.todoModsContainer}>
         <button
           id={1}
-          onClick={() => onClickHandler('all', 1)}
+          onClick={() => onClickHandler('all')}
           className={AllTasksClassName}
         >
-          {language.tasksMods.allTasks}
+          <Link to={'./all'} className={styles.link}>{language.tasksMods.allTasks}</Link>
         </button>
+
 
         <button
           id={2}
-          onClick={() => onClickHandler(false, 2)}
+          onClick={() => onClickHandler('active')}
           className={ActiveTasksClassName}
         >
-          {language.tasksMods.activeTasks}
+          <Link to={'./active'} className={styles.link}>{language.tasksMods.activeTasks}</Link>
         </button>
 
         <button
           id={3}
-          onClick={() => onClickHandler('important', 3)}
+          onClick={() => onClickHandler('important')}
           className={ImportantTasksClassName}
         >
-          {language.tasksMods.importantTasks}
+          <Link to={'./important'} className={styles.link}>{language.tasksMods.importantTasks}</Link>
         </button>
 
         <button
           id={4}
-          onClick={() => onClickHandler(true, 4)}
+          onClick={() => onClickHandler('done')}
           className={DoneTasksClassName}
         >
-          {language.tasksMods.doneTasks}
+          <Link to={'./done'} className={styles.link}>{language.tasksMods.doneTasks}</Link>
         </button>
       </div>
     </div>
