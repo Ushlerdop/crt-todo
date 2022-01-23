@@ -1,61 +1,48 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoTask from '../TodoTask/TodoTask';
 import TodoMods from '../TodoMods/TodoMods';
 import styles from './TodoList.module.scss';
 import PropTypes from 'prop-types';
 
-class TodoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentTasks: this.props.tasks,
-      activeTasksFilter: 'all',
-    }
-    this.setCurrentTasks = this.setCurrentTasks.bind(this);
-  }
+function TodoList(props) {
 
-  componentDidUpdate(prevProps, _) {
-    if (this.props.tasks !== prevProps.tasks) {
-      this.setState({
-        currentTasks: this.props.tasks,
-      })
-    }
-  }
+  const [currentTasks, setCurrentTasks] = useState(props.tasks);
+  
 
-  setCurrentTasks(value) {
-    this.setState((_, prevProps) => {
+  useEffect(() => {
+    setCurrentTasks(props.tasks)
+  }, [props.tasks]);
+
+  const filterCurrentTasks = (value) => {
+    setCurrentTasks(() => {
       const condition = value === "important" 
         ? { property: "isImportant", comparator: true } 
         : { property: "isDone", comparator: value}
   
-      const tasks = value === 'all' 
-        ? prevProps.tasks 
-        : (
-          prevProps.tasks.filter(item => item[condition.property] === condition.comparator)  
-      )
+      const filteredTasks = value === 'all' 
+        ? props.tasks
+        : props.tasks.filter(item => item[condition.property] === condition.comparator)
   
-      return {currentTasks: tasks}
+      return filteredTasks
     })
   }
 
-  render() {
-    return (
-      <div>
-        <TodoMods 
-          setCurrentTasks={this.setCurrentTasks}
-        />
-        <ul className={styles.todoList}>
-          {this.state.currentTasks.map(task => (
-            <TodoTask
-              key={task.id}
-              {...task}
-              {...this.props}
-            />
-          ))}
-        </ul>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <TodoMods 
+        filterCurrentTasks={filterCurrentTasks}
+      />
+      <ul className={styles.todoList}>
+        {currentTasks.map(task => (
+          <TodoTask
+            key={task.id}
+            {...task}
+            {...props}
+          />
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 TodoList.propTypes = {

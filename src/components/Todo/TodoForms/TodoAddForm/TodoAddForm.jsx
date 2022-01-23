@@ -1,50 +1,36 @@
-import React, { Component } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
 import styles from '../TodoForm.module.scss';
 import PropTypes from 'prop-types';
 
-class TodoAddForm extends Component {
-  constructor(props) {
-    super(props);
-    this.textArea = React.createRef();
-    this.textInput = React.createRef();
-    this.state = {
-      titleText: '',
-      descriptionText: '',
-    }
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onDescriptionChange = this.onDescriptionChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+function TodoAddForm(props) {
+  const textArea = useRef(null);
+  const textInput = useRef(null);
+  const [titleText, setTitleText] = useState('');
+  const [descriptionText, setDescriptionText] = useState('');
+
+  const { language } = useContext(LanguageContext);
+
+  const onTitleChange = (e) => {
+    setTitleText(e.target.value);
   }
 
-  onTitleChange(e) {
-    this.setState({
-      titleText: e.target.value
-    });
+  const onDescriptionChange = (e) => {
+    setDescriptionText(e.target.value);
+    textArea.current.style.height = 'inherit';
+    textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
-  onDescriptionChange(e) {
-    this.setState({
-      descriptionText: e.target.value
-    });
-    this.textArea.current.style.height = 'inherit';
-    this.textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
-  }
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    /* хотелось бы использовать для валидации React Hook Form, 
-    но он не работает в классовых компонентах. Поэтому нативным способом */
-
     //проверка на существование задачи с таким же тайтлом
-    if (this.props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
+    if (props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
       return alert(`You already have a task with this Title`);
     }
 
     const maxTextInputLength = 500;
     const maxTextAreaLength = 3000;
-    if ( !(e.target.title.value && e.target.description.value) ) {
+    if (!(e.target.title.value && e.target.description.value)) {
       return alert('You have to text something in Title and Description');
     }
 
@@ -61,62 +47,52 @@ class TodoAddForm extends Component {
         editedDate,
         id,
       }
-      this.props.addTask(task);
-      this.setState({
-        titleText: '',
-        descriptionText: '',
-      });
+      props.addTask(task);
+      setTitleText('');
+      setDescriptionText('');
     } else {
       alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
     }
   }
 
-  render() {
-    return (
-      <LanguageContext.Consumer>
-        {
-          ({ language }) => (
-            <div className={styles.todoFormContainer}>
-              <form onSubmit={this.handleSubmit} className={styles.todoForm}>
-                <div className={styles.titleInputSection}>
-                  <div>
-                    <label htmlFor="title">{language.form.title}</label>
-                  </div>
-                  <input
-                    name='title'
-                    id='title'
-                    value={this.state.titleText}
-                    onChange={this.onTitleChange}
-                    className={styles.todoFormInput}
-                    ref={this.textInput}
-                  />
-                </div>
-                <div className={styles.descriptionInputSection}>
-                  <div>
-                    <label htmlFor="description">{language.form.note}</label>
-                  </div>
-                  <textarea
-                    name='description'
-                    id='description'
-                    value={this.state.descriptionText}
-                    onChange={this.onDescriptionChange}
-                    className={styles.todoFormTextarea}
-                    ref={this.textArea}
-                  />
-                </div>
-                <button className={styles.addButton}>{language.form.addButton}</button>
-              </form>
-            </div>
-          )
-        }
-      </LanguageContext.Consumer>
-    );
-  }
+  return (
+    <div className={styles.todoFormContainer}>
+      <form onSubmit={handleSubmit} className={styles.todoForm}>
+        <div className={styles.titleInputSection}>
+          <div>
+            <label htmlFor="title">{language.form.title}</label>
+          </div>
+          <input
+            name='title'
+            id='title'
+            value={titleText}
+            onChange={onTitleChange}
+            className={styles.todoFormInput}
+            ref={textInput}
+          />
+        </div>
+        <div className={styles.descriptionInputSection}>
+          <div>
+            <label htmlFor="description">{language.form.note}</label>
+          </div>
+          <textarea
+            name='description'
+            id='description'
+            value={descriptionText}
+            onChange={onDescriptionChange}
+            className={styles.todoFormTextarea}
+            ref={textArea}
+          />
+        </div>
+        <button className={styles.addButton}>{language.form.addButton}</button>
+      </form>
+    </div>
+  );
 }
 
 TodoAddForm.propTypes = {
   tasks: PropTypes.array,
-  addTask: PropTypes.func,  
+  addTask: PropTypes.func,
 };
 
 export default TodoAddForm;

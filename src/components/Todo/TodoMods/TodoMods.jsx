@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './TodoMods.module.scss';
 import classNames from 'classnames/bind';
 import { LanguageContext } from '../../../LanguageContext';
@@ -6,96 +6,74 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-class TodoMods extends Component {
-  constructor(props) {
-    super(props);
-    this.state={      
-      activeTaskFilterId: 1,
-    }
-    this.onClickHandler = this.onClickHandler.bind(this);
-    this.setActiveTaskFilterId = this.setActiveTaskFilterId.bind(this);
+function TodoMods(props) {
+  const [activeTaskFilterId, setActiveTaskFilterId] = useState(1);
+
+  const { language } = useContext(LanguageContext);
+
+  const onClickHandler = (currentTaskValue, activeTaskId) => {
+    props.filterCurrentTasks(currentTaskValue);
+    setActiveTaskFilterId(activeTaskId);
   }
 
-  onClickHandler(currentTaskValue, activeTaskId) {
-    this.props.setCurrentTasks(currentTaskValue);
-    this.setActiveTaskFilterId(activeTaskId);
-  }
+  const AllTasksClassName = cx({
+    todoModsButton: true,
+    todoModsButtonActive: activeTaskFilterId === 1,
+  });
+  const ActiveTasksClassName = cx({
+    todoModsButton: true,
+    todoModsButtonActive: activeTaskFilterId === 2,
+  });
+  const ImportantTasksClassName = cx({
+    todoModsButton: true,
+    todoModsButtonActive: activeTaskFilterId === 3,
+  });
+  const DoneTasksClassName = cx({
+    todoModsButton: true,
+    todoModsButtonActive: activeTaskFilterId === 4,
+  });
 
-  setActiveTaskFilterId(id) {
-    this.setState({
-      activeTaskFilterId: id,
-    })
-  }
+  return (
+    <div className={styles.todoMods}>
+      <div className={styles.todoModsContainer}>
+        <button
+          id={1}
+          onClick={() => onClickHandler('all', 1)}
+          className={AllTasksClassName}
+        >
+          {language.tasksMods.allTasks}
+        </button>
 
-  render() {
-    const AllTasksClassName = cx({
-      todoModsButton: true,
-      todoModsButtonActive: this.state.activeTaskFilterId === 1,
-    });
+        <button
+          id={2}
+          onClick={() => onClickHandler(false, 2)}
+          className={ActiveTasksClassName}
+        >
+          {language.tasksMods.activeTasks}
+        </button>
 
-    const ActiveTasksClassName = cx({
-      todoModsButton: true,
-      todoModsButtonActive: this.state.activeTaskFilterId === 2,
-    });
+        <button
+          id={3}
+          onClick={() => onClickHandler('important', 3)}
+          className={ImportantTasksClassName}
+        >
+          {language.tasksMods.importantTasks}
+        </button>
 
-    const ImportantTasksClassName = cx({
-      todoModsButton: true,
-      todoModsButtonActive: this.state.activeTaskFilterId === 3,
-    });
-
-    const DoneTasksClassName = cx({
-      todoModsButton: true,
-      todoModsButtonActive: this.state.activeTaskFilterId === 4,
-    });
-    
-    return (
-      <LanguageContext.Consumer>
-        {
-          ({ language }) => (
-            <div className={styles.todoMods}>
-              <div className={styles.todoModsContainer}>
-                <button 
-                  id={1} 
-                  onClick={() => this.onClickHandler('all', 1)}
-                  className={AllTasksClassName}
-                >
-                  {language.tasksMods.allTasks}
-                </button>
-
-                <button 
-                id={2}
-                onClick={() => this.onClickHandler(false, 2)}
-                className={ActiveTasksClassName}
-                >
-                  {language.tasksMods.activeTasks}
-                </button>
-
-                <button 
-                  id={3} 
-                  onClick={() => this.onClickHandler('important', 3)}
-                  className={ImportantTasksClassName}
-                >
-                  {language.tasksMods.importantTasks}
-                </button>
-
-                <button 
-                  id={4} 
-                  onClick={() => this.onClickHandler(true, 4)}
-                  className={DoneTasksClassName}
-                >
-                  {language.tasksMods.doneTasks}
-                </button>
-              </div>
-            </div>
-          )
-        }
-      </LanguageContext.Consumer>
-    );
-  }
+        <button
+          id={4}
+          onClick={() => onClickHandler(true, 4)}
+          className={DoneTasksClassName}
+        >
+          {language.tasksMods.doneTasks}
+        </button>
+      </div>
+    </div>
+  )
 }
 
 TodoMods.propTypes = {
-  setCurrentTasks: PropTypes.func,
+  filterCurrentTasks: PropTypes.func,
 };
 
 export default TodoMods;
