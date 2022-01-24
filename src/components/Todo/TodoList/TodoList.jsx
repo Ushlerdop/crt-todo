@@ -32,12 +32,11 @@ function TodoList(props) {
 
   useEffect(() => {
     filterCurrentTasks(props.filterStatus)
-  }, [tasks]);
+  }, [tasks, props.filterStatus]);
 
   return (
     <div>
       <TodoMods
-        filterCurrentTasks={filterCurrentTasks}
         activeFilter={props.filterStatus}
       />
       <ul className={styles.todoList}>

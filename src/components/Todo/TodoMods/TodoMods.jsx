@@ -9,10 +9,6 @@ const cx = classNames.bind(styles);
 function TodoMods(props) {
   const { language } = useContext(LanguageContext);
 
-  const onClickHandler = (currentTaskValue) => {
-    props.filterCurrentTasks(currentTaskValue);
-  }
-
   const AllTasksClassName = cx({
     todoModsButton: true,
     todoModsButtonActive: props.activeFilter === 'all',
@@ -33,32 +29,19 @@ function TodoMods(props) {
   return (
     <div className={styles.todoMods}>
       <div className={styles.todoModsContainer}>
-        <button
-          onClick={() => onClickHandler('all')}
-          className={AllTasksClassName}
-        >
+        <button className={AllTasksClassName}>
           <Link to={'./all'} className={styles.link}>{language.tasksMods.allTasks}</Link>
         </button>
 
-
-        <button
-          onClick={() => onClickHandler('active')}
-          className={ActiveTasksClassName}
-        >
+        <button className={ActiveTasksClassName}>
           <Link to={'./active'} className={styles.link}>{language.tasksMods.activeTasks}</Link>
         </button>
 
-        <button
-          onClick={() => onClickHandler('important')}
-          className={ImportantTasksClassName}
-        >
+        <button className={ImportantTasksClassName}>
           <Link to={'./important'} className={styles.link}>{language.tasksMods.importantTasks}</Link>
         </button>
 
-        <button
-          onClick={() => onClickHandler('done')}
-          className={DoneTasksClassName}
-        >
+        <button className={DoneTasksClassName}>
           <Link to={'./done'} className={styles.link}>{language.tasksMods.doneTasks}</Link>
         </button>
       </div>
