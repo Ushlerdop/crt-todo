@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import TodoTask from '../TodoTask/TodoTask';
 import TodoMods from '../TodoMods/TodoMods';
 import styles from './TodoList.module.scss';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 function TodoList(props) {
@@ -37,7 +36,7 @@ function TodoList(props) {
 
   return (
     <div>
-      <TodoMods 
+      <TodoMods
         filterCurrentTasks={filterCurrentTasks}
         activeFilter={props.filterStatus}
       />
@@ -52,12 +51,5 @@ function TodoList(props) {
     </div>
   );
 }
-
-TodoList.propTypes = {
-  tasks: PropTypes.array,
-  deleteTask: PropTypes.func,
-  updateTask: PropTypes.func,
-  isTaskPropertyToggle: PropTypes.func,
-};
 
 export default TodoList;

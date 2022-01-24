@@ -1,14 +1,17 @@
 import React, { useContext, useRef, useState } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
 import styles from '../TodoForm.module.scss';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo } from '../../../../store/tasksSlice';
 
 function TodoAddForm(props) {
   const tasks = useSelector(state => state.todo.tasks);
+  const dispatch = useDispatch();
+  const addTask = (task) => dispatch(addTodo(task));
 
   const textArea = useRef(null);
   const textInput = useRef(null);
+  
   const [titleText, setTitleText] = useState('');
   const [descriptionText, setDescriptionText] = useState('');
 
@@ -50,7 +53,7 @@ function TodoAddForm(props) {
         editedDate,
         id,
       }
-      props.addTask(task);
+      addTask(task);
       setTitleText('');
       setDescriptionText('');
     } else {
@@ -92,10 +95,5 @@ function TodoAddForm(props) {
     </div>
   );
 }
-
-TodoAddForm.propTypes = {
-  tasks: PropTypes.array,
-  addTask: PropTypes.func,
-};
 
 export default TodoAddForm;

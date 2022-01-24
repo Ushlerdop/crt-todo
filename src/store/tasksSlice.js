@@ -19,14 +19,10 @@ const tasksSlice = createSlice({
   },
   reducers: {
     addTodo(state, action) {
-      console.log(state);
-      console.log(action);
 
       state.tasks.push(action.payload);
     },
     deleteTask(state, action) {
-      console.log(state);
-      console.log(action);
       state.tasks = state.tasks.filter(task => task.id !== action.payload.id);
     },
     updateTask(state, action) {

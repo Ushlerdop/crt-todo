@@ -1,7 +1,6 @@
 import React from 'react'
 import loader from '../../assets/svg/loader.svg'
 import styles from './withLoader.module.scss'
-import PropTypes from 'prop-types'
 
 function withLoader(Component) {
   function Loader(props) {
@@ -13,10 +12,6 @@ function withLoader(Component) {
         : <Component {...props} />
     );
   }
-
-  Loader.propTypes = {
-    isLoading: PropTypes.bool,
-  };
 
   return Loader;
 }

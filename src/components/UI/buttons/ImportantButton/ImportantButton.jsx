@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './ImportantButton.module.scss';
 import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { isTaskPropertyToggle } from '../../../../store/tasksSlice';
 
@@ -22,12 +21,6 @@ function ImportantButton(props) {
       onClick={() => clickHandler(props.id, 'isImportant')}
     >★</button>
   )
-}
-
-ImportantButton.propTypes = {
-  id: PropTypes.number,
-  isDone: PropTypes.bool,
-  isTaskPropertyToggle: PropTypes.func,
 }
 
 export default ImportantButton

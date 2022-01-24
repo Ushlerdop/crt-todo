@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './TodoMods.module.scss';
 import classNames from 'classnames/bind';
 import { LanguageContext } from '../../../LanguageContext';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -66,9 +65,5 @@ function TodoMods(props) {
     </div>
   )
 }
-
-TodoMods.propTypes = {
-  filterCurrentTasks: PropTypes.func,
-};
 
 export default TodoMods;

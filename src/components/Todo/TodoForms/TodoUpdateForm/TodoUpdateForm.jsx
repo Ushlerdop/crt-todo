@@ -2,12 +2,15 @@ import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 
 import { LanguageContext } from '../../../../LanguageContext';
 import withModal from '../../../../HOCs/withModal/withModal';
 import styles from '../TodoForm.module.scss';
-import PropTypes from 'prop-types';
 import { updateTask } from '../../../../store/tasksSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
-function TodoUpdateForm(props) {
+function TodoUpdateForm(props) {  
+  const tasks = useSelector(state => state.todo.tasks);
+  const dispatch = useDispatch();
+  const changeTask = ({id, updatedTask}) => dispatch(updateTask({id, updatedTask})); 
+  
   const textArea = useRef(null);
   const textInput = useRef(null);
 
@@ -15,9 +18,6 @@ function TodoUpdateForm(props) {
   const [descriptionText, setDescriptionText] = useState(props.description);
 
   const { language } = useContext(LanguageContext);
-  
-  const dispatch = useDispatch();
-  const tasks = useSelector(state => state.todo.tasks);
 
   useLayoutEffect(() => {
     textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
@@ -37,8 +37,6 @@ function TodoUpdateForm(props) {
     textArea.current.style.height = 'inherit';
     textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
-
-  const changeTask = ({id, updatedTask}) => dispatch(updateTask({id, updatedTask})); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -110,15 +108,5 @@ function TodoUpdateForm(props) {
     </div>
   )
 }
-
-TodoUpdateForm.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  isDone: PropTypes.bool,
-  isImportant: PropTypes.bool,
-  tasks: PropTypes.array,
-  updateTask: PropTypes.func,
-};
 
 export default withModal(TodoUpdateForm);
