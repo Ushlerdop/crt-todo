@@ -4,19 +4,18 @@ import Todo from './components/Todo/Todo';
 import { LanguageContext } from './LanguageContext';
 import En from './languages/En';
 import Ru from './languages/Ru';
-import sleep from './utils/sleep';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LinkPage from './components/LinkPage/LinkPage';
+import { store } from './store';
+import { observer } from 'mobx-react';
 
 function App() {
   const [dictionary, setDictionary] = useState(Ru);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    sleep(1000)
-      .then(() => setIsLoading(false));
-  });
+    store.fakeFetch(1000);
+  }, []);
 
   const languageToggle = () => {
     setDictionary(dictionary => {
@@ -39,7 +38,7 @@ function App() {
               <Route path='/todo/*'
                 element={
                   <LanguageContext.Provider value={{ language: dictionary, languageToggle: languageToggle }}>
-                    <Todo isLoading={isLoading} />
+                    <Todo isLoading={store.isAppLoading} />
                   </LanguageContext.Provider>
                 }
               />
@@ -50,4 +49,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

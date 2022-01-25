@@ -1,4 +1,5 @@
-import { autorun, makeAutoObservable, toJS } from 'mobx';
+import { autorun, configure, makeAutoObservable, toJS } from 'mobx';
+import sleep from '../utils/sleep';
 import mockTasks from '../utils/tasks';
 
 class Store {
@@ -6,7 +7,11 @@ class Store {
     makeAutoObservable(this);
   }
 
-  tasks = mockTasks;
+  tasks = [];
+  currentTasks = [];
+  tasksFilterStatus = 'all';
+  isAppLoading = true;
+  fetchingError = null;
 
   addTask(task) {
     this.tasks.push(task);
@@ -36,10 +41,57 @@ class Store {
       return task;
     });
   }
+
+  setIsAppLoading = status => {
+    this.isAppLoading = status
+  }
+
+  setFetchingError = error => {
+    this.fetchingError = error
+  }
+
+  setTasks = TasksArray => {
+    this.tasks = TasksArray
+  }
+
+  fakeFetch = async (ms) => {
+    try {
+      await sleep(ms);
+      this.setIsAppLoading(true);
+      this.setFetchingError(null);
+    } catch(e) {
+      this.setIsAppLoading(false);
+      this.setFetchingError(e.message);
+    } finally {
+      this.setIsAppLoading(false);
+      this.setFetchingError(null);
+      this.setTasks(mockTasks);
+    }
+  }
+
+  setTasksFilterStatus = status => {
+    this.tasksFilterStatus = status
+  }
+
+  get filteredCurrentTasks() {
+    switch (this.tasksFilterStatus) {
+      case 'all':
+        return store.tasks;
+        break;
+      case 'active':
+        return store.tasks.filter(item => item.isDone === false);
+        break;
+      case 'important':
+        return store.tasks.filter(item => item.isImportant === true);
+        break;
+      case 'done':
+        return store.tasks.filter(item => item.isDone === true);
+        break;
+      default:
+        return store.tasks;
+        break;
+    }
+  }
 }
 
 export const store = new Store();
-
-autorun(() => {
-  console.log(toJS(store.tasks.map(task => task.isImportant)))
-})
