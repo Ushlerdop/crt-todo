@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
 import styles from '../TodoForm.module.scss';
-import PropTypes from 'prop-types';
 
 function TodoAddForm(props) {
   const textArea = useRef(null);
@@ -89,10 +88,5 @@ function TodoAddForm(props) {
     </div>
   );
 }
-
-TodoAddForm.propTypes = {
-  tasks: PropTypes.array,
-  addTask: PropTypes.func,
-};
 
 export default TodoAddForm;

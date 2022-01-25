@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import TodoTask from '../TodoTask/TodoTask';
 import TodoMods from '../TodoMods/TodoMods';
 import styles from './TodoList.module.scss';
-import PropTypes from 'prop-types';
 
 function TodoList(props) {
-
   const [currentTasks, setCurrentTasks] = useState(props.tasks);
 
   const filterCurrentTasks = (value) => {
@@ -32,7 +30,7 @@ function TodoList(props) {
 
   useEffect(() => {
     filterCurrentTasks(props.filterStatus)
-  }, [props.tasks]);
+  }, [props.tasks, props.filterStatus]);
 
   return (
     <div>
@@ -52,12 +50,5 @@ function TodoList(props) {
     </div>
   );
 }
-
-TodoList.propTypes = {
-  tasks: PropTypes.array,
-  deleteTask: PropTypes.func,
-  updateTask: PropTypes.func,
-  isTaskPropertyToggle: PropTypes.func,
-};
 
 export default TodoList;

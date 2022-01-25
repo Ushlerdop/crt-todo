@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 
 import { LanguageContext } from '../../../../LanguageContext';
 import withModal from '../../../../HOCs/withModal/withModal';
 import styles from '../TodoForm.module.scss';
-import PropTypes from 'prop-types';
 
 function TodoUpdateForm(props) {
   const textArea = useRef(null);
@@ -102,15 +101,5 @@ function TodoUpdateForm(props) {
     </div>
   )
 }
-
-TodoUpdateForm.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  isDone: PropTypes.bool,
-  isImportant: PropTypes.bool,
-  tasks: PropTypes.array,
-  updateTask: PropTypes.func,
-};
 
 export default withModal(TodoUpdateForm);

@@ -5,7 +5,6 @@ import styles from './Todo.module.scss';
 import TodoAddForm from './TodoForms/TodoAddForm/TodoAddForm';
 import TodoList from './TodoList/TodoList';
 import LanguageToggleButton from '../UI/buttons/LanguageToggleButton/LanguageToggleButton';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
 function Todo() {
@@ -72,9 +71,5 @@ function Todo() {
     </div>
   );
 }
-
-Todo.propTypes = {
-  isLoading: PropTypes.bool,
-};
 
 export default withLoader(Todo);

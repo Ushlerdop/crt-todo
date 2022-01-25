@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './withModal.module.scss';
 import classNames from 'classnames/bind';
-import PropTypes from 'prop-types'
 
 const cx = classNames.bind(styles);
 
@@ -31,12 +30,6 @@ function withModal(Component) {
       </div>
     )
   }
-
-  ModalWindow.propTypes = {
-    active: PropTypes.bool,
-    setModalActive: PropTypes.func,  
-  };
-
   return ModalWindow;
 }
 
