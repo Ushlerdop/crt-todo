@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './DoneButton.module.scss';
 import classNames from 'classnames/bind';
+import { store } from '../../../../store';
 
 const cx = classNames.bind(styles);
 
@@ -13,7 +14,7 @@ function DoneButton(props) {
   return (
     <button
       className={DoneTasksClassName}
-      onClick={() => props.isTaskPropertyToggle(props.id, 'isDone')}
+      onClick={() => store.isTaskPropertyToggle(props.id, 'isDone')}
     >✔</button>
   )
 }

@@ -1,10 +1,12 @@
 import React, { useContext, useRef, useState } from 'react';
 import { LanguageContext } from '../../../../LanguageContext';
+import { store } from '../../../../store';
 import styles from '../TodoForm.module.scss';
 
 function TodoAddForm(props) {
   const textArea = useRef(null);
   const textInput = useRef(null);
+  
   const [titleText, setTitleText] = useState('');
   const [descriptionText, setDescriptionText] = useState('');
 
@@ -23,7 +25,7 @@ function TodoAddForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     //проверка на существование задачи с таким же тайтлом
-    if (props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
+    if (store.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase())) {
       return alert(`You already have a task with this Title`);
     }
 
@@ -46,7 +48,7 @@ function TodoAddForm(props) {
         editedDate,
         id,
       }
-      props.addTask(task);
+      store.addTask(task);
       setTitleText('');
       setDescriptionText('');
     } else {

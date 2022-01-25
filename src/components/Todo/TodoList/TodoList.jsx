@@ -2,40 +2,41 @@ import React, { useEffect, useState } from 'react';
 import TodoTask from '../TodoTask/TodoTask';
 import TodoMods from '../TodoMods/TodoMods';
 import styles from './TodoList.module.scss';
+import { store } from '../../../store';
+import { observer } from 'mobx-react-lite';
 
 function TodoList(props) {
-  const [currentTasks, setCurrentTasks] = useState(props.tasks);
+  const [currentTasks, setCurrentTasks] = useState(store.tasks);
 
   const filterCurrentTasks = (value) => {
     setCurrentTasks(() => {
       switch (value) {
         case 'all':
-          return props.tasks;
+          return store.tasks;
           break;
         case 'active':
-          return props.tasks.filter(item => item.isDone === false);
+          return store.tasks.filter(item => item.isDone === false);
           break;
         case 'important':
-          return props.tasks.filter(item => item.isImportant === true);
+          return store.tasks.filter(item => item.isImportant === true);
           break;
         case 'done':
-          return props.tasks.filter(item => item.isDone === true);
+          return store.tasks.filter(item => item.isDone === true);
           break;
         default:
-          return props.tasks;
+          return store.tasks;
           break;
       }
     })
   }
 
   useEffect(() => {
-    filterCurrentTasks(props.filterStatus)
-  }, [props.tasks, props.filterStatus]);
+    filterCurrentTasks(props.filterStatus);
+  }, [store.tasks, props.filterStatus]);
 
   return (
     <div>
-      <TodoMods 
-        filterCurrentTasks={filterCurrentTasks}
+      <TodoMods
         activeFilter={props.filterStatus}
       />
       <ul className={styles.todoList}>
@@ -43,7 +44,6 @@ function TodoList(props) {
           <TodoTask
             key={task.id}
             {...task}
-            {...props}
           />
         ))}
       </ul>
@@ -51,4 +51,4 @@ function TodoList(props) {
   );
 }
 
-export default TodoList;
+export default observer(TodoList);

@@ -71,16 +71,13 @@ function TodoTask(props) {
           onClick={(e) => e.stopPropagation()}
         >
           <DeleteButton
-            deleteTask={props.deleteTask}
             id={props.id}
           />
           <DoneButton
-            isTaskPropertyToggle={props.isTaskPropertyToggle}
             id={props.id}
             isDone={props.isDone}
           />
           <ImportantButton
-            isTaskPropertyToggle={props.isTaskPropertyToggle}
             id={props.id}
             isImportant={props.isImportant}
           />

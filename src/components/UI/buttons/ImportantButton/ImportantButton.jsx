@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './ImportantButton.module.scss';
 import classNames from 'classnames/bind';
+import { store } from '../../../../store';
 
 const cx = classNames.bind(styles);
 
@@ -13,7 +14,7 @@ function ImportantButton(props) {
   return (
     <button
       className={ImportantTasksClassName}
-      onClick={() => props.isTaskPropertyToggle(props.id, 'isImportant')}
+      onClick={() => store.isTaskPropertyToggle(props.id, 'isImportant')}
     >★</button>
   )
 }

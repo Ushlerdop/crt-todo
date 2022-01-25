@@ -6,8 +6,6 @@ import TodoList from './TodoList/TodoList';
 import LanguageToggleButton from '../UI/buttons/LanguageToggleButton/LanguageToggleButton';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { store } from '../../store';
-
 
 function Todo() {
   const filterStatus = useParams()['*'];
@@ -16,14 +14,8 @@ function Todo() {
     <div className={styles.todoApp}>
       <LanguageToggleButton />
       <TodoAddForm
-        addTask={store.addTask}
-        tasks={store.tasks}
       />
       <TodoList
-        tasks={store.tasks}
-        deleteTask={store.deleteTask}
-        updateTask={store.updateTask}
-        isTaskPropertyToggle={store.isTaskPropertyToggle}
         filterStatus={filterStatus}
       />
     </div>
