@@ -12,19 +12,19 @@ function TodoMods(props) {
 
   const AllTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: store.tasksFilterStatus === 'all',
+    todoModsButtonActive: store.currentFilterStatus === store.filterStatusesList.ALL,
   });
   const ActiveTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: store.tasksFilterStatus === 'active',
+    todoModsButtonActive: store.currentFilterStatus === store.filterStatusesList.ACTIVE,
   });
   const ImportantTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: store.tasksFilterStatus === 'important',
+    todoModsButtonActive: store.currentFilterStatus === store.filterStatusesList.IMPORTANT,
   });
   const DoneTasksClassName = cx({
     todoModsButton: true,
-    todoModsButtonActive: store.tasksFilterStatus === 'done',
+    todoModsButtonActive: store.currentFilterStatus === store.filterStatusesList.DONE,
   });
 
   return (

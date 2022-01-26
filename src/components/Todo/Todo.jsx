@@ -11,7 +11,7 @@ import { store } from '../../store';
 function Todo() {
   const filterStatus = useParams()['*'];  
   useEffect(() => {
-    store.setTasksFilterStatus(filterStatus);
+    store.setCurrentFilterStatus(filterStatus);
   }, [filterStatus]);
 
   return (

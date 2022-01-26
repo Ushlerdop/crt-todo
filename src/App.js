@@ -32,7 +32,7 @@ function App() {
       <BrowserRouter>
         <ErrorBoundary>
           <Routes>
-              <Route path={'/*'}
+              <Route path='/'
                 element={<LinkPage />}
               />         
               <Route path='/todo/*'

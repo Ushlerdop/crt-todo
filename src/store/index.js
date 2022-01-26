@@ -1,17 +1,23 @@
-import { autorun, configure, makeAutoObservable, toJS } from 'mobx';
+import { autorun, configure, flow, makeAutoObservable, toJS } from 'mobx';
 import sleep from '../utils/sleep';
 import mockTasks from '../utils/tasks';
 
 class Store {
+  tasks = [];
+  currentTasks = [];
+  filterStatusesList = {
+    ALL: 'all',
+    ACTIVE: 'active',
+    IMPORTANT: 'important',
+    DONE: 'done',
+  }
+  currentFilterStatus = this.filterStatusesList.ALL;
+  isAppLoading = true;
+  fetchingError = null;
+
   constructor() {
     makeAutoObservable(this);
   }
-
-  tasks = [];
-  currentTasks = [];
-  tasksFilterStatus = 'all';
-  isAppLoading = true;
-  fetchingError = null;
 
   addTask(task) {
     this.tasks.push(task);
@@ -54,9 +60,10 @@ class Store {
     this.tasks = TasksArray
   }
 
-  fakeFetch = async (ms) => {
+  fakeFetch = flow(function*(ms) {
+    this.setIsAppLoading(true);
     try {
-      await sleep(ms);
+      yield sleep(ms);
       this.setIsAppLoading(true);
       this.setFetchingError(null);
     } catch(e) {
@@ -67,14 +74,14 @@ class Store {
       this.setFetchingError(null);
       this.setTasks(mockTasks);
     }
-  }
+  })
 
-  setTasksFilterStatus = status => {
-    this.tasksFilterStatus = status
+  setCurrentFilterStatus = status => {
+    this.currentFilterStatus = status
   }
 
   get filteredCurrentTasks() {
-    switch (this.tasksFilterStatus) {
+    switch (this.currentFilterStatus) {
       case 'all':
         return store.tasks;
         break;
