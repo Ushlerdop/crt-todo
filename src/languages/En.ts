@@ -1,4 +1,6 @@
-const En = {
+import { ILang } from "./interface"
+
+const En: ILang = {
   form: {
       title: 'Title',
       note: 'Note',

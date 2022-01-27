@@ -7,15 +7,15 @@ import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
 import TodoTaskModal from './TodoTaskModal';
 import styles from './TodoTask.module.scss';
 import classNames from 'classnames/bind';
-import { LanguageContext } from '../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../LanguageContext';
 
 const cx = classNames.bind(styles);
 
-function TodoTask(props) {
+function TodoTask(props): JSX.Element {
   const [isEditModalActive, setIsEditModalActive] = useState(false);
   const [isInfoModalActive, setIsInfoModalActive] = useState(false);
 
-  const { language } = useContext(LanguageContext);
+  const { language } = useContext<IContext>(LanguageContext);
 
   const setEditModalActive = (value) => {
     setIsEditModalActive(value);

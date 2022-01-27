@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import styles from './TodoMods.module.scss';
 import classNames from 'classnames/bind';
-import { LanguageContext } from '../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../LanguageContext';
 import { Link } from 'react-router-dom';
 import { store } from '../../../store';
 
 const cx = classNames.bind(styles);
 
-function TodoMods(props) {
-  const { language } = useContext(LanguageContext);
+function TodoMods(): JSX.Element {
+  const { language } = useContext<IContext>(LanguageContext);
 
   const AllTasksClassName = cx({
     todoModsButton: true,

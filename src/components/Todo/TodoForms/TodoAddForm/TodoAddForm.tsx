@@ -1,16 +1,16 @@
 import React, { useContext, useRef, useState } from 'react';
-import { LanguageContext } from '../../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../../LanguageContext';
 import { store } from '../../../../store';
 import styles from '../TodoForm.module.scss';
 
-function TodoAddForm(props) {
+function TodoAddForm(): JSX.Element {
   const textArea = useRef(null);
   const textInput = useRef(null);
   
   const [titleText, setTitleText] = useState('');
   const [descriptionText, setDescriptionText] = useState('');
 
-  const { language } = useContext(LanguageContext);
+  const { language } = useContext<IContext>(LanguageContext);
 
   const onTitleChange = (e) => {
     setTitleText(e.target.value);

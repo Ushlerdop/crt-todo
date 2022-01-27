@@ -6,12 +6,12 @@ import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
 import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
 import styles from './TodoTaskModal.module.scss';
 import classNames from 'classnames/bind';
-import { LanguageContext } from '../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../LanguageContext';
 
 const cx = classNames.bind(styles);
 
-function TodoTaskModal(props) {
-  const { language } = useContext(LanguageContext);
+function TodoTaskModal(props): JSX.Element {
+  const { language } = useContext<IContext>(LanguageContext);
 
   const taskClassName = cx({
     task: true,

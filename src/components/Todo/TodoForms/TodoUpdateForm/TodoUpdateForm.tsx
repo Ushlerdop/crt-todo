@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { LanguageContext } from '../../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../../LanguageContext';
 import withModal from '../../../../HOCs/withModal/withModal';
 import styles from '../TodoForm.module.scss';
 import { store } from '../../../../store';
 
-function TodoUpdateForm(props) {
+function TodoUpdateForm(props): JSX.Element {
   const textArea = useRef(null);
   const textInput = useRef(null);
 
   const [titleText, setTitleText] = useState(props.title);
   const [descriptionText, setDescriptionText] = useState(props.description);
 
-  const { language } = useContext(LanguageContext);
+  const { language } = useContext<IContext>(LanguageContext);
 
   useLayoutEffect(() => {
     textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;

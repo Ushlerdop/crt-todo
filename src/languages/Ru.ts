@@ -1,4 +1,6 @@
-const Ru = {
+import { ILang } from "./interface"
+
+const Ru: ILang = {
   form: {
       title: 'Заголовок',
       note: 'Описание',

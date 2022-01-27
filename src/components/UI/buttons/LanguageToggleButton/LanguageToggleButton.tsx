@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { LanguageContext } from '../../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../../LanguageContext';
 import styles from './LanguageToggleButton.module.scss';
 
-function LanguageToggleButton() {
-  const { language, languageToggle } = useContext(LanguageContext);
+function LanguageToggleButton(): JSX.Element {
+  const { language, languageToggle } = useContext<IContext>(LanguageContext);
   return (
     <div className={styles.container}>
       <button className={styles.langToggleButton} onClick={languageToggle}>{language.languageToggleButton}</button>
