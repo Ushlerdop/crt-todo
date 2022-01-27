@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 
 import { LanguageContext } from '../../../../LanguageContext';
 import withModal from '../../../../HOCs/withModal/withModal';
 import styles from '../TodoForm.module.scss';
-import PropTypes from 'prop-types';
+import { store } from '../../../../store';
 
 function TodoUpdateForm(props) {
   const textArea = useRef(null);
@@ -38,7 +38,7 @@ function TodoUpdateForm(props) {
     const maxTextAreaLength = 3000;
 
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
-    if (props.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase() && task.id !== props.id)) {
+    if (store.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase() && task.id !== props.id)) {
       return alert(`You already have a task with this Title`);
     }
 
@@ -61,7 +61,7 @@ function TodoUpdateForm(props) {
         editedDate,
         id,
       }
-      props.updateTask(props.id, task);
+      store.updateTask(props.id, task);
       props.setModalActive(false);
     } else {
       alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
@@ -102,15 +102,5 @@ function TodoUpdateForm(props) {
     </div>
   )
 }
-
-TodoUpdateForm.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  isDone: PropTypes.bool,
-  isImportant: PropTypes.bool,
-  tasks: PropTypes.array,
-  updateTask: PropTypes.func,
-};
 
 export default withModal(TodoUpdateForm);
