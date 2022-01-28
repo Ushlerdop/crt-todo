@@ -1,33 +1,34 @@
+import { ITaskObject, IFilterStatusList } from './interface';
 import { autorun, configure, flow, makeAutoObservable, toJS } from 'mobx';
 import sleep from '../utils/sleep';
 import mockTasks from '../utils/tasks';
 
 class Store {
-  tasks = [];
-  currentTasks = [];
-  filterStatusesList = {
+  tasks: ITaskObject[] = [];
+  currentTasks: ITaskObject[] = [];
+  filterStatusesList: IFilterStatusList = {
     ALL: 'all',
     ACTIVE: 'active',
     IMPORTANT: 'important',
     DONE: 'done',
   }
-  currentFilterStatus = this.filterStatusesList.ALL;
-  isAppLoading = true;
-  fetchingError = null;
+  currentFilterStatus: string = this.filterStatusesList.ALL;
+  isAppLoading: boolean = true;
+  fetchingError: string | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  addTask(task) {
+  addTask(task: ITaskObject): void {
     this.tasks.push(task);
   }
 
-  deleteTask(id) {
+  deleteTask(id: number): void {
     this.tasks = this.tasks.filter(task => task.id !== id);
   }
 
-  updateTask = (id, updatedTask) => {
+  updateTask = (id: number, updatedTask: ITaskObject): void => {
     this.tasks = this.tasks.map(task => {
       if (task.id === id) {
         return updatedTask;
@@ -36,37 +37,37 @@ class Store {
     });
   }
 
-  isTaskPropertyToggle = (id, property) => {
+  isTaskPropertyToggle = (id: number, property: string): void => {
     this.tasks = this.tasks.map(task => {
       if (task.id === id) {
         return {
           ...task,
-          [property]: !task[property],
+          [property as keyof ITaskObject]: !task[property as keyof ITaskObject],
         }
       }
       return task;
     });
   }
 
-  setIsAppLoading = status => {
+  setIsAppLoading = (status: boolean): void => {
     this.isAppLoading = status
   }
 
-  setFetchingError = error => {
+  setFetchingError = (error: string | null): void => {
     this.fetchingError = error
   }
 
-  setTasks = TasksArray => {
+  setTasks = (TasksArray: ITaskObject[]): void => {
     this.tasks = TasksArray
   }
 
-  fakeFetch = flow(function*(ms) {
+  fakeFetch = flow(function*(this: any, ms: number): Generator<Promise<any>, void, any> {
     this.setIsAppLoading(true);
     try {
       yield sleep(ms);
       this.setIsAppLoading(true);
       this.setFetchingError(null);
-    } catch(e) {
+    } catch(e: any) {
       this.setIsAppLoading(false);
       this.setFetchingError(e.message);
     } finally {
@@ -76,11 +77,11 @@ class Store {
     }
   })
 
-  setCurrentFilterStatus = status => {
+  setCurrentFilterStatus = (status: string): void => {
     this.currentFilterStatus = status
   }
 
-  get filteredCurrentTasks() {
+  get filteredCurrentTasks(): ITaskObject[] {
     switch (this.currentFilterStatus) {
       case 'all':
         return store.tasks;

@@ -9,9 +9,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LinkPage from './components/LinkPage/LinkPage';
 import { store } from './store';
 import { observer } from 'mobx-react';
+import { ILang } from './languages/interface';
 
 function App(): JSX.Element{
-  const [dictionary, setDictionary] = useState(Ru);
+  const [dictionary, setDictionary] = useState<ILang>(Ru);
 
   useEffect(() => {
     store.fakeFetch(1000);

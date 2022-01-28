@@ -8,8 +8,8 @@ import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { store } from '../../store';
 
-function Todo() {
-  const filterStatus = useParams()['*'];  
+function Todo(): JSX.Element {
+  const filterStatus: string = useParams()['*'];
   useEffect(() => {
     store.setCurrentFilterStatus(filterStatus);
   }, [filterStatus]);
