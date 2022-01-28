@@ -7,10 +7,11 @@ import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
 import styles from './TodoTaskModal.module.scss';
 import classNames from 'classnames/bind';
 import { IContext, LanguageContext } from '../../../LanguageContext';
+import { ITaskModalProps } from './interface';
 
 const cx = classNames.bind(styles);
 
-function TodoTaskModal(props): JSX.Element {
+function TodoTaskModal(props: ITaskModalProps): JSX.Element {
   const { language } = useContext<IContext>(LanguageContext);
 
   const taskClassName = cx({

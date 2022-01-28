@@ -5,8 +5,7 @@ import styles from './TodoList.module.scss';
 import { store } from '../../../store';
 import { observer } from 'mobx-react-lite';
 
-function TodoList(props) {
-
+function TodoList() {
   return (
     <div>
       <TodoMods

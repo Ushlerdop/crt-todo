@@ -8,20 +8,21 @@ import TodoTaskModal from './TodoTaskModal';
 import styles from './TodoTask.module.scss';
 import classNames from 'classnames/bind';
 import { IContext, LanguageContext } from '../../../LanguageContext';
+import { ITaskObject } from '../../../store/interface';
 
 const cx = classNames.bind(styles);
 
-function TodoTask(props): JSX.Element {
-  const [isEditModalActive, setIsEditModalActive] = useState(false);
-  const [isInfoModalActive, setIsInfoModalActive] = useState(false);
+function TodoTask(props: ITaskObject): JSX.Element {
+  const [isEditModalActive, setIsEditModalActive] = useState<boolean>(false);
+  const [isInfoModalActive, setIsInfoModalActive] = useState<boolean>(false);
 
   const { language } = useContext<IContext>(LanguageContext);
 
-  const setEditModalActive = (value) => {
+  const setEditModalActive = (value: React.SetStateAction<boolean>): void => {
     setIsEditModalActive(value);
   }
 
-  const setInfoModalActive = (value) => {
+  const setInfoModalActive = (value: React.SetStateAction<boolean>): void => {
     setIsInfoModalActive(value);
   }
 

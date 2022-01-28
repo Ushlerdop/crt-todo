@@ -5,7 +5,7 @@ import { store } from '../../../../store';
 
 const cx = classNames.bind(styles);
 
-function DoneButton(props) {
+function DoneButton(props: { isDone: any; id: number }) {
   const DoneTasksClassName = cx({
     doneButton: true,
     doneButtonTrue: props.isDone,

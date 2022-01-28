@@ -1,10 +1,6 @@
-export interface IUpdateFormProps {
+import { ITaskObject } from "../../../../store/interface";
+
+export interface IUpdateFormProps extends ITaskObject{
   active: boolean,
-  description: string,
-  editedDate: string,
-  id: number,
-  isDone: boolean,
-  isImportant: boolean,
-  setModalActive: (value: boolean) => React.Dispatch<React.SetStateAction<boolean>>,
-  title: string,
+  setModalActive: (value: boolean) => void,
 }
