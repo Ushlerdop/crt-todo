@@ -4,8 +4,14 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function withModal(Component) {
-  function ModalWindow(props) {
+type ModalProps = {
+  active: boolean,
+  setModalActive: (value: boolean) => void,
+}
+
+function withModal<Props>(Component: React.ComponentType<Props>) {
+  return (props: Props & ModalProps) => {
+    //сделал так, т.к. это общий HOC. Типы будут определяться уже внутри каждого <Component />
     const modalClassName = cx({
       modal: true,
       active: props.active,
@@ -30,7 +36,6 @@ function withModal(Component) {
       </div>
     )
   }
-  return ModalWindow;
 }
 
 export default withModal;
