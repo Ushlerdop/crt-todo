@@ -18,7 +18,7 @@ function App(): JSX.Element{
     store.fakeFetch(1000);
   }, []);
 
-  const languageToggle = () => {
+  const languageToggle = (): void => {
     setDictionary(dictionary => {
       if (dictionary === Ru) {
         return En;

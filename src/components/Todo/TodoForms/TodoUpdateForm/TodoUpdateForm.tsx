@@ -3,13 +3,15 @@ import { IContext, LanguageContext } from '../../../../LanguageContext';
 import withModal from '../../../../HOCs/withModal/withModal';
 import styles from '../TodoForm.module.scss';
 import { store } from '../../../../store';
+import { ITaskObject } from '../../../../store/interface';
+import { IUpdateFormProps } from './interface';
 
-function TodoUpdateForm(props): JSX.Element {
-  const textArea = useRef(null);
-  const textInput = useRef(null);
+function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {  
+  const textArea = useRef<HTMLTextAreaElement>(null);
+  const textInput = useRef<HTMLInputElement>(null);
 
-  const [titleText, setTitleText] = useState(props.title);
-  const [descriptionText, setDescriptionText] = useState(props.description);
+  const [titleText, setTitleText] = useState<string>(props.title);
+  const [descriptionText, setDescriptionText] = useState<string>(props.description);
 
   const { language } = useContext<IContext>(LanguageContext);
 
@@ -22,38 +24,41 @@ function TodoUpdateForm(props): JSX.Element {
     setDescriptionText(props.description);
   }, [props.active]);
 
-  const onTitleChange = (e) => {
+  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitleText(e.target.value);
   }
 
-  const onDescriptionChange = (e) => {
+  const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setDescriptionText(e.target.value);
     textArea.current.style.height = 'inherit';
     textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const maxTextInputLength = 500;
-    const maxTextAreaLength = 3000;
+    const maxTextInputLength: number = 500;
+    const maxTextAreaLength: number = 3000;
+
+    const titleValue = e.target[0].value;
+    const descriptionValue = e.target[1].value;
 
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
-    if (store.tasks.some(task => task.title.toLowerCase() === e.target.title.value.toLowerCase() && task.id !== props.id)) {
+    if (store.tasks.some(task => task.title.toLowerCase() === titleValue.toLowerCase() && task.id !== props.id)) {
       return alert(`You already have a task with this Title`);
     }
 
-    if (!(e.target.description.value && e.target.title.value)) {
+    if (!(descriptionValue && titleValue)) {
       return alert('You have to text something in title and description');
     }
 
-    if (e.target.title.value.length <= maxTextInputLength && e.target.description.value.length <= maxTextAreaLength) {
-      const title = e.target.title.value;
-      const description = e.target.description.value;
-      const isDone = props.isDone;
-      const isImportant = props.isImportant;
-      const editedDate = `${new Date().toLocaleDateString()}`;
-      const id = props.id;
-      const task = {
+    if (titleValue.length <= maxTextInputLength && descriptionValue.length <= maxTextAreaLength) {
+      const title: string = titleValue;
+      const description: string = descriptionValue;
+      const isDone: boolean = props.isDone;
+      const isImportant: boolean = props.isImportant;
+      const editedDate: string = `${new Date().toLocaleDateString()}`;
+      const id: number = props.id;
+      const task: ITaskObject = {
         title,
         description,
         isDone,
