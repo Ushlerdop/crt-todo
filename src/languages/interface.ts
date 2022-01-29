@@ -15,4 +15,5 @@ export interface ILang {
     edited: string;
   };
   languageToggleButton: string;
+  emptyTaskListMessage: string;
 }

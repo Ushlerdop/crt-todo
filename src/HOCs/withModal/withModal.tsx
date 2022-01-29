@@ -10,7 +10,7 @@ type ModalProps = {
 }
 
 function withModal<Props>(Component: React.ComponentType<Props>) {
-  return (props: Props & ModalProps) => {
+  return (props: Props & ModalProps): JSX.Element => {
     //сделал так, т.к. это общий HOC. Типы будут определяться уже внутри каждого <Component />
     const modalClassName = cx({
       modal: true,

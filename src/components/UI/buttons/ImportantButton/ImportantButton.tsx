@@ -5,7 +5,7 @@ import { store } from '../../../../store';
 
 const cx = classNames.bind(styles);
 
-function ImportantButton(props: { isImportant: any; id: number }) {
+function ImportantButton(props: { isImportant: any; id: number }): JSX.Element {
   const ImportantTasksClassName = cx({
     importantButton: true,
     importantButtonTrue: props.isImportant,

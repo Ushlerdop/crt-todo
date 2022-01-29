@@ -17,6 +17,7 @@ const Ru: ILang = {
       edited: 'Изменено'
   },
   languageToggleButton: 'Switch to English',
+  emptyTaskListMessage: 'В этой категории нет задач',
 }
 
 export default Ru

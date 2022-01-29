@@ -39,8 +39,8 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
     const maxTextInputLength: number = 500;
     const maxTextAreaLength: number = 3000;
 
-    const titleValue = e.target[0].value;
-    const descriptionValue = e.target[1].value;
+    const titleValue: string = e.target[0].value;
+    const descriptionValue: string = e.target[1].value;
 
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
     if (store.tasks.some(task => task.title.toLowerCase() === titleValue.toLowerCase() && task.id !== props.id)) {

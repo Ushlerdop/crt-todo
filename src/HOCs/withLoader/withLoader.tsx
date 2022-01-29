@@ -7,7 +7,7 @@ interface LoaderProps {
 }
 
 function withLoader<Props>(Component: React.ComponentType<Props>) {
-  return (props: Props & LoaderProps) => {
+  return (props: Props & LoaderProps): JSX.Element => {
     //сделал так, т.к. это общий HOC. Типы будут определяться уже внутри каждого <Component />
     return (
       props.isLoading

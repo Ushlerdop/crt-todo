@@ -17,6 +17,7 @@ const En: ILang = {
       edited: 'Edited'
   },
   languageToggleButton: 'Изменить на Русский',
+  emptyTaskListMessage: 'There are no tasks in this category',
 }
 
 export default En
