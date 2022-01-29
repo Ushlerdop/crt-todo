@@ -8,6 +8,6 @@ export interface IContext {
   languageToggle: () => void,
 }
 
-const defaultValue = { language: Ru, languageToggle: () => {} };
+const defaultValue: IContext = { language: Ru, languageToggle: () => {} };
 
-export const LanguageContext = React.createContext<IContext>(defaultValue);
+export const LanguageContext: React.Context<IContext> = React.createContext<IContext>(defaultValue);
