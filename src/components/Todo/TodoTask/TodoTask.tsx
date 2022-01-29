@@ -18,14 +18,6 @@ function TodoTask(props: ITaskObject): JSX.Element {
 
   const { language } = useContext<IContext>(LanguageContext);
 
-  const setEditModalActive = (value: React.SetStateAction<boolean>): void => {
-    setIsEditModalActive(value);
-  }
-
-  const setInfoModalActive = (value: React.SetStateAction<boolean>): void => {
-    setIsInfoModalActive(value);
-  }
-
   const taskClassName = cx({
     task: true,
     taskImportant: props.isImportant,
@@ -46,16 +38,16 @@ function TodoTask(props: ITaskObject): JSX.Element {
     <li className={styles.taskContainer}>
       <TodoTaskModal
         active={isInfoModalActive}
-        setModalActive={setInfoModalActive}
-        setEditModalActive={setEditModalActive}
+        setModalActive={setIsInfoModalActive}
+        setEditModalActive={setIsEditModalActive}
         {...props}
       />
       <TodoUpdateForm
         active={isEditModalActive}
-        setModalActive={setEditModalActive}
+        setModalActive={setIsEditModalActive}
         {...props}
       />
-      <div className={taskClassName} onClick={() => setInfoModalActive(true)}>
+      <div className={taskClassName} onClick={() => setIsInfoModalActive(true)}>
         <div className={styles.taskInfo}>
           <div className={titleTaskClassName}>
             {props.title}
@@ -83,7 +75,7 @@ function TodoTask(props: ITaskObject): JSX.Element {
             isImportant={props.isImportant}
           />
           <ChangeTaskButton
-            setEditModalActive={setEditModalActive}
+            setEditModalActive={setIsEditModalActive}
           />
         </div>
       </div>

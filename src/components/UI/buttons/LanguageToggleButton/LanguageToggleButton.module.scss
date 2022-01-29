@@ -2,11 +2,17 @@
   width: 100%;
   margin-bottom: 15px;
   padding: 10px 10px 10px 10px;
-  background: rgb(39, 39, 39);  
+  background: rgb(39, 39, 39);
   border-radius: 10px;
-
   .langToggleButton {
     width: 100%;
-    background: #4086F4;
+    background: #4086f4;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    padding: 6px 6px 6px 6px;
+    margin-bottom: 10px;
   }
 }

@@ -27,6 +27,10 @@ function withModal<Props>(Component: React.ComponentType<Props>) {
         className={modalClassName}
         onClick={() => props.setModalActive(false)}
       >
+        <button
+          className={styles.closeWindowButton}
+          onClick={() => props.setModalActive(false)}
+        >🠈</button>
         <div
           className={modalContentClassName}
           onClick={(e) => e.stopPropagation()}
