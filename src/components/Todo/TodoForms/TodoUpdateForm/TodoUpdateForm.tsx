@@ -24,14 +24,17 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
     setDescriptionText(props.description);
   }, [props.active]);
 
+  useEffect(() => {
+    textArea.current.style.height = 'inherit';
+    textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
+  }, [descriptionText])
+
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitleText(e.target.value);
   }
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setDescriptionText(e.target.value);
-    textArea.current.style.height = 'inherit';
-    textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,11 +47,11 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
 
     //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
     if (store.tasks.some(task => task.title.toLowerCase() === titleValue.toLowerCase() && task.id !== props.id)) {
-      return alert(`You already have a task with this Title`);
+      return alert(language.errorMessages.sameTitle);
     }
 
     if (!(descriptionValue && titleValue)) {
-      return alert('You have to text something in title and description');
+      return alert(language.errorMessages.emptyInputs);
     }
 
     if (titleValue.length <= maxTextInputLength && descriptionValue.length <= maxTextAreaLength) {
@@ -69,7 +72,7 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
       store.updateTask(props.id, task);
       props.setModalActive(false);
     } else {
-      alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
+      alert(language.errorMessages.maxLength(maxTextInputLength, maxTextAreaLength));
     }
   }
 

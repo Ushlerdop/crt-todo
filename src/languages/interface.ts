@@ -14,6 +14,11 @@ export interface ILang {
   task: {
     edited: string;
   };
+  errorMessages: {
+    sameTitle: string;
+    emptyInputs: string;
+    maxLength: (maxTextInputLength: number, maxTextAreaLength: number) => string;
+  }
   languageToggleButton: string;
   emptyTaskListMessage: string;
 }

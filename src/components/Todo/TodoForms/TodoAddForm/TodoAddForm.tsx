@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { IContext, LanguageContext } from '../../../../LanguageContext';
 import { store } from '../../../../store';
 import { ITaskObject } from '../../../../store/interface';
@@ -13,14 +13,17 @@ function TodoAddForm(): JSX.Element {
 
   const { language } = useContext<IContext>(LanguageContext);
 
+  useEffect(() => {
+    textArea.current.style.height = 'inherit';
+    textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
+  }, [descriptionText])
+
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitleText(e.target.value);
   }
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setDescriptionText(e.target.value);
-    textArea.current.style.height = 'inherit';
-    textArea.current.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
@@ -33,10 +36,10 @@ function TodoAddForm(): JSX.Element {
 
     //проверка на существование задачи с таким же тайтлом
     if (store.tasks.some(task => task.title.toLowerCase() === titleValue.toLowerCase())) {
-      return alert(`You already have a task with this Title`);
+      return alert(language.errorMessages.sameTitle);
     }
     if (!(titleValue && descriptionValue)) {
-      return alert('You have to text something in Title and Description');
+      return alert(language.errorMessages.emptyInputs);
     }
 
     if (titleValue.length <= maxTextInputLength && descriptionValue.length <= maxTextAreaLength) {
@@ -56,7 +59,7 @@ function TodoAddForm(): JSX.Element {
       setTitleText('');
       setDescriptionText('');
     } else {
-      alert(`You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`);
+      alert(language.errorMessages.maxLength(maxTextInputLength, maxTextAreaLength));
     }
   }
 
