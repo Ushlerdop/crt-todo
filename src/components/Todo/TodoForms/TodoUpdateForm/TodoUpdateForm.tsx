@@ -16,9 +16,6 @@ type FormInputs = {
 }
 
 function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
-  const [titleText] = useState<string>(props.title);
-  const [descriptionText] = useState<string>(props.description);
-
   const addForm = useRef(null);
 
   const { language } = useContext<IContext>(LanguageContext);
@@ -61,7 +58,11 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
 
   const onSubmit = handleSubmit((data: FormInputs) => {
     if (store.tasks.some(task => task.title.toLowerCase() === data.title.toLowerCase() && task.id !== props.id)) {
-      return alert(`You already have a task with this Title`);
+      return alert(language.errorMessages.form.sameTitle);
+    }
+    //закрываем окно с редактированием, т.к. данные не изменились
+    if (props.title === data.title && props.description === data.description) {
+      return props.setModalActive(false);
     }
 
     const title: string = data.title;
@@ -81,7 +82,7 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
     store.updateTask(props.id, task);
     props.setModalActive(false);
     //сбрасываю высоту textarea с description
-    addForm.current[1].style.height = 'inherit';
+    addForm.current[1].style.height = 'inherit';    
   });
 
   return (
@@ -94,7 +95,7 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
           <input
             name='title'
             id='title'
-            defaultValue={titleText}
+            defaultValue={props.title}
             className={titleClassName}
             {...register('title', validationRules.title)}
           />
@@ -113,7 +114,7 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
           <textarea
             name='description'
             id='description'
-            defaultValue={descriptionText}
+            defaultValue={props.description}
             className={descriptionClassName}
             {...register('description', { ...validationRules.description, onChange: onDescriptionChange })}
           />
