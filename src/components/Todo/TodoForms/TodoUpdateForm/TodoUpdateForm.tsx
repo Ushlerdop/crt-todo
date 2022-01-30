@@ -7,6 +7,9 @@ import { ITaskObject } from '../../../../store/interface';
 import { IUpdateFormProps } from './interface';
 import { useForm } from 'react-hook-form';
 import formValidationRules from '../validationRules';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
 
 type FormInputs = {
   [key: string]: string;
@@ -23,10 +26,19 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
   //правила для валидации с учётом языка
   const validationRules = formValidationRules(language);
 
-  const { register, formState: { errors }, handleSubmit,
-    setValue, clearErrors } = useForm<FormInputs>({
-      mode: 'onChange',
-    });
+  const { register, formState: { errors }, handleSubmit, setValue, clearErrors } = useForm<FormInputs>({
+    mode: 'onChange',
+  });  
+
+  const titleClassName = cx({
+    todoFormInput: true,
+    todoFormInputWithError: errors.title,
+  });
+
+  const descriptionClassName = cx({
+    todoFormTextarea: true,
+    todoFormTextareaWithError: errors.description,
+  });
 
   useLayoutEffect(() => {
     addForm.current[1].style.height = `${Math.min(addForm.current[1].scrollHeight, 300)}px`;
@@ -83,7 +95,7 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
             name='title'
             id='title'
             defaultValue={titleText}
-            className={styles.todoFormInput}
+            className={titleClassName}
             {...register('title', validationRules.title)}
           />
           <div>
@@ -102,7 +114,7 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
             name='description'
             id='description'
             defaultValue={descriptionText}
-            className={styles.todoFormTextarea}
+            className={descriptionClassName}
             {...register('description', { ...validationRules.description, onChange: onDescriptionChange })}
           />
           <div>

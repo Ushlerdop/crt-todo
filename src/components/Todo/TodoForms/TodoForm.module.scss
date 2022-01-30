@@ -23,13 +23,20 @@
       outline: none;
       box-shadow: 0 0 10px 0 #9198ff;
     }
+    &WithError {
+      border: 3px solid #eb4132;
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 10px 0 #eb4132;
+      }
+    }
   }
   &Textarea {
     resize: none;
     height: 78px;
   }
   & .formError {
-    color: #EB4132;
+    color: #eb4132;
     font-size: 0.8em;
   }
   /* Стрелки */

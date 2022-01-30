@@ -5,7 +5,9 @@ import { ITaskObject } from '../../../../store/interface';
 import styles from '../TodoForm.module.scss';
 import { useForm } from 'react-hook-form';
 import formValidationRules from '../validationRules';
+import classNames from 'classnames/bind';
 
+const cx = classNames.bind(styles);
 type FormInputs = {
   [key: string]: string;
 }
@@ -20,6 +22,16 @@ function TodoAddForm(): JSX.Element {
 
   const { register, formState: { errors }, reset, handleSubmit } = useForm<FormInputs>({
     mode: 'onChange',
+  });
+
+  const titleClassName = cx({
+    todoFormInput: true,
+    todoFormInputWithError: errors.title,
+  });
+
+  const descriptionClassName = cx({
+    todoFormTextarea: true,
+    todoFormTextareaWithError: errors.description,
   });
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -60,7 +72,7 @@ function TodoAddForm(): JSX.Element {
           <input
             name='title'
             id='title'
-            className={styles.todoFormInput}
+            className={titleClassName}
             {...register('title', validationRules.title)}
           />
           <div>
@@ -78,7 +90,7 @@ function TodoAddForm(): JSX.Element {
           <textarea
             name='description'
             id='description'
-            className={styles.todoFormTextarea}
+            className={descriptionClassName}
             {...register('description', { ...validationRules.description, onChange: onDescriptionChange })}
           />
           <div>
