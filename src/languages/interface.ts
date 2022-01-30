@@ -22,6 +22,7 @@ export interface ILang {
       minTitleLength: (minLength: number) => string;
       minDescriptionLength: (minLength: number) => string;
       emptyField: string;
+      commonError: string;
     }
   }
   languageToggleButton: string;

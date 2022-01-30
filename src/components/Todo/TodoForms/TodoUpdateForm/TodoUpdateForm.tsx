@@ -6,6 +6,7 @@ import { store } from '../../../../store';
 import { ITaskObject } from '../../../../store/interface';
 import { IUpdateFormProps } from './interface';
 import { useForm } from 'react-hook-form';
+import formValidationRules from '../validationRules';
 
 type FormInputs = {
   [key: string]: string;
@@ -19,11 +20,13 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
 
   const { language } = useContext<IContext>(LanguageContext);
 
-  const { register, formState: { errors }, handleSubmit, 
-    setValue, clearErrors} = useForm<FormInputs>({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
-  });
+  //правила для валидации с учётом языка
+  const validationRules = formValidationRules(language);
+
+  const { register, formState: { errors }, handleSubmit,
+    setValue, clearErrors } = useForm<FormInputs>({
+      mode: 'onChange',
+    });
 
   useLayoutEffect(() => {
     addForm.current[1].style.height = `${Math.min(addForm.current[1].scrollHeight, 300)}px`;
@@ -45,7 +48,7 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
   }
 
   const onSubmit = handleSubmit((data: FormInputs) => {
-    if (store.tasks.some(task => task.title.toLowerCase() === data.title.toLowerCase() && task.id !== props.id))  {
+    if (store.tasks.some(task => task.title.toLowerCase() === data.title.toLowerCase() && task.id !== props.id)) {
       return alert(`You already have a task with this Title`);
     }
 
@@ -68,36 +71,6 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
     //сбрасываю высоту textarea с description
     addForm.current[1].style.height = 'inherit';
   });
-  
-  const minTextInputLength: number = 1;
-  const minTextAreaLength: number = 1;
-  const maxTextInputLength: number = 500;
-  const maxTextAreaLength: number = 3000;
-  const rules = {
-    title: {
-      required: language.errorMessages.form.emptyField,
-      minLength: {
-        value: minTextInputLength,
-        message: language.errorMessages.form.minTitleLength(minTextInputLength),
-      },
-      maxLength: {
-        value: maxTextInputLength,
-        message: language.errorMessages.form.maxTitleLength(maxTextInputLength),
-      },
-    },
-    description: {
-      required: language.errorMessages.form.emptyField,
-      minLength: {
-        value: minTextAreaLength,
-        message: language.errorMessages.form.minDescriptionLength(minTextAreaLength)
-      },
-      maxLength: {
-        value: maxTextAreaLength,
-        message: language.errorMessages.form.maxDescriptionLength(maxTextAreaLength),
-      },
-      onChange: onDescriptionChange
-    },
-  }
 
   return (
     <div className={styles.todoFormContainerUpdateForm}>
@@ -111,10 +84,14 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
             id='title'
             defaultValue={titleText}
             className={styles.todoFormInput}
-            {...register('title', rules.title)}
+            {...register('title', validationRules.title)}
           />
           <div>
-            {errors?.title && <p>{errors?.title.message || 'Error'}</p>}
+            {errors?.title &&
+              <p className={styles.formError}>
+                {errors?.title.message || language.errorMessages.form.commonError}
+              </p>
+            }
           </div>
         </div>
         <div className={styles.descriptionInputSection}>
@@ -126,10 +103,14 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
             id='description'
             defaultValue={descriptionText}
             className={styles.todoFormTextarea}
-            {...register('description', rules.description)}
+            {...register('description', { ...validationRules.description, onChange: onDescriptionChange })}
           />
           <div>
-            {errors?.description && <p>{errors?.description.message || 'Error'}</p>}
+            {errors?.description &&
+              <p className={styles.formError}>
+                {errors?.description.message || language.errorMessages.form.commonError}
+              </p>
+            }
           </div>
         </div>
         <button className={styles.addButton}>{language.form.updateButton}</button>

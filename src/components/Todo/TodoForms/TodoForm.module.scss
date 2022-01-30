@@ -28,6 +28,10 @@
     resize: none;
     height: 78px;
   }
+  & .formError {
+    color: #EB4132;
+    font-size: 0.8em;
+  }
   /* Стрелки */
   ::-webkit-scrollbar-button:vertical:start:decrement {
     border-top-right-radius: 10px;

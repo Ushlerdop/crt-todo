@@ -24,6 +24,7 @@ const En: ILang = {
       minTitleLength: (minLength) => `You have to enter at least ${minLength} characters to title`,
       minDescriptionLength: (minLength) => `You have to enter at least ${minLength} characters to description`,
       emptyField: 'You have to text something here',
+      commonError: 'Something went wrong',
     }
   },
   languageToggleButton: 'Изменить на Русский',

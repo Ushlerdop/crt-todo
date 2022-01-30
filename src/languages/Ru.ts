@@ -24,6 +24,7 @@ const Ru: ILang = {
       minTitleLength: (minLength) => `Нужно ввести как минимум ${minLength} символов в заголовок`,
       minDescriptionLength: (minLength) => `Нужно ввести как минимум ${minLength} символов в описание`,      
       emptyField: 'Поле не может быть пустым',
+      commonError: 'Что-то пошло не так',
     }
   },
   languageToggleButton: 'Switch to English',
