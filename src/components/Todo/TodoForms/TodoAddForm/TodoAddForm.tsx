@@ -3,69 +3,83 @@ import { IContext, LanguageContext } from '../../../../LanguageContext';
 import { store } from '../../../../store';
 import { ITaskObject } from '../../../../store/interface';
 import styles from '../TodoForm.module.scss';
+import { useForm } from 'react-hook-form';
+
+type FormInputs = {
+  [key: string]: string;
+}
 
 function TodoAddForm(): JSX.Element {
-  const textArea = useRef<HTMLTextAreaElement>(null);
-  const textInput = useRef<HTMLInputElement>(null);
+  const addForm = useRef(null);
+
+  const { language } = useContext<IContext>(LanguageContext);  
+
+  const { register, formState: { errors }, reset, handleSubmit} = useForm<FormInputs>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+  });
+
+  const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {    
+    e.target.style.height = 'inherit';
+    e.target.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
+  }
+
+  const onSubmit = handleSubmit((data: FormInputs)  => {
+    if (store.tasks.some(task => task.title.toLowerCase() === data.title.toLowerCase())) {
+      return alert(language.errorMessages.form.sameTitle);
+    }
+    
+    const title: string = data.title;
+    const description: string = data.description;
+    const editedDate: string = `${new Date().toLocaleDateString()}`;
+    const id: number = Date.now();
+    const task: ITaskObject = {
+      title,
+      description,
+      isDone: false,
+      isImportant: false,
+      editedDate,
+      id,
+    }
+    store.addTask(task);
+    reset();
+    //сбрасываю высоту textarea с description
+    addForm.current[1].style.height = 'inherit';   
+  });
   
-  const [titleText, setTitleText] = useState<string>('');
-  const [descriptionText, setDescriptionText] = useState<string>('');
-
-  const { language } = useContext<IContext>(LanguageContext);
-
-  useEffect(() => {
-    textArea.current.style.height = 'inherit';
-    textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
-  }, [descriptionText])
-
-  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setTitleText(e.target.value);
-  }
-
-  const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setDescriptionText(e.target.value);
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
-    e.preventDefault();
-    const maxTextInputLength: number = 500;
-    const maxTextAreaLength: number = 3000;
-
-    const titleValue: string = e.target[0].value;
-    const descriptionValue: string = e.target[1].value;
-
-    //проверка на существование задачи с таким же тайтлом
-    if (store.tasks.some(task => task.title.toLowerCase() === titleValue.toLowerCase())) {
-      return alert(language.errorMessages.sameTitle);
-    }
-    if (!(titleValue && descriptionValue)) {
-      return alert(language.errorMessages.emptyInputs);
-    }
-
-    if (titleValue.length <= maxTextInputLength && descriptionValue.length <= maxTextAreaLength) {
-      const title: string = titleValue;
-      const description: string = descriptionValue;
-      const editedDate: string = `${new Date().toLocaleDateString()}`;
-      const id: number = Date.now();
-      const task: ITaskObject = {
-        title,
-        description,
-        isDone: false,
-        isImportant: false,
-        editedDate,
-        id,
-      }
-      store.addTask(task);
-      setTitleText('');
-      setDescriptionText('');
-    } else {
-      alert(language.errorMessages.maxLength(maxTextInputLength, maxTextAreaLength));
-    }
+  const minTextInputLength: number = 1;
+  const minTextAreaLength: number = 1;
+  const maxTextInputLength: number = 500;
+  const maxTextAreaLength: number = 3000;
+  const rules = {
+    title: {
+      required: language.errorMessages.form.emptyField,
+      minLength: {
+        value: minTextInputLength,
+        message: language.errorMessages.form.minTitleLength(minTextInputLength),
+      },
+      maxLength: {
+        value: maxTextInputLength,
+        message: language.errorMessages.form.maxTitleLength(maxTextInputLength),
+      },
+    },
+    description: {
+      required: language.errorMessages.form.emptyField,
+      minLength: {
+        value: minTextAreaLength,
+        message: language.errorMessages.form.minDescriptionLength(minTextAreaLength)
+      },
+      maxLength: {
+        value: maxTextAreaLength,
+        message: language.errorMessages.form.maxDescriptionLength(maxTextAreaLength),
+      },
+      onChange: onDescriptionChange
+    },
   }
 
   return (
     <div className={styles.todoFormContainer}>
-      <form onSubmit={handleSubmit} className={styles.todoForm}>
+      <form onSubmit={onSubmit} className={styles.todoForm} ref={addForm}>
         <div className={styles.titleInputSection}>
           <div>
             <label htmlFor="title">{language.form.title}</label>
@@ -73,11 +87,12 @@ function TodoAddForm(): JSX.Element {
           <input
             name='title'
             id='title'
-            value={titleText}
-            onChange={onTitleChange}
             className={styles.todoFormInput}
-            ref={textInput}
+            {...register('title', rules.title)}
           />
+          <div>
+            {errors?.title && <p>{errors?.title.message || 'Error'}</p>}
+          </div>
         </div>
         <div className={styles.descriptionInputSection}>
           <div>
@@ -86,11 +101,12 @@ function TodoAddForm(): JSX.Element {
           <textarea
             name='description'
             id='description'
-            value={descriptionText}
-            onChange={onDescriptionChange}
             className={styles.todoFormTextarea}
-            ref={textArea}
+            {...register('description', rules.description)}
           />
+          <div>
+            {errors?.description && <p>{errors?.description.message || 'Error'}</p>}
+          </div>
         </div>
         <button className={styles.addButton}>{language.form.addButton}</button>
       </form>

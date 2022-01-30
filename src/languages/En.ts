@@ -17,9 +17,14 @@ const En: ILang = {
       edited: 'Edited'
   },
   errorMessages: {
-    sameTitle: `You already have a task with this Title`,
-    emptyInputs: 'You have to text something in Title and Description',
-    maxLength: (maxTextInputLength, maxTextAreaLength) => `You can write no more than ${maxTextInputLength} characters in Title and ${maxTextAreaLength} in Description sections`,
+    form: {   
+      sameTitle: `You already have a task with this Title`,
+      maxTitleLength: (maxLength) => `You can write no more than ${maxLength} characters to Title`,
+      maxDescriptionLength: (maxLength) => `You can write no more than ${maxLength} characters to Description`,
+      minTitleLength: (minLength) => `You have to enter at least ${minLength} characters to title`,
+      minDescriptionLength: (minLength) => `You have to enter at least ${minLength} characters to description`,
+      emptyField: 'You have to text something here',
+    }
   },
   languageToggleButton: 'Изменить на Русский',
   emptyTaskListMessage: 'There are no tasks in this category',

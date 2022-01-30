@@ -5,80 +5,103 @@ import styles from '../TodoForm.module.scss';
 import { store } from '../../../../store';
 import { ITaskObject } from '../../../../store/interface';
 import { IUpdateFormProps } from './interface';
+import { useForm } from 'react-hook-form';
 
-function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {  
-  const textArea = useRef<HTMLTextAreaElement>(null);
-  const textInput = useRef<HTMLInputElement>(null);
+type FormInputs = {
+  [key: string]: string;
+}
 
-  const [titleText, setTitleText] = useState<string>(props.title);
-  const [descriptionText, setDescriptionText] = useState<string>(props.description);
+function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
+  const [titleText] = useState<string>(props.title);
+  const [descriptionText] = useState<string>(props.description);
+
+  const addForm = useRef(null);
 
   const { language } = useContext<IContext>(LanguageContext);
 
-  useLayoutEffect(() => {
-    textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
-  }, []);
+  const { register, formState: { errors }, handleSubmit, 
+    setValue, clearErrors} = useForm<FormInputs>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+  });
 
-  useEffect(() => {
-    setTitleText(props.title);
-    setDescriptionText(props.description);
+  useLayoutEffect(() => {
+    addForm.current[1].style.height = `${Math.min(addForm.current[1].scrollHeight, 300)}px`;
   }, [props.active]);
 
   useEffect(() => {
-    textArea.current.style.height = 'inherit';
-    textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
-  }, [descriptionText])
-
-  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setTitleText(e.target.value);
-  }
+    setValue("title", props.title, {
+      shouldValidate: true,
+    });
+    setValue("description", props.description, {
+      shouldValidate: true,
+    });
+    clearErrors();
+  }, [props.active]);
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setDescriptionText(e.target.value);
+    e.target.style.height = 'inherit';
+    e.target.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const maxTextInputLength: number = 500;
-    const maxTextAreaLength: number = 3000;
-
-    const titleValue: string = e.target[0].value;
-    const descriptionValue: string = e.target[1].value;
-
-    //проверка на существование задачи с таким же тайтлом, но другим ID (иначе будет конфликт задачи с самой собой)
-    if (store.tasks.some(task => task.title.toLowerCase() === titleValue.toLowerCase() && task.id !== props.id)) {
-      return alert(language.errorMessages.sameTitle);
+  const onSubmit = handleSubmit((data: FormInputs) => {
+    if (store.tasks.some(task => task.title.toLowerCase() === data.title.toLowerCase() && task.id !== props.id))  {
+      return alert(`You already have a task with this Title`);
     }
 
-    if (!(descriptionValue && titleValue)) {
-      return alert(language.errorMessages.emptyInputs);
+    const title: string = data.title;
+    const description: string = data.description;
+    const isDone: boolean = props.isDone;
+    const isImportant: boolean = props.isImportant;
+    const editedDate: string = `${new Date().toLocaleDateString()}`;
+    const id: number = props.id;
+    const task: ITaskObject = {
+      title,
+      description,
+      isDone,
+      isImportant,
+      editedDate,
+      id,
     }
-
-    if (titleValue.length <= maxTextInputLength && descriptionValue.length <= maxTextAreaLength) {
-      const title: string = titleValue;
-      const description: string = descriptionValue;
-      const isDone: boolean = props.isDone;
-      const isImportant: boolean = props.isImportant;
-      const editedDate: string = `${new Date().toLocaleDateString()}`;
-      const id: number = props.id;
-      const task: ITaskObject = {
-        title,
-        description,
-        isDone,
-        isImportant,
-        editedDate,
-        id,
-      }
-      store.updateTask(props.id, task);
-      props.setModalActive(false);
-    } else {
-      alert(language.errorMessages.maxLength(maxTextInputLength, maxTextAreaLength));
-    }
+    store.updateTask(props.id, task);
+    props.setModalActive(false);
+    //сбрасываю высоту textarea с description
+    addForm.current[1].style.height = 'inherit';
+  });
+  
+  const minTextInputLength: number = 1;
+  const minTextAreaLength: number = 1;
+  const maxTextInputLength: number = 500;
+  const maxTextAreaLength: number = 3000;
+  const rules = {
+    title: {
+      required: language.errorMessages.form.emptyField,
+      minLength: {
+        value: minTextInputLength,
+        message: language.errorMessages.form.minTitleLength(minTextInputLength),
+      },
+      maxLength: {
+        value: maxTextInputLength,
+        message: language.errorMessages.form.maxTitleLength(maxTextInputLength),
+      },
+    },
+    description: {
+      required: language.errorMessages.form.emptyField,
+      minLength: {
+        value: minTextAreaLength,
+        message: language.errorMessages.form.minDescriptionLength(minTextAreaLength)
+      },
+      maxLength: {
+        value: maxTextAreaLength,
+        message: language.errorMessages.form.maxDescriptionLength(maxTextAreaLength),
+      },
+      onChange: onDescriptionChange
+    },
   }
 
   return (
     <div className={styles.todoFormContainerUpdateForm}>
-      <form onSubmit={handleSubmit} className={styles.todoForm}>
+      <form onSubmit={onSubmit} className={styles.todoForm} ref={addForm}>
         <div className={styles.titleInputSection}>
           <div>
             <label htmlFor="title">{language.form.title}</label>
@@ -86,11 +109,13 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
           <input
             name='title'
             id='title'
-            value={titleText}
-            onChange={onTitleChange}
+            defaultValue={titleText}
             className={styles.todoFormInput}
-            ref={textInput}
+            {...register('title', rules.title)}
           />
+          <div>
+            {errors?.title && <p>{errors?.title.message || 'Error'}</p>}
+          </div>
         </div>
         <div className={styles.descriptionInputSection}>
           <div>
@@ -99,11 +124,13 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
           <textarea
             name='description'
             id='description'
-            value={descriptionText}
-            onChange={onDescriptionChange}
+            defaultValue={descriptionText}
             className={styles.todoFormTextarea}
-            ref={textArea}
+            {...register('description', rules.description)}
           />
+          <div>
+            {errors?.description && <p>{errors?.description.message || 'Error'}</p>}
+          </div>
         </div>
         <button className={styles.addButton}>{language.form.updateButton}</button>
       </form>
