@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './LinkPage.module.scss';
 
-const LinkPage = (): JSX.Element => {
+function LinkPage(): JSX.Element {
   return (
     <div className={styles.linkBlock}>
       <h1>Андрей Халиманенков</h1>
