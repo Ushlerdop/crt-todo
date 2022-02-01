@@ -15,9 +15,15 @@ export interface ILang {
     edited: string;
   };
   errorMessages: {
-    sameTitle: string;
-    emptyInputs: string;
-    maxLength(maxTextInputLength: number, maxTextAreaLength: number): string;
+    form: {
+      sameTitle: string;
+      maxTitleLength(maxLength: number): string;
+      maxDescriptionLength(maxLength: number): string;
+      minTitleLength(minLength: number): string;
+      minDescriptionLength(minLength: number): string;
+      emptyField: string;
+      commonError: string;
+    }
   }
   languageToggleButton: string;
   emptyTaskListMessage: string;

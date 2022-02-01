@@ -3,69 +3,57 @@ import { IContext, LanguageContext } from '../../../../LanguageContext';
 import { store } from '../../../../store';
 import { ITaskObject } from '../../../../store/interface';
 import styles from '../TodoForm.module.scss';
+import { useForm } from 'react-hook-form';
+import formValidationRules from '../validationRules';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
+type FormInputs = Record<string, string>
 
 function TodoAddForm(): JSX.Element {
-  const textArea = useRef<HTMLTextAreaElement>(null);
-  const textInput = useRef<HTMLInputElement>(null);
-  
-  const [titleText, setTitleText] = useState<string>('');
-  const [descriptionText, setDescriptionText] = useState<string>('');
+  const addForm = useRef<HTMLFormElement>(null);
 
   const { language } = useContext<IContext>(LanguageContext);
 
-  useEffect(() => {
-    textArea.current.style.height = 'inherit';
-    textArea.current.style.height = `${Math.min(textArea.current.scrollHeight, 300)}px`;
-  }, [descriptionText])
+  //правила для валидации с учётом языка
+  const validationRules = formValidationRules(language);
 
-  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setTitleText(e.target.value);
-  }
+  const { register, formState: { errors }, reset, handleSubmit } = useForm<FormInputs>({
+    mode: 'onChange',
+  });
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setDescriptionText(e.target.value);
+    e.target.style.height = 'inherit';
+    e.target.style.height = `${Math.min(e.target.scrollHeight, 300)}px`;
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
-    e.preventDefault();
-    const maxTextInputLength: number = 500;
-    const maxTextAreaLength: number = 3000;
-
-    const titleValue: string = e.target[0].value;
-    const descriptionValue: string = e.target[1].value;
-
-    //проверка на существование задачи с таким же тайтлом
-    if (store.tasks.some(task => task.title.toLowerCase() === titleValue.toLowerCase())) {
-      return alert(language.errorMessages.sameTitle);
-    }
-    if (!(titleValue && descriptionValue)) {
-      return alert(language.errorMessages.emptyInputs);
+  const onSubmit = handleSubmit((data: FormInputs) => {
+    if (store.tasks.some(task => task.title.toLowerCase() === data.title.toLowerCase())) {
+      return alert(language.errorMessages.form.sameTitle);
     }
 
-    if (titleValue.length <= maxTextInputLength && descriptionValue.length <= maxTextAreaLength) {
-      const title: string = titleValue;
-      const description: string = descriptionValue;
-      const editedDate: string = `${new Date().toLocaleDateString()}`;
-      const id: number = Date.now();
-      const task: ITaskObject = {
-        title,
-        description,
-        isDone: false,
-        isImportant: false,
-        editedDate,
-        id,
-      }
-      store.addTask(task);
-      setTitleText('');
-      setDescriptionText('');
-    } else {
-      alert(language.errorMessages.maxLength(maxTextInputLength, maxTextAreaLength));
+    const title: string = data.title;
+    const description: string = data.description;
+    const editedDate: string = `${new Date().toLocaleDateString()}`;
+    const id: number = Date.now();
+    const task: ITaskObject = {
+      title,
+      description,
+      isDone: false,
+      isImportant: false,
+      editedDate,
+      id,
     }
-  }
+    store.addTask(task);
+    reset();
+    //сбрасываю высоту textarea с description
+    const textArea = addForm.current[1] as HTMLTextAreaElement;
+    textArea.style.height = 'inherit';
+  });
 
   return (
     <div className={styles.todoFormContainer}>
-      <form onSubmit={handleSubmit} className={styles.todoForm}>
+      <form onSubmit={onSubmit} className={styles.todoForm} ref={addForm}>
         <div className={styles.titleInputSection}>
           <div>
             <label htmlFor="title">{language.form.title}</label>
@@ -73,11 +61,19 @@ function TodoAddForm(): JSX.Element {
           <input
             name='title'
             id='title'
-            value={titleText}
-            onChange={onTitleChange}
-            className={styles.todoFormInput}
-            ref={textInput}
+            className={cx({
+              todoFormInput: true,
+              todoFormInputWithError: errors.title,
+            })}
+            {...register('title', validationRules.title)}
           />
+          <div>
+            {errors?.title &&
+              <p className={styles.formError}>
+                {errors?.title.message || language.errorMessages.form.commonError}
+              </p>
+            }
+          </div>
         </div>
         <div className={styles.descriptionInputSection}>
           <div>
@@ -86,11 +82,19 @@ function TodoAddForm(): JSX.Element {
           <textarea
             name='description'
             id='description'
-            value={descriptionText}
-            onChange={onDescriptionChange}
-            className={styles.todoFormTextarea}
-            ref={textArea}
+            className={cx({
+              todoFormTextarea: true,
+              todoFormTextareaWithError: errors.description,
+            })}
+            {...register('description', { ...validationRules.description, onChange: onDescriptionChange })}
           />
+          <div>
+            {errors?.description &&
+              <p className={styles.formError}>
+                {errors?.description.message || language.errorMessages.form.commonError}
+              </p>
+            }
+          </div>
         </div>
         <button className={styles.addButton}>{language.form.addButton}</button>
       </form>
