@@ -6,25 +6,17 @@ const cx = classNames.bind(styles);
 
 type ModalProps = {
   active: boolean,
-  setModalActive: (value: boolean) => void,
+  setModalActive(value: boolean): void,
 }
 
 function withModal<Props>(Component: React.ComponentType<Props>) {
   return (props: Props & ModalProps): JSX.Element => {
-    //сделал так, т.к. это общий HOC. Типы будут определяться уже внутри каждого <Component />
-    const modalClassName = cx({
-      modal: true,
-      active: props.active,
-    });
-
-    const modalContentClassName = cx({
-      modalContent: true,
-      active: props.active,
-    });
-
     return (
       <div
-        className={modalClassName}
+        className={cx({
+          modal: true,
+          active: props.active,
+        })}
         onClick={() => props.setModalActive(false)}
       >
         <button
@@ -32,7 +24,10 @@ function withModal<Props>(Component: React.ComponentType<Props>) {
           onClick={() => props.setModalActive(false)}
         >🠈</button>
         <div
-          className={modalContentClassName}
+          className={cx({
+            modalContent: true,
+            active: props.active,
+          })}
           onClick={(e) => e.stopPropagation()}
         >
           <Component {...props} />

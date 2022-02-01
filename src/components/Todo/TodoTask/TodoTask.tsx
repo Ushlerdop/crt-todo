@@ -18,22 +18,6 @@ function TodoTask(props: ITaskObject): JSX.Element {
 
   const { language } = useContext<IContext>(LanguageContext);
 
-  const taskClassName = cx({
-    task: true,
-    taskImportant: props.isImportant,
-    taskDone: props.isDone,
-  });
-
-  const titleTaskClassName = cx({
-    taskTitle: true,
-    taskTitleDone: props.isDone,
-  });
-
-  const descriptionTaskClassName = cx({
-    taskDescription: true,
-    taskDescriptionDone: props.isDone,
-  });
-
   return (
     <li className={styles.taskContainer}>
       <TodoTaskModal
@@ -47,12 +31,22 @@ function TodoTask(props: ITaskObject): JSX.Element {
         setModalActive={setIsEditModalActive}
         {...props}
       />
-      <div className={taskClassName} onClick={() => setIsInfoModalActive(true)}>
+      <div className={cx({
+        task: true,
+        taskImportant: props.isImportant,
+        taskDone: props.isDone,
+      })} onClick={() => setIsInfoModalActive(true)}>
         <div className={styles.taskInfo}>
-          <div className={titleTaskClassName}>
+          <div className={cx({
+            taskTitle: true,
+            taskTitleDone: props.isDone,
+          })}>
             {props.title}
           </div>
-          <div className={descriptionTaskClassName}>
+          <div className={cx({
+            taskDescription: true,
+            taskDescriptionDone: props.isDone,
+          })}>
             {props.description}
           </div>
           <div className={styles.taskDate}>

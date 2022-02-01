@@ -14,30 +14,24 @@ const cx = classNames.bind(styles);
 function TodoTaskModal(props: ITaskModalProps): JSX.Element {
   const { language } = useContext<IContext>(LanguageContext);
 
-  const taskClassName = cx({
-    task: true,
-    taskImportant: props.isImportant,
-    taskDone: props.isDone,
-  });
-
-  const titleTaskClassName = cx({
-    taskTitle: true,
-    taskTitleDone: props.isDone,
-  });
-
-  const descriptionTaskClassName = cx({
-    taskDescription: true,
-    taskDescriptionDone: props.isDone,
-  });
-
   return (
     <div className={styles.taskContainer}>
-      <div className={taskClassName}>
+      <div className={cx({
+        task: true,
+        taskImportant: props.isImportant,
+        taskDone: props.isDone,
+      })}>
         <div className={styles.taskInfo}>
-          <div className={titleTaskClassName}>
+          <div className={cx({
+            taskTitle: true,
+            taskTitleDone: props.isDone,
+          })}>
             {props.title}
           </div>
-          <div className={descriptionTaskClassName}>
+          <div className={cx({
+            taskDescription: true,
+            taskDescriptionDone: props.isDone,
+          })}>
             {props.description}
           </div>
           <div className={styles.taskDate}>

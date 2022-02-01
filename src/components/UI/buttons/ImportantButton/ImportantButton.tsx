@@ -6,14 +6,12 @@ import { store } from '../../../../store';
 const cx = classNames.bind(styles);
 
 function ImportantButton(props: { isImportant: any; id: number }): JSX.Element {
-  const ImportantTasksClassName = cx({
-    importantButton: true,
-    importantButtonTrue: props.isImportant,
-  });
-  
   return (
     <button
-      className={ImportantTasksClassName}
+      className={cx({
+        importantButton: true,
+        importantButtonTrue: props.isImportant,
+      })}
       onClick={() => store.isTaskPropertyToggle(props.id, 'isImportant')}
     >★</button>
   )
