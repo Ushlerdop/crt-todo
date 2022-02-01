@@ -11,12 +11,10 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-type FormInputs = {
-  [key: string]: string;
-}
+type FormInputs = Record<string, string>
 
 function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
-  const addForm = useRef(null);
+  const updateForm = useRef<HTMLFormElement>(null);
 
   const { language } = useContext<IContext>(LanguageContext);
 
@@ -25,20 +23,11 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
 
   const { register, formState: { errors }, handleSubmit, setValue, clearErrors } = useForm<FormInputs>({
     mode: 'onChange',
-  });  
-
-  const titleClassName = cx({
-    todoFormInput: true,
-    todoFormInputWithError: errors.title,
-  });
-
-  const descriptionClassName = cx({
-    todoFormTextarea: true,
-    todoFormTextareaWithError: errors.description,
   });
 
   useLayoutEffect(() => {
-    addForm.current[1].style.height = `${Math.min(addForm.current[1].scrollHeight, 300)}px`;
+    const textArea = updateForm.current[1] as HTMLTextAreaElement;
+    textArea.style.height = `${Math.min(updateForm.current[1].scrollHeight, 300)}px`;
   }, [props.active]);
 
   useEffect(() => {
@@ -82,12 +71,13 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
     store.updateTask(props.id, task);
     props.setModalActive(false);
     //сбрасываю высоту textarea с description
-    addForm.current[1].style.height = 'inherit';    
+    const textArea = updateForm.current[1] as HTMLTextAreaElement;
+    textArea.style.height = 'inherit';
   });
 
   return (
     <div className={styles.todoFormContainerUpdateForm}>
-      <form onSubmit={onSubmit} className={styles.todoForm} ref={addForm}>
+      <form onSubmit={onSubmit} className={styles.todoForm} ref={updateForm}>
         <div className={styles.titleInputSection}>
           <div>
             <label htmlFor="title">{language.form.title}</label>
@@ -96,7 +86,10 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
             name='title'
             id='title'
             defaultValue={props.title}
-            className={titleClassName}
+            className={cx({
+              todoFormInput: true,
+              todoFormInputWithError: errors.title,
+            })}
             {...register('title', validationRules.title)}
           />
           <div>
@@ -115,7 +108,10 @@ function TodoUpdateForm(props: IUpdateFormProps): JSX.Element {
             name='description'
             id='description'
             defaultValue={props.description}
-            className={descriptionClassName}
+            className={cx({
+              todoFormTextarea: true,
+              todoFormTextareaWithError: errors.description,
+            })}
             {...register('description', { ...validationRules.description, onChange: onDescriptionChange })}
           />
           <div>

@@ -17,10 +17,10 @@ export interface ILang {
   errorMessages: {
     form: {
       sameTitle: string;
-      maxTitleLength: (maxLength: number) => string;
-      maxDescriptionLength: (maxLength: number) => string;
-      minTitleLength: (minLength: number) => string;
-      minDescriptionLength: (minLength: number) => string;
+      maxTitleLength(maxLength: number): string;
+      maxDescriptionLength(maxLength: number): string;
+      minTitleLength(minLength: number): string;
+      minDescriptionLength(minLength: number): string;
       emptyField: string;
       commonError: string;
     }

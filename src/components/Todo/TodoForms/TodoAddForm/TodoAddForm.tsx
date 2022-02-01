@@ -8,12 +8,10 @@ import formValidationRules from '../validationRules';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
-type FormInputs = {
-  [key: string]: string;
-}
+type FormInputs = Record<string, string>
 
 function TodoAddForm(): JSX.Element {
-  const addForm = useRef(null);
+  const addForm = useRef<HTMLFormElement>(null);
 
   const { language } = useContext<IContext>(LanguageContext);
 
@@ -22,16 +20,6 @@ function TodoAddForm(): JSX.Element {
 
   const { register, formState: { errors }, reset, handleSubmit } = useForm<FormInputs>({
     mode: 'onChange',
-  });
-
-  const titleClassName = cx({
-    todoFormInput: true,
-    todoFormInputWithError: errors.title,
-  });
-
-  const descriptionClassName = cx({
-    todoFormTextarea: true,
-    todoFormTextareaWithError: errors.description,
   });
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -59,7 +47,8 @@ function TodoAddForm(): JSX.Element {
     store.addTask(task);
     reset();
     //сбрасываю высоту textarea с description
-    addForm.current[1].style.height = 'inherit';
+    const textArea = addForm.current[1] as HTMLTextAreaElement;
+    textArea.style.height = 'inherit';
   });
 
   return (
@@ -72,7 +61,10 @@ function TodoAddForm(): JSX.Element {
           <input
             name='title'
             id='title'
-            className={titleClassName}
+            className={cx({
+              todoFormInput: true,
+              todoFormInputWithError: errors.title,
+            })}
             {...register('title', validationRules.title)}
           />
           <div>
@@ -90,7 +82,10 @@ function TodoAddForm(): JSX.Element {
           <textarea
             name='description'
             id='description'
-            className={descriptionClassName}
+            className={cx({
+              todoFormTextarea: true,
+              todoFormTextareaWithError: errors.description,
+            })}
             {...register('description', { ...validationRules.description, onChange: onDescriptionChange })}
           />
           <div>

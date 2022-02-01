@@ -1,3 +1,6 @@
+$custom-purple: #9198ff;
+$custom-red: #eb4132;
+
 .todoForm {
   border-radius: 10px;
   &Container {
@@ -13,7 +16,7 @@
   &Input,
   &Textarea {
     background: none;
-    border: 3px solid #9198ff;
+    border: 3px solid $custom-purple;
     border-radius: 10px;
     width: 100%;
     margin-top: 5px;
@@ -21,13 +24,13 @@
     padding: 0 10px;
     &:focus {
       outline: none;
-      box-shadow: 0 0 10px 0 #9198ff;
+      box-shadow: 0 0 10px 0 $custom-purple;
     }
     &WithError {
-      border: 3px solid #eb4132;
+      border: 3px solid $custom-red;
       &:focus {
         outline: none;
-        box-shadow: 0 0 10px 0 #eb4132;
+        box-shadow: 0 0 10px 0 $custom-red;
       }
     }
   }
@@ -36,10 +39,9 @@
     height: 78px;
   }
   & .formError {
-    color: #eb4132;
+    color: $custom-red;
     font-size: 0.8em;
   }
-  /* Стрелки */
   ::-webkit-scrollbar-button:vertical:start:decrement {
     border-top-right-radius: 10px;
   }
@@ -52,7 +54,7 @@
   width: 100%;
   border-radius: 5px;
   border: none;
-  background: #9198ff;
+  background: $custom-purple;
 }
 
 .titleInputSection {
