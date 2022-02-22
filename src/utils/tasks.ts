@@ -1,4 +1,6 @@
-const mockTasks = [
+import { ITaskObject } from "../store/interface";
+
+const mockTasks: ITaskObject[] = [
     {
       title: 'Pick up children from Granny',
       description: `Don't forget about Harry...at least for today`,

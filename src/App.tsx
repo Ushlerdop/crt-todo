@@ -1,7 +1,7 @@
 import './App.scss';
 import React, { useEffect, useState } from 'react';
 import Todo from './components/Todo/Todo';
-import { LanguageContext } from './LanguageContext';
+import { IContext, LanguageContext } from './LanguageContext';
 import En from './languages/En';
 import Ru from './languages/Ru';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
@@ -9,15 +9,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LinkPage from './components/LinkPage/LinkPage';
 import { store } from './store';
 import { observer } from 'mobx-react';
+import { ILang } from './languages/interface';
 
-function App() {
-  const [dictionary, setDictionary] = useState(Ru);
+function App(): JSX.Element{
+  const [dictionary, setDictionary] = useState<ILang>(Ru);
 
   useEffect(() => {
     store.fakeFetch(1000);
   }, []);
 
-  const languageToggle = () => {
+  const languageToggle = (): void => {
     setDictionary(dictionary => {
       if (dictionary === Ru) {
         return En;
@@ -26,6 +27,8 @@ function App() {
       }
     })
   }
+
+  const contextValue: IContext = { language: dictionary, languageToggle: languageToggle }
 
   return (
     <div className="App">
@@ -37,7 +40,7 @@ function App() {
               />         
               <Route path='/todo/*'
                 element={
-                  <LanguageContext.Provider value={{ language: dictionary, languageToggle: languageToggle }}>
+                  <LanguageContext.Provider value={contextValue}>
                     <Todo isLoading={store.isAppLoading} />
                   </LanguageContext.Provider>
                 }

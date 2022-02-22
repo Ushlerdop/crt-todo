@@ -6,37 +6,32 @@ import DoneButton from '../../UI/buttons/DoneButton/DoneButton';
 import ImportantButton from '../../UI/buttons/ImportantButton/ImportantButton';
 import styles from './TodoTaskModal.module.scss';
 import classNames from 'classnames/bind';
-import { LanguageContext } from '../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../LanguageContext';
+import { ITaskModalProps } from './interface';
 
 const cx = classNames.bind(styles);
 
-function TodoTaskModal(props) {
-  const { language } = useContext(LanguageContext);
-
-  const taskClassName = cx({
-    task: true,
-    taskImportant: props.isImportant,
-    taskDone: props.isDone,
-  });
-
-  const titleTaskClassName = cx({
-    taskTitle: true,
-    taskTitleDone: props.isDone,
-  });
-
-  const descriptionTaskClassName = cx({
-    taskDescription: true,
-    taskDescriptionDone: props.isDone,
-  });
+function TodoTaskModal(props: ITaskModalProps): JSX.Element {
+  const { language } = useContext<IContext>(LanguageContext);
 
   return (
     <div className={styles.taskContainer}>
-      <div className={taskClassName}>
+      <div className={cx({
+        task: true,
+        taskImportant: props.isImportant,
+        taskDone: props.isDone,
+      })}>
         <div className={styles.taskInfo}>
-          <div className={titleTaskClassName}>
+          <div className={cx({
+            taskTitle: true,
+            taskTitleDone: props.isDone,
+          })}>
             {props.title}
           </div>
-          <div className={descriptionTaskClassName}>
+          <div className={cx({
+            taskDescription: true,
+            taskDescriptionDone: props.isDone,
+          })}>
             {props.description}
           </div>
           <div className={styles.taskDate}>

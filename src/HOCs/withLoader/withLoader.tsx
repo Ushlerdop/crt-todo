@@ -2,8 +2,13 @@ import React from 'react'
 import loader from '../../assets/svg/loader.svg'
 import styles from './withLoader.module.scss'
 
-function withLoader(Component) {
-  function Loader(props) {
+interface LoaderProps {
+  isLoading: boolean
+}
+
+function withLoader<Props>(Component: React.ComponentType<Props>) {
+  return (props: Props & LoaderProps): JSX.Element => {
+    //сделал так, т.к. это общий HOC. Типы будут определяться уже внутри каждого <Component />
     return (
       props.isLoading
         ? <div className={styles.container}>
@@ -12,7 +17,6 @@ function withLoader(Component) {
         : <Component {...props} />
     );
   }
-  return Loader;
 }
 
 export default withLoader;

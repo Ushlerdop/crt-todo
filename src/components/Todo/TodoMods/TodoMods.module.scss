@@ -20,10 +20,10 @@
     transition: 0.4s ease all;
     &Active {
       background: #4086F4;
+      color: #fff;
+      text-shadow: 0 0 3px #000;
     }
   }
-  
-
   & .link {
     width: 100%;
     height: 100%;
@@ -33,4 +33,18 @@
       color: inherit;
     }
   }
+}
+
+@media (max-width: 992px) {
+  .todoMods {
+    margin-bottom: 10px;
+    &Container {
+      padding: 6px 6px 6px 6px;
+    }
+    &Button {
+      &Active {
+        text-shadow: 0 0 px #000;
+      }
+    }
+  }  
 }

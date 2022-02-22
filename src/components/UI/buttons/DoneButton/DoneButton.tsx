@@ -5,15 +5,13 @@ import { store } from '../../../../store';
 
 const cx = classNames.bind(styles);
 
-function DoneButton(props) {
-  const DoneTasksClassName = cx({
-    doneButton: true,
-    doneButtonTrue: props.isDone,
-  });
-
+function DoneButton(props: { isDone: boolean; id: number }): JSX.Element {
   return (
     <button
-      className={DoneTasksClassName}
+      className={cx({
+        doneButton: true,
+        doneButtonTrue: props.isDone,
+      })}
       onClick={() => store.isTaskPropertyToggle(props.id, 'isDone')}
     >✔</button>
   )

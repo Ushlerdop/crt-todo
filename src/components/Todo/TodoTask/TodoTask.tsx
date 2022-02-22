@@ -7,59 +7,46 @@ import TodoUpdateForm from '../TodoForms/TodoUpdateForm/TodoUpdateForm';
 import TodoTaskModal from './TodoTaskModal';
 import styles from './TodoTask.module.scss';
 import classNames from 'classnames/bind';
-import { LanguageContext } from '../../../LanguageContext';
+import { IContext, LanguageContext } from '../../../LanguageContext';
+import { ITaskObject } from '../../../store/interface';
 
 const cx = classNames.bind(styles);
 
-function TodoTask(props) {
-  const [isEditModalActive, setIsEditModalActive] = useState(false);
-  const [isInfoModalActive, setIsInfoModalActive] = useState(false);
+function TodoTask(props: ITaskObject): JSX.Element {
+  const [isEditModalActive, setIsEditModalActive] = useState<boolean>(false);
+  const [isInfoModalActive, setIsInfoModalActive] = useState<boolean>(false);
 
-  const { language } = useContext(LanguageContext);
-
-  const setEditModalActive = (value) => {
-    setIsEditModalActive(value);
-  }
-
-  const setInfoModalActive = (value) => {
-    setIsInfoModalActive(value);
-  }
-
-  const taskClassName = cx({
-    task: true,
-    taskImportant: props.isImportant,
-    taskDone: props.isDone,
-  });
-
-  const titleTaskClassName = cx({
-    taskTitle: true,
-    taskTitleDone: props.isDone,
-  });
-
-  const descriptionTaskClassName = cx({
-    taskDescription: true,
-    taskDescriptionDone: props.isDone,
-  });
+  const { language } = useContext<IContext>(LanguageContext);
 
   return (
     <li className={styles.taskContainer}>
       <TodoTaskModal
         active={isInfoModalActive}
-        setModalActive={setInfoModalActive}
-        setEditModalActive={setEditModalActive}
+        setModalActive={setIsInfoModalActive}
+        setEditModalActive={setIsEditModalActive}
         {...props}
       />
       <TodoUpdateForm
         active={isEditModalActive}
-        setModalActive={setEditModalActive}
+        setModalActive={setIsEditModalActive}
         {...props}
       />
-      <div className={taskClassName} onClick={() => setInfoModalActive(true)}>
+      <div className={cx({
+        task: true,
+        taskImportant: props.isImportant,
+        taskDone: props.isDone,
+      })} onClick={() => setIsInfoModalActive(true)}>
         <div className={styles.taskInfo}>
-          <div className={titleTaskClassName}>
+          <div className={cx({
+            taskTitle: true,
+            taskTitleDone: props.isDone,
+          })}>
             {props.title}
           </div>
-          <div className={descriptionTaskClassName}>
+          <div className={cx({
+            taskDescription: true,
+            taskDescriptionDone: props.isDone,
+          })}>
             {props.description}
           </div>
           <div className={styles.taskDate}>
@@ -82,7 +69,7 @@ function TodoTask(props) {
             isImportant={props.isImportant}
           />
           <ChangeTaskButton
-            setEditModalActive={setEditModalActive}
+            setEditModalActive={setIsEditModalActive}
           />
         </div>
       </div>

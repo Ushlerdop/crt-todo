@@ -31,3 +31,17 @@
     }
   }
 }
+.closeWindowButton {
+  visibility: hidden;
+}
+
+@media (max-width: 992px) {
+  .closeWindowButton {
+    width: 15%;
+    visibility: visible;
+    position: fixed;
+    top: 1%;
+    left: 5%;
+    box-shadow: 0 0 10px #000;
+  }
+}

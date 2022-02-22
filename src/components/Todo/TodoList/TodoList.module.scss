@@ -4,11 +4,19 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  & .emptyListMessage {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+  }
 }
 
 @media (max-width: 992px) {
   .todoList {
     flex-wrap: nowrap;
     flex-direction: column;
+    & .emptyListMessage {
+      margin-bottom: 8px;
+    }
   }
 }
